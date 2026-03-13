@@ -14,6 +14,7 @@ export type Plushie = {
   emotion: number
   imageUrl: string
   powers?: string
+  powerTags?: string[]
   audioUrl?: string
 }
 
@@ -84,21 +85,24 @@ const initialPlushies: Plushie[] = [
     name: 'Simba de Pelúcia',
     emotion: 80,
     imageUrl: 'https://img.usecurling.com/p/200/200?q=lion%20plush&color=orange',
-    powers: 'Rugido super sônico que espanta pesadelos!',
+    powers: 'Coragem de Leão, Explorador da Savana',
+    powerTags: ['coragem', 'explorador'],
   },
   {
     id: 'p2',
     name: 'Gato de Botas',
     emotion: 50,
     imageUrl: 'https://img.usecurling.com/p/200/200?q=cat%20plush&color=orange',
-    powers: 'Olhinhos pidões que derretem corações.',
+    powers: 'Guardião de Segredos, Amigo de Todas as Horas',
+    powerTags: ['segredos', 'amigo'],
   },
   {
     id: 'p3',
     name: 'Coelho Mágico',
     emotion: 95,
     imageUrl: 'https://img.usecurling.com/p/200/200?q=rabbit%20plush&color=white',
-    powers: 'Pulos na lua para trazer sonhos doces.',
+    powers: 'Guardião do Sono, Mestre dos Abraços',
+    powerTags: ['sono', 'abraco'],
   },
 ]
 

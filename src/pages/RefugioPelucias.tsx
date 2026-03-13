@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import useAppStore from '@/stores/useAppStore'
 import { getEmotionForValue } from '@/lib/emotions'
 import { cn } from '@/lib/utils'
+import { POWER_TAGS } from '@/lib/powers'
 
 const QUICK_EMOTIONS = [
   { value: 10, emoji: '😴' },
@@ -70,7 +71,7 @@ export default function RefugioPelucias() {
             <Link to={`/pelucias/${plushie.id}`} key={plushie.id} className="block group">
               <Card className="cursor-pointer hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-4 border-secondary/20 rounded-3xl h-full bg-white/60 backdrop-blur-sm">
                 <CardContent className="p-5 flex flex-col items-center text-center gap-3 h-full justify-between">
-                  <div className="flex flex-col items-center gap-2">
+                  <div className="flex flex-col items-center gap-2 w-full">
                     <div className="relative w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-secondary bg-muted shadow-inner group-hover:border-primary transition-colors">
                       <img
                         src={plushie.imageUrl}
@@ -81,9 +82,29 @@ export default function RefugioPelucias() {
                     <h3 className="font-display font-bold text-lg text-orange-950 line-clamp-1 w-full px-2">
                       {plushie.name}
                     </h3>
+
+                    {plushie.powerTags && plushie.powerTags.length > 0 && (
+                      <div className="flex flex-wrap justify-center gap-1.5 mt-1 w-full">
+                        {plushie.powerTags.map((tagId) => {
+                          const tag = POWER_TAGS.find((t) => t.id === tagId)
+                          if (!tag) return null
+                          return (
+                            <div
+                              key={tagId}
+                              className="flex items-center gap-1 bg-gradient-to-r from-yellow-100 to-yellow-50 border border-yellow-400 text-orange-900 text-[11px] px-2 py-0.5 rounded-full shadow-sm"
+                            >
+                              <span className="text-[14px] leading-none drop-shadow-sm">
+                                {tag.emoji}
+                              </span>
+                              <span className="font-bold truncate max-w-[80px]">{tag.label}</span>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    )}
                   </div>
 
-                  <div className="w-full flex flex-col items-center gap-2 mt-2">
+                  <div className="w-full flex flex-col items-center gap-2 mt-auto">
                     <div
                       className="text-4xl animate-bounce drop-shadow-sm"
                       style={{ animationDuration: '3s' }}
