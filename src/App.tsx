@@ -5,6 +5,7 @@ import { TooltipProvider } from '@/components/ui/tooltip'
 import Index from './pages/Index'
 import EstanteMagica from './pages/EstanteMagica'
 import RefugioPelucias from './pages/RefugioPelucias'
+import PeluciaPerfil from './pages/PeluciaPerfil'
 import ContosNinar from './pages/ContosNinar'
 import SalaTrofeus from './pages/SalaTrofeus'
 import MissoesReino from './pages/MissoesReino'
@@ -24,6 +25,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/estante" element={<EstanteMagica />} />
             <Route path="/pelucias" element={<RefugioPelucias />} />
+            <Route path="/pelucias/:id" element={<PeluciaPerfil />} />
             <Route path="/contos" element={<ContosNinar />} />
             <Route path="/trofeus" element={<SalaTrofeus />} />
             <Route path="/missoes" element={<MissoesReino />} />
