@@ -19062,15 +19062,6 @@ var CircleCheck = createLucideIcon("circle-check", [["circle", {
 	d: "m9 12 2 2 4-4",
 	key: "dzmm74"
 }]]);
-var Clock = createLucideIcon("clock", [["circle", {
-	cx: "12",
-	cy: "12",
-	r: "10",
-	key: "1mglay"
-}], ["path", {
-	d: "M12 6v6l4 2",
-	key: "mmk7yg"
-}]]);
 var Crown = createLucideIcon("crown", [["path", {
 	d: "M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z",
 	key: "1vdc57"
@@ -19211,13 +19202,6 @@ var Play = createLucideIcon("play", [["path", {
 	d: "M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z",
 	key: "10ikf1"
 }]]);
-var ShieldCheck = createLucideIcon("shield-check", [["path", {
-	d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
-	key: "oel41y"
-}], ["path", {
-	d: "m9 12 2 2 4-4",
-	key: "dzmm74"
-}]]);
 var Shield = createLucideIcon("shield", [["path", {
 	d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
 	key: "oel41y"
@@ -19245,13 +19229,6 @@ var Sparkles = createLucideIcon("sparkles", [
 var Star = createLucideIcon("star", [["path", {
 	d: "M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z",
 	key: "r04s7s"
-}]]);
-var ThumbsUp = createLucideIcon("thumbs-up", [["path", {
-	d: "M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z",
-	key: "emmmcr"
-}], ["path", {
-	d: "M7 10v12",
-	key: "1qc93n"
 }]]);
 var Trophy = createLucideIcon("trophy", [
 	["path", {
@@ -24761,53 +24738,46 @@ function EstanteMagica() {
 //#endregion
 //#region src/stores/useAppStore.tsx
 var getLevelText = (xp) => {
-	if (xp < 100) return "Filhote Curioso";
-	if (xp < 300) return "Caçadora Valente";
-	if (xp < 600) return "Líder da Tropa";
-	return "Rainha da Pedra do Rei";
+	if (xp < 100) return "Filhote";
+	if (xp < 300) return "Explorador";
+	return "Rei";
 };
 var initialTasks = [
 	{
-		id: "1",
-		title: "Banho no Oásis do Hakuna Matata",
+		id: "t1",
+		title: "Banho no Oásis",
 		category: "Higiene",
 		status: "todo",
-		xpReward: 20
+		xpReward: 20,
+		crystalsReward: 5,
+		buttonLabel: "Pronto! 💦"
 	},
 	{
-		id: "2",
-		title: "Sorriso de Hiena (Escovar os dentes)",
-		category: "Higiene",
-		status: "todo",
-		xpReward: 15
-	},
-	{
-		id: "3",
+		id: "t2",
 		title: "Arrumação da Toca",
 		category: "Organização",
 		status: "todo",
-		xpReward: 30
+		xpReward: 15,
+		crystalsReward: 5,
+		buttonLabel: "Tudo em Ordem! 🧹"
 	},
 	{
-		id: "4",
-		title: "Relatório do Mordomo (Guardar brinquedos)",
-		category: "Organização",
-		status: "todo",
-		xpReward: 25
-	},
-	{
-		id: "5",
-		title: "Línguas da Savana (Tarefa de Inglês)",
+		id: "t3",
+		title: "Estratégia do Grande Leão",
 		category: "Sabedoria",
 		status: "todo",
-		xpReward: 40
+		xpReward: 30,
+		crystalsReward: 10,
+		buttonLabel: "Xeque-Mate! ♟️"
 	},
 	{
-		id: "6",
-		title: "Ajudante Real (Ajudar na mesa)",
+		id: "t4",
+		title: "Ajudante Real",
 		category: "Ajuda",
-		status: "pending",
-		xpReward: 35
+		status: "todo",
+		xpReward: 35,
+		crystalsReward: 10,
+		buttonLabel: "Ajudei! 🤝"
 	}
 ];
 var initialPlushies = [
@@ -24845,11 +24815,13 @@ var initialPlushies = [
 var AppContext = (0, import_react.createContext)(null);
 function AppProvider({ children }) {
 	const [xp, setXp] = (0, import_react.useState)(45);
+	const [crystals, setCrystals] = (0, import_react.useState)(10);
 	const [tasks, setTasks] = (0, import_react.useState)(initialTasks);
 	const [plushies, setPlushies] = (0, import_react.useState)(initialPlushies);
 	const [showRafikiSeal, setShowRafikiSeal] = (0, import_react.useState)(false);
 	const [isMusicPlaying, setIsMusicPlaying] = (0, import_react.useState)(false);
 	const [hasRarePowerUnlocked, setHasRarePowerUnlocked] = (0, import_react.useState)(false);
+	const [lastReward, setLastReward] = (0, import_react.useState)(null);
 	const submitTask = (id) => {
 		setTasks((prev) => prev.map((t) => t.id === id ? {
 			...t,
@@ -24861,6 +24833,11 @@ function AppProvider({ children }) {
 			const task = prev.find((t) => t.id === id);
 			if (task && task.status === "pending") {
 				setXp((currentXp) => currentXp + task.xpReward);
+				setCrystals((currentCrystals) => currentCrystals + task.crystalsReward);
+				setLastReward({
+					xp: task.xpReward,
+					crystals: task.crystalsReward
+				});
 				setShowRafikiSeal(true);
 				return prev.map((t) => t.id === id ? {
 					...t,
@@ -24889,30 +24866,32 @@ function AppProvider({ children }) {
 	const addPlushieXp = (id, amount) => {
 		setPlushies((prev) => prev.map((p) => {
 			if (p.id !== id) return p;
-			let xp = (p.friendshipXp || 0) + amount;
+			let currentXp = (p.friendshipXp || 0) + amount;
 			let level = p.friendshipLevel || 1;
-			while (xp >= 100) {
+			while (currentXp >= 100) {
 				level += 1;
-				xp -= 100;
+				currentXp -= 100;
 			}
 			return {
 				...p,
-				friendshipXp: xp,
+				friendshipXp: currentXp,
 				friendshipLevel: level
 			};
 		}));
 	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AppContext.Provider, {
-		"data-uid": "src/stores/useAppStore.tsx:175:5",
+		"data-uid": "src/stores/useAppStore.tsx:182:5",
 		"data-prohibitions": "[editContent]",
 		value: {
 			xp,
+			crystals,
 			levelText: getLevelText(xp),
 			tasks,
 			plushies,
 			showRafikiSeal,
 			isMusicPlaying,
 			hasRarePowerUnlocked,
+			lastReward,
 			toggleMusic: () => setIsMusicPlaying(!isMusicPlaying),
 			submitTask,
 			approveTask,
@@ -28841,198 +28820,384 @@ function SalaTrofeus() {
 	});
 }
 //#endregion
-//#region src/components/ui/badge.tsx
-var badgeVariants = cva("inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2", {
-	variants: { variant: {
-		default: "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
-		secondary: "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
-		destructive: "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
-		outline: "text-foreground"
-	} },
-	defaultVariants: { variant: "default" }
-});
-function Badge({ className, variant, ...props }) {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		"data-uid": "src/components/ui/badge.tsx:30:10",
-		"data-prohibitions": "[editContent]",
-		className: cn$1(badgeVariants({ variant }), className),
-		...props
-	});
-}
-//#endregion
 //#region src/pages/MissoesReino.tsx
-var categoryColors = {
-	Higiene: "bg-blue-100 text-blue-700 border-blue-200",
-	Organização: "bg-orange-100 text-orange-700 border-orange-200",
-	Sabedoria: "bg-purple-100 text-purple-700 border-purple-200",
-	Ajuda: "bg-green-100 text-green-700 border-green-200"
-};
 function MissoesReino() {
-	const { tasks, submitTask } = useAppStore();
+	const { tasks, submitTask, approveTask, xp, levelText, showRafikiSeal, lastReward, dismissRafikiSeal } = useAppStore();
+	(0, import_react.useEffect)(() => {
+		if (showRafikiSeal) {
+			const timer = setTimeout(() => dismissRafikiSeal(), 5e3);
+			return () => clearTimeout(timer);
+		}
+	}, [showRafikiSeal, dismissRafikiSeal]);
 	const pendingOrTodoTasks = tasks.filter((t) => t.status !== "completed");
 	const completedTasks = tasks.filter((t) => t.status === "completed");
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		"data-uid": "src/pages/MissoesReino.tsx:21:5",
+	const evolutionIcon = levelText === "Rei" ? "https://img.usecurling.com/p/100/100?q=manga%20lion%20king&color=orange" : levelText === "Explorador" ? "https://img.usecurling.com/p/100/100?q=manga%20lion%20teen&color=yellow" : "https://img.usecurling.com/p/100/100?q=manga%20lion%20cub&color=yellow";
+	const progressPercent = Math.min(xp / 1e3 * 100, 100);
+	const handleTaskAction = (task) => {
+		if (task.status === "todo") submitTask(task.id);
+		else if (task.status === "pending") approveTask(task.id);
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		"data-uid": "src/pages/MissoesReino.tsx:50:5",
 		"data-prohibitions": "[editContent]",
-		className: "container py-8 max-w-4xl animate-fade-in",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			"data-uid": "src/pages/MissoesReino.tsx:22:7",
-			"data-prohibitions": "[]",
-			className: "text-center mb-10",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
-				"data-uid": "src/pages/MissoesReino.tsx:23:9",
-				"data-prohibitions": "[]",
-				className: "text-4xl font-display font-bold text-green-600 mb-4 flex items-center justify-center gap-3",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ShieldCheck, {
-					"data-uid": "src/pages/MissoesReino.tsx:24:11",
-					"data-prohibitions": "[editContent]",
-					className: "w-10 h-10"
-				}), " Missões do Reino"]
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-				"data-uid": "src/pages/MissoesReino.tsx:26:9",
-				"data-prohibitions": "[]",
-				className: "text-muted-foreground text-lg font-medium",
-				children: "Cumpra suas tarefas para ganhar o Selo do Rafiki!"
-			})]
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			"data-uid": "src/pages/MissoesReino.tsx:31:7",
+		className: "min-h-screen bg-gradient-to-b from-[#ffb07c] via-[#ffd085] to-[#fff3b0] p-4 pt-6 md:p-8 animate-fade-in relative overflow-x-hidden",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			"data-uid": "src/pages/MissoesReino.tsx:51:7",
 			"data-prohibitions": "[editContent]",
-			className: "space-y-6",
+			className: "max-w-3xl mx-auto",
 			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-					"data-uid": "src/pages/MissoesReino.tsx:32:9",
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					"data-uid": "src/pages/MissoesReino.tsx:53:9",
 					"data-prohibitions": "[]",
-					className: "text-2xl font-display font-bold text-foreground",
-					children: "Missões Ativas"
+					className: "mb-6 flex",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						"data-uid": "src/pages/MissoesReino.tsx:54:11",
+						"data-prohibitions": "[]",
+						variant: "outline",
+						asChild: true,
+						className: "rounded-full bg-white/80 backdrop-blur-sm border-orange-300 text-orange-900 hover:bg-orange-100 shadow-sm font-bold",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+							"data-uid": "src/pages/MissoesReino.tsx:59:13",
+							"data-prohibitions": "[]",
+							to: "/",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, {
+								"data-uid": "src/pages/MissoesReino.tsx:60:15",
+								"data-prohibitions": "[editContent]",
+								className: "w-4 h-4 mr-2"
+							}), " Voltar para a Savana"]
+						})
+					})
 				}),
-				pendingOrTodoTasks.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					"data-uid": "src/pages/MissoesReino.tsx:34:11",
-					"data-prohibitions": "[]",
-					className: "text-muted-foreground text-center py-8 bg-muted/30 rounded-3xl",
-					children: "Todas as missões ativas foram concluídas! 🎉"
-				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					"data-uid": "src/pages/MissoesReino.tsx:38:11",
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					"data-uid": "src/pages/MissoesReino.tsx:66:9",
 					"data-prohibitions": "[editContent]",
-					className: "grid gap-4",
-					children: pendingOrTodoTasks.map((task) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Card, {
-						"data-uid": "src/pages/MissoesReino.tsx:40:15",
-						"data-prohibitions": "[editContent]",
-						className: "border-2 rounded-3xl overflow-hidden hover:shadow-md transition-shadow",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
-							"data-uid": "src/pages/MissoesReino.tsx:44:17",
+					className: "flex flex-col sm:flex-row items-center gap-4 bg-white/60 p-5 rounded-[2rem] backdrop-blur-md mb-10 border-4 border-white shadow-xl animate-slide-down",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						"data-uid": "src/pages/MissoesReino.tsx:67:11",
+						"data-prohibitions": "[]",
+						className: "w-24 h-24 rounded-full border-[6px] border-orange-400 bg-orange-50 flex-shrink-0 shadow-inner overflow-hidden relative group",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+							"data-uid": "src/pages/MissoesReino.tsx:68:13",
 							"data-prohibitions": "[editContent]",
-							className: "p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4",
+							src: evolutionIcon,
+							alt: levelText,
+							className: "w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							"data-uid": "src/pages/MissoesReino.tsx:73:13",
+							"data-prohibitions": "[editContent]",
+							className: "absolute inset-0 bg-yellow-400/20 mix-blend-overlay"
+						})]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						"data-uid": "src/pages/MissoesReino.tsx:75:11",
+						"data-prohibitions": "[editContent]",
+						className: "flex-1 w-full mt-2 sm:mt-0",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							"data-uid": "src/pages/MissoesReino.tsx:76:13",
+							"data-prohibitions": "[editContent]",
+							className: "flex justify-between items-end mb-2 px-1",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/MissoesReino.tsx:45:19",
+								"data-uid": "src/pages/MissoesReino.tsx:77:15",
 								"data-prohibitions": "[editContent]",
-								className: "space-y-2 flex-1",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									"data-uid": "src/pages/MissoesReino.tsx:46:21",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									"data-uid": "src/pages/MissoesReino.tsx:78:17",
+									"data-prohibitions": "[]",
+									className: "text-orange-900/60 font-bold text-xs uppercase tracking-wider block mb-1",
+									children: "Evolução do Leão"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									"data-uid": "src/pages/MissoesReino.tsx:81:17",
 									"data-prohibitions": "[editContent]",
-									className: "flex items-center gap-2",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
-										"data-uid": "src/pages/MissoesReino.tsx:47:23",
-										"data-prohibitions": "[editContent]",
-										variant: "outline",
-										className: `rounded-full px-3 py-1 text-xs border ${categoryColors[task.category]}`,
-										children: task.category
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-										"data-uid": "src/pages/MissoesReino.tsx:53:23",
-										"data-prohibitions": "[editContent]",
-										className: "text-sm font-bold text-primary",
-										children: [
-											"+",
-											task.xpReward,
-											" XP"
-										]
-									})]
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-									"data-uid": "src/pages/MissoesReino.tsx:55:21",
-									"data-prohibitions": "[editContent]",
-									className: "font-display font-bold text-lg text-foreground",
-									children: task.title
+									className: "font-display font-black text-2xl md:text-3xl text-orange-900 tracking-wide uppercase leading-none drop-shadow-sm",
+									children: levelText
 								})]
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								"data-uid": "src/pages/MissoesReino.tsx:58:19",
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								"data-uid": "src/pages/MissoesReino.tsx:85:15",
 								"data-prohibitions": "[editContent]",
-								className: "w-full md:w-auto flex justify-end",
-								children: task.status === "todo" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
-									"data-uid": "src/pages/MissoesReino.tsx:60:23",
+								className: "text-orange-900 font-black text-lg bg-white/80 px-4 py-1 rounded-full shadow-sm border border-orange-100",
+								children: [xp, " XP"]
+							})]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Progress, {
+							"data-uid": "src/pages/MissoesReino.tsx:89:13",
+							"data-prohibitions": "[editContent]",
+							value: progressPercent,
+							className: "h-5 bg-orange-200 border-2 border-orange-100 rounded-full [&>div]:bg-gradient-to-r [&>div]:from-orange-400 [&>div]:to-orange-600 [&>div]:rounded-full shadow-inner"
+						})]
+					})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					"data-uid": "src/pages/MissoesReino.tsx:97:9",
+					"data-prohibitions": "[editContent]",
+					className: "relative mx-auto w-full animate-slide-up pb-20",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							"data-uid": "src/pages/MissoesReino.tsx:99:11",
+							"data-prohibitions": "[]",
+							className: "h-10 bg-gradient-to-r from-[#8B4513] via-[#A0522D] to-[#8B4513] rounded-full mx-[-0.5rem] md:mx-[-1rem] shadow-[0_4px_10px_rgba(0,0,0,0.4)] relative z-20 flex items-center justify-between px-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								"data-uid": "src/pages/MissoesReino.tsx:100:13",
+								"data-prohibitions": "[editContent]",
+								className: "w-6 h-14 bg-gradient-to-r from-[#D2691E] to-[#8B4513] rounded-full border-2 border-[#5C3A21] -ml-4 shadow-md"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								"data-uid": "src/pages/MissoesReino.tsx:101:13",
+								"data-prohibitions": "[editContent]",
+								className: "w-6 h-14 bg-gradient-to-r from-[#D2691E] to-[#8B4513] rounded-full border-2 border-[#5C3A21] -mr-4 shadow-md"
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							"data-uid": "src/pages/MissoesReino.tsx:105:11",
+							"data-prohibitions": "[editContent]",
+							className: "bg-[#FFF6E5] border-x-[12px] border-[#DEB887] py-12 px-5 sm:px-10 shadow-2xl relative z-10 min-h-[500px] flex flex-col items-center",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									"data-uid": "src/pages/MissoesReino.tsx:107:13",
 									"data-prohibitions": "[]",
-									onClick: () => submitTask(task.id),
-									className: "w-full md:w-auto rounded-full font-bold bg-green-500 hover:bg-green-600 text-white",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ThumbsUp, {
-										"data-uid": "src/pages/MissoesReino.tsx:64:25",
+									className: "text-center mb-10 w-full",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+										"data-uid": "src/pages/MissoesReino.tsx:108:15",
+										"data-prohibitions": "[]",
+										className: "text-4xl md:text-5xl font-display font-black text-[#5C3A21] tracking-wider mb-3 drop-shadow-sm uppercase",
+										children: "Missões do Reino"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										"data-uid": "src/pages/MissoesReino.tsx:111:15",
 										"data-prohibitions": "[editContent]",
-										className: "w-5 h-5 mr-2"
-									}), "Pedir Aprovação"]
-								}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
-									"data-uid": "src/pages/MissoesReino.tsx:68:23",
-									"data-prohibitions": "[]",
-									variant: "secondary",
-									disabled: true,
-									className: "w-full md:w-auto rounded-full font-bold bg-amber-100 text-amber-700 opacity-100",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Clock, {
-										"data-uid": "src/pages/MissoesReino.tsx:73:25",
+										className: "w-32 h-1.5 bg-[#8B4513] mx-auto rounded-full opacity-40"
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									"data-uid": "src/pages/MissoesReino.tsx:115:13",
+									"data-prohibitions": "[editContent]",
+									className: "w-full space-y-4 max-w-xl",
+									children: pendingOrTodoTasks.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										"data-uid": "src/pages/MissoesReino.tsx:117:17",
+										"data-prohibitions": "[]",
+										className: "text-[#8B4513] text-center py-8 font-bold text-lg bg-[#DEB887]/20 rounded-2xl border-2 border-dashed border-[#DEB887]",
+										children: "Todas as missões ativas foram concluídas! A Savana está em paz. 🌅"
+									}) : pendingOrTodoTasks.map((task) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										"data-uid": "src/pages/MissoesReino.tsx:122:19",
 										"data-prohibitions": "[editContent]",
-										className: "w-5 h-5 mr-2"
-									}), "Aguardando o Rei"]
+										className: "bg-white/80 rounded-2xl p-4 border-2 border-[#DEB887] shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row items-center justify-between gap-4",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											"data-uid": "src/pages/MissoesReino.tsx:126:21",
+											"data-prohibitions": "[editContent]",
+											className: "flex-1 text-center sm:text-left w-full",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+												"data-uid": "src/pages/MissoesReino.tsx:127:23",
+												"data-prohibitions": "[editContent]",
+												className: "font-display font-bold text-xl text-[#5C3A21] leading-tight mb-1",
+												children: task.title
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												"data-uid": "src/pages/MissoesReino.tsx:130:23",
+												"data-prohibitions": "[editContent]",
+												className: "flex items-center justify-center sm:justify-start gap-3",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+													"data-uid": "src/pages/MissoesReino.tsx:131:25",
+													"data-prohibitions": "[editContent]",
+													className: "text-sm font-bold text-orange-600 bg-orange-100 px-2.5 py-0.5 rounded-full",
+													children: [
+														"+",
+														task.xpReward,
+														" XP"
+													]
+												}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+													"data-uid": "src/pages/MissoesReino.tsx:134:25",
+													"data-prohibitions": "[editContent]",
+													className: "text-sm font-bold text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded-full flex items-center gap-1",
+													children: [
+														"+",
+														task.crystalsReward,
+														" 💎"
+													]
+												})]
+											})]
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											"data-uid": "src/pages/MissoesReino.tsx:139:21",
+											"data-prohibitions": "[editContent]",
+											className: "w-full sm:w-auto",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+												"data-uid": "src/pages/MissoesReino.tsx:140:23",
+												"data-prohibitions": "[editContent]",
+												onClick: () => handleTaskAction(task),
+												className: cn$1("w-full sm:w-auto rounded-full font-bold text-base h-12 px-6 transition-all duration-300 border-b-4 active:border-b-0 active:translate-y-1", task.status === "pending" ? "bg-amber-100 hover:bg-amber-200 text-amber-800 border-amber-300" : "bg-green-500 hover:bg-green-600 text-white border-green-700 shadow-md"),
+												children: task.status === "pending" ? "Esperando o Rafiki..." : task.buttonLabel
+											}), task.status === "pending" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+												"data-uid": "src/pages/MissoesReino.tsx:152:25",
+												"data-prohibitions": "[]",
+												className: "text-[10px] text-center text-[#A0522D] mt-1 opacity-70 font-bold uppercase tracking-widest",
+												children: "Toque p/ simular aprovação"
+											})]
+										})]
+									}, task.id))
+								}),
+								completedTasks.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									"data-uid": "src/pages/MissoesReino.tsx:164:15",
+									"data-prohibitions": "[editContent]",
+									className: "w-full max-w-xl mt-10 border-t-2 border-dashed border-[#DEB887] pt-6 opacity-60 hover:opacity-100 transition-opacity",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+										"data-uid": "src/pages/MissoesReino.tsx:165:17",
+										"data-prohibitions": "[]",
+										className: "text-[#8B4513] font-bold text-center mb-4 uppercase tracking-widest text-sm",
+										children: "Missões Concluídas"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										"data-uid": "src/pages/MissoesReino.tsx:168:17",
+										"data-prohibitions": "[editContent]",
+										className: "flex flex-wrap justify-center gap-2",
+										children: completedTasks.map((t) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											"data-uid": "src/pages/MissoesReino.tsx:170:21",
+											"data-prohibitions": "[editContent]",
+											className: "flex items-center gap-1.5 bg-[#DEB887]/30 px-3 py-1.5 rounded-full text-sm font-medium text-[#5C3A21]",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleCheck, {
+												"data-uid": "src/pages/MissoesReino.tsx:174:23",
+												"data-prohibitions": "[editContent]",
+												className: "w-4 h-4 text-green-600"
+											}), t.title]
+										}, t.id))
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									"data-uid": "src/pages/MissoesReino.tsx:183:13",
+									"data-prohibitions": "[editContent]",
+									className: "mt-14 w-full flex flex-col items-center pb-4",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										"data-uid": "src/pages/MissoesReino.tsx:184:15",
+										"data-prohibitions": "[editContent]",
+										className: cn$1("w-40 h-40 relative flex items-center justify-center rounded-full transition-all duration-500", showRafikiSeal ? "border-0" : "border-4 border-dashed border-[#DEB887]"),
+										children: showRafikiSeal ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", {
+											"data-uid": "src/pages/MissoesReino.tsx:191:19",
+											"data-prohibitions": "[]",
+											className: "w-32 h-32 text-red-600 drop-shadow-xl animate-bounce",
+											style: { animationDuration: "3s" },
+											viewBox: "0 0 100 100",
+											fill: "none",
+											stroke: "currentColor",
+											strokeWidth: "5",
+											strokeLinecap: "round",
+											children: [
+												/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
+													"data-uid": "src/pages/MissoesReino.tsx:200:21",
+													"data-prohibitions": "[editContent]",
+													d: "M50,15 C25,15 15,35 15,60 C15,85 35,90 50,90 C65,90 85,85 85,60 C85,35 75,15 50,15 Z",
+													strokeDasharray: "300",
+													strokeDashoffset: "300",
+													className: "animate-rafiki-draw"
+												}),
+												/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
+													"data-uid": "src/pages/MissoesReino.tsx:206:21",
+													"data-prohibitions": "[editContent]",
+													d: "M35,45 Q40,40 45,45",
+													strokeDasharray: "50",
+													strokeDashoffset: "50",
+													className: "animate-rafiki-draw",
+													style: { animationDelay: "0.3s" }
+												}),
+												/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
+													"data-uid": "src/pages/MissoesReino.tsx:213:21",
+													"data-prohibitions": "[editContent]",
+													d: "M65,45 Q60,40 55,45",
+													strokeDasharray: "50",
+													strokeDashoffset: "50",
+													className: "animate-rafiki-draw",
+													style: { animationDelay: "0.3s" }
+												}),
+												/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
+													"data-uid": "src/pages/MissoesReino.tsx:220:21",
+													"data-prohibitions": "[editContent]",
+													d: "M40,70 Q50,80 60,70",
+													strokeDasharray: "50",
+													strokeDashoffset: "50",
+													className: "animate-rafiki-draw",
+													style: { animationDelay: "0.6s" }
+												})
+											]
+										}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											"data-uid": "src/pages/MissoesReino.tsx:229:19",
+											"data-prohibitions": "[]",
+											className: "text-center opacity-30 flex flex-col items-center",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												"data-uid": "src/pages/MissoesReino.tsx:230:21",
+												"data-prohibitions": "[]",
+												className: "text-5xl block mb-2 filter grayscale",
+												children: "🐾"
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												"data-uid": "src/pages/MissoesReino.tsx:231:21",
+												"data-prohibitions": "[]",
+												className: "text-xs font-black uppercase tracking-widest text-[#8B4513]",
+												children: "Selo do Rei"
+											})]
+										})
+									}), showRafikiSeal && lastReward && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										"data-uid": "src/pages/MissoesReino.tsx:239:17",
+										"data-prohibitions": "[editContent]",
+										className: "mt-6 text-center animate-slide-up flex flex-col items-center",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+											"data-uid": "src/pages/MissoesReino.tsx:240:19",
+											"data-prohibitions": "[]",
+											className: "font-display font-black text-3xl text-orange-600 mb-4 drop-shadow-sm uppercase",
+											children: "Aprovado pelo Rei!"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											"data-uid": "src/pages/MissoesReino.tsx:243:19",
+											"data-prohibitions": "[editContent]",
+											className: "flex flex-col gap-3 items-center w-full",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												"data-uid": "src/pages/MissoesReino.tsx:244:21",
+												"data-prohibitions": "[editContent]",
+												className: "flex items-center justify-between gap-4 bg-gradient-to-r from-yellow-100 to-yellow-50 px-6 py-3 rounded-full border-2 border-yellow-400 shadow-lg min-w-[280px]",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+													"data-uid": "src/pages/MissoesReino.tsx:245:23",
+													"data-prohibitions": "[]",
+													className: "font-black text-yellow-800 text-lg uppercase tracking-wide",
+													children: "Cristais do Reino"
+												}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+													"data-uid": "src/pages/MissoesReino.tsx:248:23",
+													"data-prohibitions": "[editContent]",
+													className: "font-black text-2xl text-yellow-600 flex items-center gap-1",
+													children: [
+														"+",
+														lastReward.crystals,
+														" 💎"
+													]
+												})]
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												"data-uid": "src/pages/MissoesReino.tsx:252:21",
+												"data-prohibitions": "[editContent]",
+												className: "flex items-center justify-between gap-4 bg-gradient-to-r from-orange-100 to-orange-50 px-6 py-3 rounded-full border-2 border-orange-400 shadow-lg min-w-[280px]",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+													"data-uid": "src/pages/MissoesReino.tsx:253:23",
+													"data-prohibitions": "[]",
+													className: "font-black text-orange-800 text-lg uppercase tracking-wide",
+													children: "XP de Evolução"
+												}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+													"data-uid": "src/pages/MissoesReino.tsx:256:23",
+													"data-prohibitions": "[editContent]",
+													className: "font-black text-2xl text-orange-600 flex items-center gap-1",
+													children: [
+														"+",
+														lastReward.xp,
+														" 🦁"
+													]
+												})]
+											})]
+										})]
+									})]
 								})
+							]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							"data-uid": "src/pages/MissoesReino.tsx:267:11",
+							"data-prohibitions": "[]",
+							className: "h-10 bg-gradient-to-r from-[#8B4513] via-[#A0522D] to-[#8B4513] rounded-full mx-[-0.5rem] md:mx-[-1rem] shadow-[0_10px_20px_rgba(0,0,0,0.5)] relative z-20 flex items-center justify-between px-2 -mt-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								"data-uid": "src/pages/MissoesReino.tsx:268:13",
+								"data-prohibitions": "[editContent]",
+								className: "w-6 h-14 bg-gradient-to-r from-[#D2691E] to-[#8B4513] rounded-full border-2 border-[#5C3A21] -ml-4 shadow-md"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								"data-uid": "src/pages/MissoesReino.tsx:269:13",
+								"data-prohibitions": "[editContent]",
+								className: "w-6 h-14 bg-gradient-to-r from-[#D2691E] to-[#8B4513] rounded-full border-2 border-[#5C3A21] -mr-4 shadow-md"
 							})]
 						})
-					}, task.id))
-				}),
-				completedTasks.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/MissoesReino.tsx:85:11",
-					"data-prohibitions": "[editContent]",
-					className: "mt-12",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-						"data-uid": "src/pages/MissoesReino.tsx:86:13",
-						"data-prohibitions": "[]",
-						className: "text-2xl font-display font-bold text-muted-foreground mb-6",
-						children: "Missões Concluídas"
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/MissoesReino.tsx:89:13",
-						"data-prohibitions": "[editContent]",
-						className: "grid gap-4 opacity-70",
-						children: completedTasks.map((task) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Card, {
-							"data-uid": "src/pages/MissoesReino.tsx:91:17",
-							"data-prohibitions": "[editContent]",
-							className: "border-2 rounded-3xl bg-muted/30",
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
-								"data-uid": "src/pages/MissoesReino.tsx:92:19",
-								"data-prohibitions": "[editContent]",
-								className: "p-5 flex items-center justify-between gap-4",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									"data-uid": "src/pages/MissoesReino.tsx:93:21",
-									"data-prohibitions": "[editContent]",
-									className: "flex items-center gap-3",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleCheck, {
-										"data-uid": "src/pages/MissoesReino.tsx:94:23",
-										"data-prohibitions": "[editContent]",
-										className: "w-6 h-6 text-green-500"
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-										"data-uid": "src/pages/MissoesReino.tsx:95:23",
-										"data-prohibitions": "[editContent]",
-										className: "font-display font-bold text-lg line-through text-muted-foreground",
-										children: task.title
-									})]
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-									"data-uid": "src/pages/MissoesReino.tsx:99:21",
-									"data-prohibitions": "[editContent]",
-									className: "text-sm font-bold text-primary",
-									children: [
-										"+",
-										task.xpReward,
-										" XP"
-									]
-								})]
-							})
-						}, task.id))
-					})]
+					]
 				})
 			]
-		})]
+		})
 	});
 }
 //#endregion
@@ -29056,11 +29221,11 @@ function AreaPais() {
 	if (!isAuthenticated) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		"data-uid": "src/pages/AreaPais.tsx:29:7",
 		"data-prohibitions": "[editContent]",
-		className: "min-h-[80vh] flex items-center justify-center p-4",
+		className: "min-h-[80vh] flex items-center justify-center p-4 animate-fade-in",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
 			"data-uid": "src/pages/AreaPais.tsx:30:9",
 			"data-prohibitions": "[editContent]",
-			className: "w-full max-w-sm rounded-3xl shadow-xl border-4 border-muted",
+			className: "w-full max-w-sm rounded-3xl shadow-xl border-4 border-muted bg-white/90 backdrop-blur-sm",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, {
 				"data-uid": "src/pages/AreaPais.tsx:31:11",
 				"data-prohibitions": "[]",
@@ -29101,31 +29266,31 @@ function AreaPais() {
 									type: "password",
 									value: pin,
 									onChange: (e) => setPin(e.target.value),
-									className: `text-center text-2xl tracking-widest rounded-2xl h-14 ${error ? "border-destructive focus-visible:ring-destructive" : ""}`,
+									className: `text-center text-2xl tracking-widest rounded-2xl h-14 font-bold bg-muted/30 ${error ? "border-destructive focus-visible:ring-destructive bg-destructive/5" : ""}`,
 									placeholder: "****",
 									maxLength: 4
 								}),
 								error && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									"data-uid": "src/pages/AreaPais.tsx:49:27",
+									"data-uid": "src/pages/AreaPais.tsx:50:19",
 									"data-prohibitions": "[]",
-									className: "text-sm text-destructive font-bold",
+									className: "text-sm text-destructive font-bold animate-shake",
 									children: "PIN Incorreto"
 								})
 							]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-							"data-uid": "src/pages/AreaPais.tsx:51:15",
+							"data-uid": "src/pages/AreaPais.tsx:53:15",
 							"data-prohibitions": "[]",
 							type: "submit",
 							className: "w-full h-12 rounded-2xl font-bold text-lg",
 							children: "Entrar"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-							"data-uid": "src/pages/AreaPais.tsx:54:15",
+							"data-uid": "src/pages/AreaPais.tsx:56:15",
 							"data-prohibitions": "[]",
 							type: "button",
 							variant: "ghost",
-							className: "w-full",
+							className: "w-full text-muted-foreground",
 							onClick: () => navigate("/"),
 							children: "Voltar para o App"
 						})
@@ -29136,121 +29301,163 @@ function AreaPais() {
 	});
 	const pendingTasks = tasks.filter((t) => t.status === "pending");
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		"data-uid": "src/pages/AreaPais.tsx:72:5",
+		"data-uid": "src/pages/AreaPais.tsx:74:5",
 		"data-prohibitions": "[editContent]",
 		className: "container py-8 max-w-4xl animate-fade-in",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			"data-uid": "src/pages/AreaPais.tsx:73:7",
+			"data-uid": "src/pages/AreaPais.tsx:75:7",
 			"data-prohibitions": "[]",
 			className: "flex flex-col sm:flex-row justify-between items-center mb-10 gap-4",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/AreaPais.tsx:74:9",
+				"data-uid": "src/pages/AreaPais.tsx:76:9",
 				"data-prohibitions": "[]",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
-					"data-uid": "src/pages/AreaPais.tsx:75:11",
+					"data-uid": "src/pages/AreaPais.tsx:77:11",
 					"data-prohibitions": "[]",
 					className: "text-3xl font-display font-bold text-foreground flex items-center gap-3",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Shield, {
-						"data-uid": "src/pages/AreaPais.tsx:76:13",
+						"data-uid": "src/pages/AreaPais.tsx:78:13",
 						"data-prohibitions": "[editContent]",
 						className: "w-8 h-8 text-primary"
 					}), " Painel de Controle"]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					"data-uid": "src/pages/AreaPais.tsx:78:11",
+					"data-uid": "src/pages/AreaPais.tsx:80:11",
 					"data-prohibitions": "[]",
 					className: "text-muted-foreground",
 					children: "Gerencie as atividades da Cecília"
 				})]
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
-				"data-uid": "src/pages/AreaPais.tsx:80:9",
+				"data-uid": "src/pages/AreaPais.tsx:82:9",
 				"data-prohibitions": "[]",
 				variant: "outline",
 				onClick: () => navigate("/"),
-				className: "rounded-full",
+				className: "rounded-full bg-white/50",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(LogOut, {
-					"data-uid": "src/pages/AreaPais.tsx:81:11",
+					"data-uid": "src/pages/AreaPais.tsx:87:11",
 					"data-prohibitions": "[editContent]",
 					className: "w-4 h-4 mr-2"
 				}), " Sair da Área"]
 			})]
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			"data-uid": "src/pages/AreaPais.tsx:85:7",
+			"data-uid": "src/pages/AreaPais.tsx:91:7",
 			"data-prohibitions": "[editContent]",
 			className: "grid gap-6",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
-				"data-uid": "src/pages/AreaPais.tsx:86:9",
+				"data-uid": "src/pages/AreaPais.tsx:92:9",
 				"data-prohibitions": "[editContent]",
-				className: "rounded-3xl border-2 shadow-sm",
+				className: "rounded-3xl border-2 shadow-sm bg-white/80 backdrop-blur-sm",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardHeader, {
-					"data-uid": "src/pages/AreaPais.tsx:87:11",
+					"data-uid": "src/pages/AreaPais.tsx:93:11",
 					"data-prohibitions": "[editContent]",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardTitle, {
-						"data-uid": "src/pages/AreaPais.tsx:88:13",
+						"data-uid": "src/pages/AreaPais.tsx:94:13",
 						"data-prohibitions": "[editContent]",
-						className: "font-display",
-						children: [
-							"Aprovações Pendentes (",
-							pendingTasks.length,
-							")"
-						]
+						className: "font-display flex items-center justify-between",
+						children: ["Aprovações Pendentes", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							"data-uid": "src/pages/AreaPais.tsx:96:15",
+							"data-prohibitions": "[editContent]",
+							className: "bg-primary/20 text-primary px-3 py-1 rounded-full text-sm font-bold",
+							children: pendingTasks.length
+						})]
 					})
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardContent, {
-					"data-uid": "src/pages/AreaPais.tsx:92:11",
+					"data-uid": "src/pages/AreaPais.tsx:101:11",
 					"data-prohibitions": "[editContent]",
-					children: pendingTasks.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						"data-uid": "src/pages/AreaPais.tsx:94:15",
+					children: pendingTasks.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						"data-uid": "src/pages/AreaPais.tsx:103:15",
 						"data-prohibitions": "[]",
-						className: "text-muted-foreground text-center py-6",
-						children: "Nenhuma tarefa aguardando aprovação."
+						className: "text-muted-foreground text-center py-8 bg-muted/20 rounded-2xl border border-dashed",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							"data-uid": "src/pages/AreaPais.tsx:104:17",
+							"data-prohibitions": "[]",
+							children: "Nenhuma tarefa aguardando aprovação no momento."
+						})
 					}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/AreaPais.tsx:98:15",
+						"data-uid": "src/pages/AreaPais.tsx:107:15",
 						"data-prohibitions": "[editContent]",
 						className: "space-y-4",
 						children: pendingTasks.map((task) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/pages/AreaPais.tsx:100:19",
+							"data-uid": "src/pages/AreaPais.tsx:109:19",
 							"data-prohibitions": "[editContent]",
-							className: "flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-muted/30 rounded-2xl gap-4",
+							className: "flex flex-col sm:flex-row sm:items-center justify-between p-5 bg-white border shadow-sm rounded-2xl gap-4 hover:shadow-md transition-shadow",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/AreaPais.tsx:104:21",
+								"data-uid": "src/pages/AreaPais.tsx:113:21",
 								"data-prohibitions": "[editContent]",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
-									"data-uid": "src/pages/AreaPais.tsx:105:23",
+									"data-uid": "src/pages/AreaPais.tsx:114:23",
 									"data-prohibitions": "[editContent]",
-									className: "font-bold text-lg",
+									className: "font-bold text-lg text-foreground mb-1",
 									children: task.title
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-									"data-uid": "src/pages/AreaPais.tsx:106:23",
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									"data-uid": "src/pages/AreaPais.tsx:115:23",
 									"data-prohibitions": "[editContent]",
-									className: "text-sm text-muted-foreground",
+									className: "flex flex-wrap items-center gap-2 text-sm text-muted-foreground",
 									children: [
-										"Categoria: ",
-										task.category,
-										" | Recompensa: ",
-										task.xpReward,
-										" XP"
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											"data-uid": "src/pages/AreaPais.tsx:116:25",
+											"data-prohibitions": "[editContent]",
+											className: "bg-muted px-2 py-0.5 rounded-full",
+											children: task.category
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											"data-uid": "src/pages/AreaPais.tsx:117:25",
+											"data-prohibitions": "[]",
+											children: "•"
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+											"data-uid": "src/pages/AreaPais.tsx:118:25",
+											"data-prohibitions": "[editContent]",
+											className: "font-semibold text-primary",
+											children: [
+												"+",
+												task.xpReward,
+												" XP"
+											]
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											"data-uid": "src/pages/AreaPais.tsx:119:25",
+											"data-prohibitions": "[]",
+											children: "•"
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+											"data-uid": "src/pages/AreaPais.tsx:120:25",
+											"data-prohibitions": "[editContent]",
+											className: "font-semibold text-blue-600 flex items-center gap-1",
+											children: [
+												"+",
+												task.crystalsReward,
+												" ",
+												/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+													"data-uid": "src/pages/AreaPais.tsx:121:50",
+													"data-prohibitions": "[]",
+													className: "text-xs",
+													children: "💎"
+												})
+											]
+										})
 									]
 								})]
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/AreaPais.tsx:110:21",
+								"data-uid": "src/pages/AreaPais.tsx:125:21",
 								"data-prohibitions": "[]",
 								className: "flex gap-2 w-full sm:w-auto",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
-									"data-uid": "src/pages/AreaPais.tsx:111:23",
+									"data-uid": "src/pages/AreaPais.tsx:126:23",
 									"data-prohibitions": "[]",
 									variant: "outline",
-									className: "flex-1 sm:flex-none border-destructive text-destructive hover:bg-destructive/10 rounded-xl",
+									className: "flex-1 sm:flex-none border-destructive text-destructive hover:bg-destructive hover:text-white rounded-xl h-11",
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, {
-										"data-uid": "src/pages/AreaPais.tsx:115:25",
+										"data-uid": "src/pages/AreaPais.tsx:130:25",
 										"data-prohibitions": "[editContent]",
 										className: "w-4 h-4 mr-2"
 									}), " Rejeitar"]
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
-									"data-uid": "src/pages/AreaPais.tsx:117:23",
+									"data-uid": "src/pages/AreaPais.tsx:132:23",
 									"data-prohibitions": "[]",
-									className: "flex-1 sm:flex-none bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl",
+									className: "flex-1 sm:flex-none bg-green-500 hover:bg-green-600 text-white rounded-xl h-11 shadow-sm",
 									onClick: () => approveTask(task.id),
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, {
-										"data-uid": "src/pages/AreaPais.tsx:121:25",
+										"data-uid": "src/pages/AreaPais.tsx:136:25",
 										"data-prohibitions": "[editContent]",
 										className: "w-4 h-4 mr-2"
 									}), " Aprovar"]
@@ -29260,29 +29467,29 @@ function AreaPais() {
 					})
 				})]
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
-				"data-uid": "src/pages/AreaPais.tsx:132:9",
+				"data-uid": "src/pages/AreaPais.tsx:147:9",
 				"data-prohibitions": "[]",
-				className: "rounded-3xl border-2 shadow-sm opacity-70",
+				className: "rounded-3xl border-2 shadow-sm opacity-70 bg-white/50 backdrop-blur-sm",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardHeader, {
-					"data-uid": "src/pages/AreaPais.tsx:133:11",
+					"data-uid": "src/pages/AreaPais.tsx:148:11",
 					"data-prohibitions": "[]",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, {
-						"data-uid": "src/pages/AreaPais.tsx:134:13",
+						"data-uid": "src/pages/AreaPais.tsx:149:13",
 						"data-prohibitions": "[]",
 						className: "font-display",
 						children: "Histórico Emocional (Em Breve)"
 					})
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardContent, {
-					"data-uid": "src/pages/AreaPais.tsx:136:11",
+					"data-uid": "src/pages/AreaPais.tsx:151:11",
 					"data-prohibitions": "[]",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/AreaPais.tsx:137:13",
+						"data-uid": "src/pages/AreaPais.tsx:152:13",
 						"data-prohibitions": "[]",
 						className: "h-32 flex items-center justify-center bg-muted/30 rounded-2xl border border-dashed",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							"data-uid": "src/pages/AreaPais.tsx:138:15",
+							"data-uid": "src/pages/AreaPais.tsx:153:15",
 							"data-prohibitions": "[]",
-							className: "text-muted-foreground",
+							className: "text-muted-foreground font-medium",
 							children: "Gráficos de evolução emocional aparecerão aqui."
 						})
 					})
@@ -29331,178 +29538,106 @@ var NotFound = () => {
 	});
 };
 //#endregion
-//#region src/components/RafikiSeal.tsx
-function RafikiSeal() {
-	const { showRafikiSeal, dismissRafikiSeal, xp } = useAppStore();
-	(0, import_react.useEffect)(() => {
-		if (showRafikiSeal) {
-			const timer = setTimeout(() => {
-				dismissRafikiSeal();
-			}, 4e3);
-			return () => clearTimeout(timer);
-		}
-	}, [showRafikiSeal, dismissRafikiSeal]);
-	if (!showRafikiSeal) return null;
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		"data-uid": "src/components/RafikiSeal.tsx:20:5",
-		"data-prohibitions": "[editContent]",
-		className: "fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm animate-fade-in",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			"data-uid": "src/components/RafikiSeal.tsx:21:7",
-			"data-prohibitions": "[editContent]",
-			className: "relative flex flex-col items-center justify-center animate-slide-up",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				"data-uid": "src/components/RafikiSeal.tsx:23:9",
-				"data-prohibitions": "[editContent]",
-				className: "absolute inset-0 bg-primary/30 blur-3xl rounded-full w-64 h-64 animate-pulse-glow"
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/components/RafikiSeal.tsx:25:9",
-				"data-prohibitions": "[editContent]",
-				className: "relative bg-background p-8 rounded-3xl border-4 border-primary shadow-2xl flex flex-col items-center max-w-sm text-center",
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/components/RafikiSeal.tsx:26:11",
-						"data-prohibitions": "[]",
-						className: "absolute -top-10 left-1/2 -translate-x-1/2 bg-secondary p-4 rounded-full shadow-lg border-2 border-background",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Crown, {
-							"data-uid": "src/components/RafikiSeal.tsx:27:13",
-							"data-prohibitions": "[editContent]",
-							className: "w-12 h-12 text-white animate-float"
-						})
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-						"data-uid": "src/components/RafikiSeal.tsx:30:11",
-						"data-prohibitions": "[]",
-						className: "mt-8 text-3xl font-display font-bold text-primary text-shadow-sm",
-						children: "Selo do Rafiki!"
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						"data-uid": "src/components/RafikiSeal.tsx:33:11",
-						"data-prohibitions": "[]",
-						className: "mt-4 text-lg font-medium text-muted-foreground",
-						children: "O Rei aprovou sua missão! A Savana celebra sua sabedoria."
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						"data-uid": "src/components/RafikiSeal.tsx:37:11",
-						"data-prohibitions": "[editContent]",
-						className: "mt-6 flex items-center gap-2 bg-primary/10 px-6 py-3 rounded-full",
-						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Sparkles, {
-								"data-uid": "src/components/RafikiSeal.tsx:38:13",
-								"data-prohibitions": "[editContent]",
-								className: "w-6 h-6 text-primary"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-								"data-uid": "src/components/RafikiSeal.tsx:39:13",
-								"data-prohibitions": "[editContent]",
-								className: "text-2xl font-bold text-primary",
-								children: [
-									"+",
-									xp,
-									" XP Total"
-								]
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Sparkles, {
-								"data-uid": "src/components/RafikiSeal.tsx:40:13",
-								"data-prohibitions": "[editContent]",
-								className: "w-6 h-6 text-primary"
-							})
-						]
-					})
-				]
-			})]
-		})
-	});
-}
-//#endregion
 //#region src/components/Layout.tsx
 function Layout() {
-	const { xp, levelText, isMusicPlaying, toggleMusic } = useAppStore();
-	const isHome = useLocation().pathname === "/";
+	const { xp, crystals, levelText, isMusicPlaying, toggleMusic } = useAppStore();
+	const location = useLocation();
+	const isHome = location.pathname === "/";
+	const isMissoes = location.pathname === "/missoes";
 	const progressPercent = Math.min(xp / 1e3 * 100, 100);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		"data-uid": "src/components/Layout.tsx:17:5",
 		"data-prohibitions": "[editContent]",
 		className: "min-h-screen relative overflow-hidden flex flex-col",
 		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
-				"data-uid": "src/components/Layout.tsx:19:7",
+			!isMissoes && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
+				"data-uid": "src/components/Layout.tsx:20:9",
 				"data-prohibitions": "[editContent]",
-				className: "sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b border-primary/20 px-4 py-3 shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between",
+				className: "sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b border-primary/20 px-4 py-3 shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between transition-all duration-300",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/components/Layout.tsx:20:9",
+					"data-uid": "src/components/Layout.tsx:21:11",
 					"data-prohibitions": "[editContent]",
 					className: "flex-1 w-full max-w-xl flex items-center gap-4",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/components/Layout.tsx:21:11",
-						"data-prohibitions": "[editContent]",
-						className: "w-12 h-12 rounded-full border-2 border-primary overflow-hidden flex-shrink-0 bg-secondary flex items-center justify-center",
+						"data-uid": "src/components/Layout.tsx:22:13",
+						"data-prohibitions": "[]",
+						className: "w-12 h-12 rounded-full border-2 border-primary overflow-hidden flex-shrink-0 bg-secondary flex items-center justify-center shadow-inner",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							"data-uid": "src/components/Layout.tsx:23:13",
+							"data-uid": "src/components/Layout.tsx:23:15",
 							"data-prohibitions": "[]",
 							className: "text-2xl",
 							children: "🦁"
 						})
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						"data-uid": "src/components/Layout.tsx:25:11",
+						"data-uid": "src/components/Layout.tsx:25:13",
 						"data-prohibitions": "[editContent]",
 						className: "flex-1 space-y-1",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/components/Layout.tsx:26:13",
+							"data-uid": "src/components/Layout.tsx:26:15",
 							"data-prohibitions": "[editContent]",
-							className: "flex justify-between text-sm font-bold",
+							className: "flex justify-between text-sm font-bold items-center",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-								"data-uid": "src/components/Layout.tsx:27:15",
+								"data-uid": "src/components/Layout.tsx:27:17",
 								"data-prohibitions": "[editContent]",
 								className: "text-foreground",
 								children: ["Cecília - ", levelText]
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-								"data-uid": "src/components/Layout.tsx:28:15",
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								"data-uid": "src/components/Layout.tsx:28:17",
 								"data-prohibitions": "[editContent]",
-								className: "text-primary",
-								children: [xp, " XP"]
+								className: "flex gap-3",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+									"data-uid": "src/components/Layout.tsx:29:19",
+									"data-prohibitions": "[editContent]",
+									className: "text-blue-600 flex items-center gap-1",
+									children: [crystals, " 💎"]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+									"data-uid": "src/components/Layout.tsx:30:19",
+									"data-prohibitions": "[editContent]",
+									className: "text-primary",
+									children: [xp, " XP"]
+								})]
 							})]
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Progress, {
-							"data-uid": "src/components/Layout.tsx:30:13",
+							"data-uid": "src/components/Layout.tsx:33:15",
 							"data-prohibitions": "[editContent]",
 							value: progressPercent,
 							className: "h-3"
 						})]
 					})]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/components/Layout.tsx:34:9",
+					"data-uid": "src/components/Layout.tsx:37:11",
 					"data-prohibitions": "[editContent]",
 					className: "flex items-center gap-2",
 					children: [!isHome && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-						"data-uid": "src/components/Layout.tsx:36:13",
+						"data-uid": "src/components/Layout.tsx:39:15",
 						"data-prohibitions": "[]",
 						variant: "outline",
 						size: "icon",
 						asChild: true,
 						className: "rounded-full border-primary/50 text-primary hover:bg-primary/10",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-							"data-uid": "src/components/Layout.tsx:42:15",
+							"data-uid": "src/components/Layout.tsx:45:17",
 							"data-prohibitions": "[]",
 							to: "/",
 							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(House, {
-								"data-uid": "src/components/Layout.tsx:43:17",
+								"data-uid": "src/components/Layout.tsx:46:19",
 								"data-prohibitions": "[editContent]",
 								className: "w-5 h-5"
 							})
 						})
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-						"data-uid": "src/components/Layout.tsx:47:11",
+						"data-uid": "src/components/Layout.tsx:50:13",
 						"data-prohibitions": "[editContent]",
 						variant: "ghost",
 						size: "icon",
 						onClick: toggleMusic,
 						className: "rounded-full text-secondary hover:text-secondary hover:bg-secondary/10",
 						children: isMusicPlaying ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Music, {
-							"data-uid": "src/components/Layout.tsx:54:15",
+							"data-uid": "src/components/Layout.tsx:57:17",
 							"data-prohibitions": "[editContent]",
 							className: "w-6 h-6 animate-pulse"
 						}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Music2, {
-							"data-uid": "src/components/Layout.tsx:56:15",
+							"data-uid": "src/components/Layout.tsx:59:17",
 							"data-prohibitions": "[editContent]",
 							className: "w-6 h-6 opacity-50"
 						})
@@ -29510,40 +29645,36 @@ function Layout() {
 				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("main", {
-				"data-uid": "src/components/Layout.tsx:63:7",
+				"data-uid": "src/components/Layout.tsx:67:7",
 				"data-prohibitions": "[]",
 				className: "flex-1 relative w-full h-full overflow-y-auto z-10",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {
-					"data-uid": "src/components/Layout.tsx:64:9",
+					"data-uid": "src/components/Layout.tsx:68:9",
 					"data-prohibitions": "[editContent]"
 				})
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				"data-uid": "src/components/Layout.tsx:68:7",
+				"data-uid": "src/components/Layout.tsx:72:7",
 				"data-prohibitions": "[]",
 				className: "fixed bottom-4 right-4 z-40 opacity-30 hover:opacity-100 transition-opacity",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-					"data-uid": "src/components/Layout.tsx:69:9",
+					"data-uid": "src/components/Layout.tsx:73:9",
 					"data-prohibitions": "[]",
 					variant: "ghost",
 					size: "icon",
 					asChild: true,
 					className: "rounded-full hover:bg-black/5",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-						"data-uid": "src/components/Layout.tsx:70:11",
+						"data-uid": "src/components/Layout.tsx:74:11",
 						"data-prohibitions": "[]",
 						to: "/pais",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Lock, {
-							"data-uid": "src/components/Layout.tsx:71:13",
+							"data-uid": "src/components/Layout.tsx:75:13",
 							"data-prohibitions": "[editContent]",
 							className: "w-4 h-4 text-foreground"
 						})
 					})
 				})
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(RafikiSeal, {
-				"data-uid": "src/components/Layout.tsx:76:7",
-				"data-prohibitions": "[editContent]"
 			})
 		]
 	});
@@ -29687,4 +29818,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 }));
 //#endregion
 
-//# sourceMappingURL=index-CcZRId96.js.map
+//# sourceMappingURL=index-tPODLtuR.js.map

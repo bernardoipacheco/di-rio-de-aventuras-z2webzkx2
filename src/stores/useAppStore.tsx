@@ -6,6 +6,8 @@ export type Task = {
   category: 'Higiene' | 'Organização' | 'Sabedoria' | 'Ajuda'
   status: 'todo' | 'pending' | 'completed'
   xpReward: number
+  crystalsReward: number
+  buttonLabel: string
 }
 
 export type Plushie = {
@@ -22,12 +24,14 @@ export type Plushie = {
 
 type AppState = {
   xp: number
+  crystals: number
   levelText: string
   tasks: Task[]
   plushies: Plushie[]
   showRafikiSeal: boolean
   isMusicPlaying: boolean
   hasRarePowerUnlocked: boolean
+  lastReward: { xp: number; crystals: number } | null
   toggleMusic: () => void
   submitTask: (id: string) => void
   approveTask: (id: string) => void
@@ -39,48 +43,47 @@ type AppState = {
 }
 
 const getLevelText = (xp: number) => {
-  if (xp < 100) return 'Filhote Curioso'
-  if (xp < 300) return 'Caçadora Valente'
-  if (xp < 600) return 'Líder da Tropa'
-  return 'Rainha da Pedra do Rei'
+  if (xp < 100) return 'Filhote'
+  if (xp < 300) return 'Explorador'
+  return 'Rei'
 }
 
 const initialTasks: Task[] = [
   {
-    id: '1',
-    title: 'Banho no Oásis do Hakuna Matata',
+    id: 't1',
+    title: 'Banho no Oásis',
     category: 'Higiene',
     status: 'todo',
     xpReward: 20,
+    crystalsReward: 5,
+    buttonLabel: 'Pronto! 💦',
   },
   {
-    id: '2',
-    title: 'Sorriso de Hiena (Escovar os dentes)',
-    category: 'Higiene',
-    status: 'todo',
-    xpReward: 15,
-  },
-  { id: '3', title: 'Arrumação da Toca', category: 'Organização', status: 'todo', xpReward: 30 },
-  {
-    id: '4',
-    title: 'Relatório do Mordomo (Guardar brinquedos)',
+    id: 't2',
+    title: 'Arrumação da Toca',
     category: 'Organização',
     status: 'todo',
-    xpReward: 25,
+    xpReward: 15,
+    crystalsReward: 5,
+    buttonLabel: 'Tudo em Ordem! 🧹',
   },
   {
-    id: '5',
-    title: 'Línguas da Savana (Tarefa de Inglês)',
+    id: 't3',
+    title: 'Estratégia do Grande Leão',
     category: 'Sabedoria',
     status: 'todo',
-    xpReward: 40,
+    xpReward: 30,
+    crystalsReward: 10,
+    buttonLabel: 'Xeque-Mate! ♟️',
   },
   {
-    id: '6',
-    title: 'Ajudante Real (Ajudar na mesa)',
+    id: 't4',
+    title: 'Ajudante Real',
     category: 'Ajuda',
-    status: 'pending',
+    status: 'todo',
     xpReward: 35,
+    crystalsReward: 10,
+    buttonLabel: 'Ajudei! 🤝',
   },
 ]
 
@@ -121,11 +124,13 @@ export const AppContext = createContext<AppState | null>(null)
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [xp, setXp] = useState(45)
+  const [crystals, setCrystals] = useState(10)
   const [tasks, setTasks] = useState<Task[]>(initialTasks)
   const [plushies, setPlushies] = useState<Plushie[]>(initialPlushies)
   const [showRafikiSeal, setShowRafikiSeal] = useState(false)
   const [isMusicPlaying, setIsMusicPlaying] = useState(false)
   const [hasRarePowerUnlocked, setHasRarePowerUnlocked] = useState(false)
+  const [lastReward, setLastReward] = useState<{ xp: number; crystals: number } | null>(null)
 
   const submitTask = (id: string) => {
     setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, status: 'pending' } : t)))
@@ -136,6 +141,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const task = prev.find((t) => t.id === id)
       if (task && task.status === 'pending') {
         setXp((currentXp) => currentXp + task.xpReward)
+        setCrystals((currentCrystals) => currentCrystals + task.crystalsReward)
+        setLastReward({ xp: task.xpReward, crystals: task.crystalsReward })
         setShowRafikiSeal(true)
         return prev.map((t) => (t.id === id ? { ...t, status: 'completed' } : t))
       }
@@ -160,13 +167,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setPlushies((prev) =>
       prev.map((p) => {
         if (p.id !== id) return p
-        let xp = (p.friendshipXp || 0) + amount
+        let currentXp = (p.friendshipXp || 0) + amount
         let level = p.friendshipLevel || 1
-        while (xp >= 100) {
+        while (currentXp >= 100) {
           level += 1
-          xp -= 100
+          currentXp -= 100
         }
-        return { ...p, friendshipXp: xp, friendshipLevel: level }
+        return { ...p, friendshipXp: currentXp, friendshipLevel: level }
       }),
     )
   }
@@ -175,12 +182,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     <AppContext.Provider
       value={{
         xp,
+        crystals,
         levelText: getLevelText(xp),
         tasks,
         plushies,
         showRafikiSeal,
         isMusicPlaying,
         hasRarePowerUnlocked,
+        lastReward,
         toggleMusic: () => setIsMusicPlaying(!isMusicPlaying),
         submitTask,
         approveTask,
