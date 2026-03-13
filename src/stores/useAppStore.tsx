@@ -35,7 +35,7 @@ type AppState = {
   tasks: Task[]
   plushies: Plushie[]
   customRewards: CustomReward[]
-  emotionHistory: { date: string; value: number }[]
+  emotionHistory: { date: string; value: number; xp: number }[]
   showRafikiSeal: boolean
   isMusicPlaying: boolean
   hasRarePowerUnlocked: boolean
@@ -120,13 +120,13 @@ const initialRewards: CustomReward[] = [
 ]
 
 const initialEmotionHistory = [
-  { date: 'Seg', value: 65 },
-  { date: 'Ter', value: 80 },
-  { date: 'Qua', value: 50 },
-  { date: 'Qui', value: 90 },
-  { date: 'Sex', value: 85 },
-  { date: 'Sáb', value: 95 },
-  { date: 'Dom', value: 75 },
+  { date: 'Seg', value: 65, xp: 20 },
+  { date: 'Ter', value: 80, xp: 45 },
+  { date: 'Qua', value: 50, xp: 10 },
+  { date: 'Qui', value: 90, xp: 60 },
+  { date: 'Sex', value: 85, xp: 55 },
+  { date: 'Sáb', value: 95, xp: 80 },
+  { date: 'Dom', value: 75, xp: 35 },
 ]
 
 export const AppContext = createContext<AppState | null>(null)

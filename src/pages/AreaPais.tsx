@@ -1,5 +1,5 @@
-import { Shield, Check, X, LogOut, Settings, BarChart3, Edit3 } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { Shield, Check, X, LogOut, Settings, BarChart3, Edit3, Activity } from 'lucide-react'
+import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -9,6 +9,7 @@ import { Area, AreaChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer } fro
 import { useNavigate } from 'react-router-dom'
 import useAppStore from '@/stores/useAppStore'
 import { useEffect } from 'react'
+import { RelatorioHarmonia } from '@/components/RelatorioHarmonia'
 
 export default function AreaPais() {
   const navigate = useNavigate()
@@ -41,9 +42,9 @@ export default function AreaPais() {
   const pendingTasks = tasks.filter((t) => t.status === 'pending')
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#FFF6E5] to-white">
-      <div className="container py-8 max-w-5xl animate-fade-in">
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4 bg-white/80 p-6 rounded-3xl border-2 border-[#DEB887] shadow-sm backdrop-blur-md">
+    <div className="min-h-screen bg-gradient-to-b from-[#FFF6E5] to-white print:bg-white print:min-h-0">
+      <div className="container py-8 max-w-5xl animate-fade-in print:py-0">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4 bg-white/80 p-6 rounded-3xl border-2 border-[#DEB887] shadow-sm backdrop-blur-md print:hidden">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center border-2 border-amber-300">
               <Shield className="w-7 h-7 text-amber-600" />
@@ -65,10 +66,10 @@ export default function AreaPais() {
         </div>
 
         <Tabs defaultValue="pendentes" className="w-full">
-          <TabsList className="w-full sm:w-auto flex bg-[#DEB887]/20 p-2 rounded-2xl h-auto mb-8 border border-[#DEB887]/50 shadow-inner">
+          <TabsList className="w-full flex-wrap sm:flex-nowrap bg-[#DEB887]/20 p-2 rounded-2xl h-auto mb-8 border border-[#DEB887]/50 shadow-inner print:hidden gap-2">
             <TabsTrigger
               value="pendentes"
-              className="flex-1 sm:flex-none rounded-xl py-3 px-6 font-bold text-[#8B4513] data-[state=active]:bg-white data-[state=active]:text-amber-700 data-[state=active]:shadow-sm transition-all"
+              className="flex-1 sm:flex-none rounded-xl py-3 px-4 font-bold text-[#8B4513] data-[state=active]:bg-white data-[state=active]:text-amber-700 data-[state=active]:shadow-sm transition-all"
             >
               <Check className="w-4 h-4 mr-2 hidden sm:inline" /> Pendentes
               {pendingTasks.length > 0 && (
@@ -79,20 +80,26 @@ export default function AreaPais() {
             </TabsTrigger>
             <TabsTrigger
               value="tesouros"
-              className="flex-1 sm:flex-none rounded-xl py-3 px-6 font-bold text-[#8B4513] data-[state=active]:bg-white data-[state=active]:text-amber-700 data-[state=active]:shadow-sm transition-all"
+              className="flex-1 sm:flex-none rounded-xl py-3 px-4 font-bold text-[#8B4513] data-[state=active]:bg-white data-[state=active]:text-amber-700 data-[state=active]:shadow-sm transition-all"
             >
               <Settings className="w-4 h-4 mr-2 hidden sm:inline" /> Tesouros
             </TabsTrigger>
             <TabsTrigger
               value="humor"
-              className="flex-1 sm:flex-none rounded-xl py-3 px-6 font-bold text-[#8B4513] data-[state=active]:bg-white data-[state=active]:text-amber-700 data-[state=active]:shadow-sm transition-all"
+              className="flex-1 sm:flex-none rounded-xl py-3 px-4 font-bold text-[#8B4513] data-[state=active]:bg-white data-[state=active]:text-amber-700 data-[state=active]:shadow-sm transition-all"
             >
               <BarChart3 className="w-4 h-4 mr-2 hidden sm:inline" /> Humor
             </TabsTrigger>
+            <TabsTrigger
+              value="harmonia"
+              className="flex-1 sm:flex-none rounded-xl py-3 px-4 font-bold text-blue-700 data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=active]:shadow-sm transition-all border border-transparent data-[state=active]:border-blue-700 bg-blue-50/50"
+            >
+              <Activity className="w-4 h-4 mr-2 hidden sm:inline" /> Harmonia
+            </TabsTrigger>
           </TabsList>
 
-          <div className="bg-white/80 backdrop-blur-md rounded-[2rem] border-2 border-[#DEB887]/40 shadow-xl p-2 sm:p-6 min-h-[500px]">
-            <TabsContent value="pendentes" className="m-0 animate-fade-in-up">
+          <div className="bg-white/80 backdrop-blur-md rounded-[2rem] border-2 border-[#DEB887]/40 shadow-xl p-2 sm:p-6 min-h-[500px] print:border-0 print:shadow-none print:p-0">
+            <TabsContent value="pendentes" className="m-0 animate-fade-in-up print:hidden">
               <div className="px-4 py-2 mb-4">
                 <h2 className="text-2xl font-display font-bold text-[#5C3A21] mb-2">
                   Missões Aguardando Aprovação
@@ -160,7 +167,7 @@ export default function AreaPais() {
               )}
             </TabsContent>
 
-            <TabsContent value="tesouros" className="m-0 animate-fade-in-up">
+            <TabsContent value="tesouros" className="m-0 animate-fade-in-up print:hidden">
               <div className="px-4 py-2 mb-6">
                 <h2 className="text-2xl font-display font-bold text-[#5C3A21] mb-2">
                   Baú do Reino
@@ -200,7 +207,7 @@ export default function AreaPais() {
               </div>
             </TabsContent>
 
-            <TabsContent value="humor" className="m-0 animate-fade-in-up">
+            <TabsContent value="humor" className="m-0 animate-fade-in-up print:hidden">
               <div className="px-4 py-2 mb-6">
                 <h2 className="text-2xl font-display font-bold text-[#5C3A21] mb-2">
                   Monitoramento Emocional
@@ -271,6 +278,10 @@ export default function AreaPais() {
                   </div>
                 </CardContent>
               </Card>
+            </TabsContent>
+
+            <TabsContent value="harmonia" className="m-0 animate-fade-in-up">
+              <RelatorioHarmonia />
             </TabsContent>
           </div>
         </Tabs>
