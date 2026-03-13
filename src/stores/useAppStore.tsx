@@ -13,6 +13,7 @@ export type Plushie = {
   name: string
   emotion: number
   imageUrl: string
+  powers?: string
 }
 
 type AppState = {
@@ -26,6 +27,7 @@ type AppState = {
   submitTask: (id: string) => void
   approveTask: (id: string) => void
   updatePlushieEmotion: (id: string, emotion: number) => void
+  addPlushie: (plushie: Omit<Plushie, 'id'>) => string
   dismissRafikiSeal: () => void
 }
 
@@ -81,18 +83,21 @@ const initialPlushies: Plushie[] = [
     name: 'Simba de Pelúcia',
     emotion: 80,
     imageUrl: 'https://img.usecurling.com/p/200/200?q=lion%20plush&color=orange',
+    powers: 'Rugido super sônico que espanta pesadelos!',
   },
   {
     id: 'p2',
     name: 'Gato de Botas',
     emotion: 50,
     imageUrl: 'https://img.usecurling.com/p/200/200?q=cat%20plush&color=orange',
+    powers: 'Olhinhos pidões que derretem corações.',
   },
   {
     id: 'p3',
     name: 'Coelho Mágico',
     emotion: 95,
     imageUrl: 'https://img.usecurling.com/p/200/200?q=rabbit%20plush&color=white',
+    powers: 'Pulos na lua para trazer sonhos doces.',
   },
 ]
 
@@ -125,6 +130,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setPlushies((prev) => prev.map((p) => (p.id === id ? { ...p, emotion } : p)))
   }
 
+  const addPlushie = (plushieData: Omit<Plushie, 'id'>) => {
+    const newId = `p${Date.now()}`
+    setPlushies((prev) => [{ ...plushieData, id: newId }, ...prev])
+    return newId
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -138,6 +149,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         submitTask,
         approveTask,
         updatePlushieEmotion,
+        addPlushie,
         dismissRafikiSeal: () => setShowRafikiSeal(false),
       }}
     >

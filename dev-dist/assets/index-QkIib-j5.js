@@ -18095,7 +18095,7 @@ function handleAndDispatchCustomEvent$1(name, handler, detail, { discrete }) {
 	if (discrete) dispatchDiscreteCustomEvent(target, event);
 	else target.dispatchEvent(event);
 }
-var Root$5 = DismissableLayer;
+var Root$6 = DismissableLayer;
 var Branch = DismissableLayerBranch;
 //#endregion
 //#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-use-layout-effect@1.1.1_@types+react@19.2.14_react@19.2.4/node_modules/@radix-ui/react-use-layout-effect/dist/index.mjs
@@ -18283,7 +18283,7 @@ var VISUALLY_HIDDEN_STYLES = Object.freeze({
 	whiteSpace: "nowrap",
 	wordWrap: "normal"
 });
-var NAME$1 = "VisuallyHidden";
+var NAME$2 = "VisuallyHidden";
 var VisuallyHidden = import_react.forwardRef((props, forwardedRef) => {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.span, {
 		...props,
@@ -18294,8 +18294,8 @@ var VisuallyHidden = import_react.forwardRef((props, forwardedRef) => {
 		}
 	});
 });
-VisuallyHidden.displayName = NAME$1;
-var Root$4 = VisuallyHidden;
+VisuallyHidden.displayName = NAME$2;
+var Root$5 = VisuallyHidden;
 //#endregion
 //#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-toast@1.2.15_@types+react-dom@19.2.3_@types+react@19.2.14__@types+react_4581e89c6ba13e4159ce65546c8b2a16/node_modules/@radix-ui/react-toast/dist/index.mjs
 var PROVIDER_NAME$1 = "ToastProvider";
@@ -18595,7 +18595,7 @@ var ToastImpl = import_react.forwardRef((props, forwardedRef) => {
 		onClose: handleClose,
 		children: import_react_dom.createPortal(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Collection$2.ItemSlot, {
 			scope: __scopeToast,
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$5, {
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$6, {
 				asChild: true,
 				onEscapeKeyDown: composeEventHandlers(onEscapeKeyDown, () => {
 					if (!context.isFocusedToastEscapeKeyDownRef.current) handleClose();
@@ -19021,6 +19021,15 @@ var BookOpen = createLucideIcon("book-open", [["path", {
 	d: "M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z",
 	key: "ruj8y"
 }]]);
+var Camera = createLucideIcon("camera", [["path", {
+	d: "M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z",
+	key: "18u6gg"
+}], ["circle", {
+	cx: "12",
+	cy: "13",
+	r: "3",
+	key: "1vg3eu"
+}]]);
 var Check = createLucideIcon("check", [["path", {
 	d: "M20 6 9 17l-5-5",
 	key: "1gmf2c"
@@ -19179,6 +19188,20 @@ var Play = createLucideIcon("play", [["path", {
 	d: "M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z",
 	key: "10ikf1"
 }]]);
+var Save = createLucideIcon("save", [
+	["path", {
+		d: "M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z",
+		key: "1c8476"
+	}],
+	["path", {
+		d: "M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7",
+		key: "1ydtos"
+	}],
+	["path", {
+		d: "M7 3v4a1 1 0 0 0 1 1h7",
+		key: "t51u73"
+	}]
+]);
 var ShieldCheck = createLucideIcon("shield-check", [["path", {
 	d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
 	key: "oel41y"
@@ -23414,7 +23437,7 @@ var arrow = (options, deps) => {
 };
 //#endregion
 //#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-arrow@1.1.7_@types+react-dom@19.2.3_@types+react@19.2.14__@types+react@_e05f2c19a58a99fddf374207b5e3778c/node_modules/@radix-ui/react-arrow/dist/index.mjs
-var NAME = "Arrow";
+var NAME$1 = "Arrow";
 var Arrow$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { children, width = 10, height = 5, ...arrowProps } = props;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.svg, {
@@ -23427,8 +23450,8 @@ var Arrow$1 = import_react.forwardRef((props, forwardedRef) => {
 		children: props.asChild ? children : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("polygon", { points: "0,0 30,0 15,10" })
 	});
 });
-Arrow$1.displayName = NAME;
-var Root$3 = Arrow$1;
+Arrow$1.displayName = NAME$1;
+var Root$4 = Arrow$1;
 //#endregion
 //#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-use-size@1.1.1_@types+react@19.2.14_react@19.2.4/node_modules/@radix-ui/react-use-size/dist/index.mjs
 function useSize(element) {
@@ -23649,7 +23672,7 @@ var PopperArrow = import_react.forwardRef(function PopperArrow2(props, forwarded
 			}[contentContext.placedSide],
 			visibility: contentContext.shouldHideArrow ? "hidden" : void 0
 		},
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$3, {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$4, {
 			...arrowProps,
 			ref: forwardedRef,
 			style: {
@@ -24033,7 +24056,7 @@ var TooltipContentImpl = import_react.forwardRef((props, forwardedRef) => {
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Slottable, { children }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(VisuallyHiddenContentContextProvider, {
 				scope: __scopeTooltip,
 				isInside: true,
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$4, {
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$5, {
 					id: context.contentId,
 					role: "tooltip",
 					children: ariaLabel || children
@@ -24783,19 +24806,22 @@ var initialPlushies = [
 		id: "p1",
 		name: "Simba de Pelúcia",
 		emotion: 80,
-		imageUrl: "https://img.usecurling.com/p/200/200?q=lion%20plush&color=orange"
+		imageUrl: "https://img.usecurling.com/p/200/200?q=lion%20plush&color=orange",
+		powers: "Rugido super sônico que espanta pesadelos!"
 	},
 	{
 		id: "p2",
 		name: "Gato de Botas",
 		emotion: 50,
-		imageUrl: "https://img.usecurling.com/p/200/200?q=cat%20plush&color=orange"
+		imageUrl: "https://img.usecurling.com/p/200/200?q=cat%20plush&color=orange",
+		powers: "Olhinhos pidões que derretem corações."
 	},
 	{
 		id: "p3",
 		name: "Coelho Mágico",
 		emotion: 95,
-		imageUrl: "https://img.usecurling.com/p/200/200?q=rabbit%20plush&color=white"
+		imageUrl: "https://img.usecurling.com/p/200/200?q=rabbit%20plush&color=white",
+		powers: "Pulos na lua para trazer sonhos doces."
 	}
 ];
 var AppContext = (0, import_react.createContext)(null);
@@ -24831,8 +24857,16 @@ function AppProvider({ children }) {
 			emotion
 		} : p));
 	};
+	const addPlushie = (plushieData) => {
+		const newId = `p${Date.now()}`;
+		setPlushies((prev) => [{
+			...plushieData,
+			id: newId
+		}, ...prev]);
+		return newId;
+	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AppContext.Provider, {
-		"data-uid": "src/stores/useAppStore.tsx:129:5",
+		"data-uid": "src/stores/useAppStore.tsx:140:5",
 		"data-prohibitions": "[editContent]",
 		value: {
 			xp,
@@ -24845,6 +24879,7 @@ function AppProvider({ children }) {
 			submitTask,
 			approveTask,
 			updatePlushieEmotion,
+			addPlushie,
 			dismissRafikiSeal: () => setShowRafikiSeal(false)
 		},
 		children
@@ -24954,73 +24989,118 @@ var getEmotionForValue = (val) => {
 //#region src/pages/RefugioPelucias.tsx
 function RefugioPelucias() {
 	const { plushies } = useAppStore();
+	const fileInputRef = (0, import_react.useRef)(null);
+	const navigate = useNavigate();
+	const handleFileChange = (e) => {
+		const file = e.target.files?.[0];
+		if (file) {
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				navigate("/pelucias/novo", { state: { imageUrl: reader.result } });
+			};
+			reader.readAsDataURL(file);
+		}
+	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		"data-uid": "src/pages/RefugioPelucias.tsx:10:5",
+		"data-uid": "src/pages/RefugioPelucias.tsx:25:5",
 		"data-prohibitions": "[editContent]",
 		className: "container py-8 max-w-4xl animate-fade-in",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			"data-uid": "src/pages/RefugioPelucias.tsx:11:7",
-			"data-prohibitions": "[]",
-			className: "text-center mb-10",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-				"data-uid": "src/pages/RefugioPelucias.tsx:12:9",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				"data-uid": "src/pages/RefugioPelucias.tsx:26:7",
 				"data-prohibitions": "[]",
-				className: "text-4xl font-display font-bold text-secondary mb-4",
-				children: "Refúgio das Pelúcias 🧸"
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-				"data-uid": "src/pages/RefugioPelucias.tsx:15:9",
-				"data-prohibitions": "[]",
-				className: "text-muted-foreground text-lg font-medium",
-				children: "Escolha um amigo macio para cuidar!"
-			})]
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			"data-uid": "src/pages/RefugioPelucias.tsx:20:7",
-			"data-prohibitions": "[editContent]",
-			className: "grid grid-cols-2 md:grid-cols-3 gap-6",
-			children: plushies.map((plushie) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-				"data-uid": "src/pages/RefugioPelucias.tsx:22:11",
+				className: "text-center mb-10",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+					"data-uid": "src/pages/RefugioPelucias.tsx:27:9",
+					"data-prohibitions": "[]",
+					className: "text-4xl font-display font-bold text-secondary mb-4",
+					children: "Refúgio das Pelúcias 🧸"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					"data-uid": "src/pages/RefugioPelucias.tsx:30:9",
+					"data-prohibitions": "[]",
+					className: "text-muted-foreground text-lg font-medium",
+					children: "Escolha um amigo macio para cuidar ou crie um novo!"
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+				"data-uid": "src/pages/RefugioPelucias.tsx:35:7",
 				"data-prohibitions": "[editContent]",
-				to: `/pelucias/${plushie.id}`,
-				className: "block group",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Card, {
-					"data-uid": "src/pages/RefugioPelucias.tsx:23:13",
-					"data-prohibitions": "[editContent]",
-					className: "cursor-pointer hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-4 border-secondary/20 rounded-3xl h-full bg-white/60 backdrop-blur-sm",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
-						"data-uid": "src/pages/RefugioPelucias.tsx:24:15",
-						"data-prohibitions": "[editContent]",
-						className: "p-6 flex flex-col items-center text-center gap-4",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							"data-uid": "src/pages/RefugioPelucias.tsx:25:17",
-							"data-prohibitions": "[]",
-							className: "relative w-32 h-32 rounded-full overflow-hidden border-4 border-secondary bg-muted shadow-inner group-hover:border-primary transition-colors",
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-								"data-uid": "src/pages/RefugioPelucias.tsx:26:19",
-								"data-prohibitions": "[editContent]",
-								src: plushie.imageUrl,
-								alt: plushie.name,
-								className: "w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-							})
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/pages/RefugioPelucias.tsx:32:17",
+				type: "file",
+				accept: "image/*",
+				capture: "environment",
+				className: "hidden",
+				ref: fileInputRef,
+				onChange: handleFileChange
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				"data-uid": "src/pages/RefugioPelucias.tsx:44:7",
+				"data-prohibitions": "[editContent]",
+				className: "grid grid-cols-2 md:grid-cols-3 gap-6",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
+					"data-uid": "src/pages/RefugioPelucias.tsx:45:9",
+					"data-prohibitions": "[]",
+					onClick: () => fileInputRef.current?.click(),
+					className: "cursor-pointer hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-4 border-dashed border-orange-300 hover:border-orange-500 rounded-3xl h-full bg-orange-50/50 backdrop-blur-sm animate-float flex flex-col items-center justify-center p-6 min-h-[220px]",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						"data-uid": "src/pages/RefugioPelucias.tsx:49:11",
+						"data-prohibitions": "[]",
+						className: "w-20 h-20 rounded-full bg-orange-100 flex items-center justify-center mb-4 border-2 border-orange-200 shadow-inner group-hover:bg-orange-200 transition-colors",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Camera, {
+							"data-uid": "src/pages/RefugioPelucias.tsx:50:13",
 							"data-prohibitions": "[editContent]",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-								"data-uid": "src/pages/RefugioPelucias.tsx:33:19",
+							className: "w-10 h-10 text-orange-500"
+						})
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+						"data-uid": "src/pages/RefugioPelucias.tsx:52:11",
+						"data-prohibitions": "[]",
+						className: "font-display font-black text-xl text-orange-600 uppercase tracking-wide text-center",
+						children: "Novo Amigo"
+					})]
+				}), plushies.map((plushie) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+					"data-uid": "src/pages/RefugioPelucias.tsx:58:11",
+					"data-prohibitions": "[editContent]",
+					to: `/pelucias/${plushie.id}`,
+					className: "block group",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Card, {
+						"data-uid": "src/pages/RefugioPelucias.tsx:59:13",
+						"data-prohibitions": "[editContent]",
+						className: "cursor-pointer hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-4 border-secondary/20 rounded-3xl h-full bg-white/60 backdrop-blur-sm",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
+							"data-uid": "src/pages/RefugioPelucias.tsx:60:15",
+							"data-prohibitions": "[editContent]",
+							className: "p-6 flex flex-col items-center text-center gap-4",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								"data-uid": "src/pages/RefugioPelucias.tsx:61:17",
+								"data-prohibitions": "[]",
+								className: "relative w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-secondary bg-muted shadow-inner group-hover:border-primary transition-colors",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+									"data-uid": "src/pages/RefugioPelucias.tsx:62:19",
+									"data-prohibitions": "[editContent]",
+									src: plushie.imageUrl,
+									alt: plushie.name,
+									className: "w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+								})
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								"data-uid": "src/pages/RefugioPelucias.tsx:68:17",
 								"data-prohibitions": "[editContent]",
-								className: "font-display font-bold text-lg text-orange-950",
-								children: plushie.name
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								"data-uid": "src/pages/RefugioPelucias.tsx:34:19",
-								"data-prohibitions": "[editContent]",
-								className: "text-4xl mt-3 animate-bounce",
-								style: { animationDuration: "3s" },
-								children: getEmotionForValue(plushie.emotion).emoji
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+									"data-uid": "src/pages/RefugioPelucias.tsx:69:19",
+									"data-prohibitions": "[editContent]",
+									className: "font-display font-bold text-lg text-orange-950",
+									children: plushie.name
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									"data-uid": "src/pages/RefugioPelucias.tsx:70:19",
+									"data-prohibitions": "[editContent]",
+									className: "text-4xl mt-3 animate-bounce",
+									style: { animationDuration: "3s" },
+									children: getEmotionForValue(plushie.emotion).emoji
+								})]
 							})]
-						})]
+						})
 					})
-				})
-			}, plushie.id))
-		})]
+				}, plushie.id))]
+			})
+		]
 	});
 }
 //#endregion
@@ -25485,13 +25565,13 @@ function roundValue(value, decimalCount) {
 	const rounder = Math.pow(10, decimalCount);
 	return Math.round(value * rounder) / rounder;
 }
-var Root$2 = Slider$1;
+var Root$3 = Slider$1;
 var Track = SliderTrack;
 var Range = SliderRange;
 var Thumb = SliderThumb;
 //#endregion
 //#region src/components/ui/slider.tsx
-var Slider = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Root$2, {
+var Slider = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Root$3, {
 	"data-uid": "src/components/ui/slider.tsx:11:3",
 	"data-prohibitions": "[editContent]",
 	ref,
@@ -25512,7 +25592,7 @@ var Slider = import_react.forwardRef(({ className, ...props }, ref) => /* @__PUR
 		className: "block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
 	})]
 }));
-Slider.displayName = Root$2.displayName;
+Slider.displayName = Root$3.displayName;
 //#endregion
 //#region src/pages/PeluciaPerfil.tsx
 function PeluciaPerfil() {
@@ -25524,7 +25604,7 @@ function PeluciaPerfil() {
 	if (!plushie) return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		"data-uid": "src/pages/PeluciaPerfil.tsx:19:7",
 		"data-prohibitions": "[]",
-		className: "flex flex-col items-center justify-center h-full gap-4",
+		className: "flex flex-col items-center justify-center h-full gap-4 pt-20",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
 			"data-uid": "src/pages/PeluciaPerfil.tsx:20:9",
 			"data-prohibitions": "[]",
@@ -25555,134 +25635,344 @@ function PeluciaPerfil() {
 					"data-prohibitions": "[]",
 					variant: "outline",
 					size: "icon",
-					asChild: true,
+					onClick: () => navigate("/pelucias"),
 					className: "absolute left-0 rounded-full border-orange-300 text-orange-600 hover:bg-orange-100 bg-white/80 backdrop-blur-sm z-10 w-12 h-12 shadow-sm",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, {
 						"data-uid": "src/pages/PeluciaPerfil.tsx:41:11",
-						"data-prohibitions": "[]",
-						to: "/",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, {
-							"data-uid": "src/pages/PeluciaPerfil.tsx:42:13",
-							"data-prohibitions": "[editContent]",
-							className: "w-6 h-6"
-						})
+						"data-prohibitions": "[editContent]",
+						className: "w-6 h-6"
 					})
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:45:9",
+					"data-uid": "src/pages/PeluciaPerfil.tsx:43:9",
 					"data-prohibitions": "[editContent]",
 					className: "w-full text-center text-3xl md:text-4xl font-display font-black text-orange-900 drop-shadow-sm px-14",
 					children: plushie.name
 				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				"data-uid": "src/pages/PeluciaPerfil.tsx:50:7",
+				"data-uid": "src/pages/PeluciaPerfil.tsx:48:7",
 				"data-prohibitions": "[]",
-				className: "w-64 h-64 md:w-80 md:h-80 rounded-full border-8 border-white shadow-[0_10px_40px_rgba(251,146,60,0.3)] overflow-hidden mb-10 bg-orange-100 relative animate-float",
+				className: "w-56 h-56 md:w-72 md:h-72 rounded-full border-8 border-white shadow-[0_10px_40px_rgba(251,146,60,0.3)] overflow-hidden mb-8 bg-orange-100 relative animate-float",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:51:9",
+					"data-uid": "src/pages/PeluciaPerfil.tsx:49:9",
 					"data-prohibitions": "[editContent]",
 					src: plushie.imageUrl,
 					alt: plushie.name,
 					className: "w-full h-full object-cover hover:scale-105 transition-transform duration-500"
 				})
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/PeluciaPerfil.tsx:58:7",
+			plushie.powers && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				"data-uid": "src/pages/PeluciaPerfil.tsx:57:9",
 				"data-prohibitions": "[editContent]",
-				className: "w-full bg-white/70 backdrop-blur-md p-8 rounded-3xl shadow-xl mb-10 border-2 border-orange-200",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:59:9",
+				className: "w-full bg-white/70 backdrop-blur-md p-6 rounded-3xl shadow-lg mb-8 border-2 border-orange-200",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h3", {
+					"data-uid": "src/pages/PeluciaPerfil.tsx:58:11",
 					"data-prohibitions": "[]",
-					className: "text-xl md:text-2xl font-display font-bold text-center mb-6 text-orange-800",
-					children: "Como estou me sentindo?"
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:62:9",
+					className: "text-lg font-display font-bold text-orange-800 mb-2 flex items-center justify-center gap-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Sparkles, {
+						"data-uid": "src/pages/PeluciaPerfil.tsx:59:13",
+						"data-prohibitions": "[editContent]",
+						className: "w-5 h-5"
+					}), " Características"]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					"data-uid": "src/pages/PeluciaPerfil.tsx:61:11",
 					"data-prohibitions": "[editContent]",
-					className: "flex flex-col items-center gap-6",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							"data-uid": "src/pages/PeluciaPerfil.tsx:63:11",
-							"data-prohibitions": "[editContent]",
-							className: "text-7xl animate-bounce",
-							style: { animationDuration: "2s" },
-							children: currentEmotion.emoji
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							"data-uid": "src/pages/PeluciaPerfil.tsx:66:11",
-							"data-prohibitions": "[editContent]",
-							className: "bg-orange-100 px-6 py-2 rounded-full border-2 border-orange-200",
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								"data-uid": "src/pages/PeluciaPerfil.tsx:67:13",
-								"data-prohibitions": "[editContent]",
-								className: "font-bold text-xl text-orange-900",
-								children: currentEmotion.label
-							})
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Slider, {
-							"data-uid": "src/pages/PeluciaPerfil.tsx:69:11",
-							"data-prohibitions": "[editContent]",
-							value: [plushie.emotion],
-							max: 100,
-							step: 1,
-							onValueChange: handleEmotionChange,
-							className: "w-full mt-4 cursor-grab active:cursor-grabbing"
-						})
-					]
+					className: "text-orange-950 font-medium text-center text-lg",
+					children: plushie.powers
 				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/PeluciaPerfil.tsx:79:7",
+				"data-uid": "src/pages/PeluciaPerfil.tsx:65:7",
 				"data-prohibitions": "[editContent]",
-				className: "flex gap-4 w-full px-4",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:80:9",
-					"data-prohibitions": "[editContent]",
-					className: "flex-1 flex flex-col items-center gap-4",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:81:11",
+				className: "w-full bg-white/70 backdrop-blur-md p-8 rounded-3xl shadow-xl mb-10 border-2 border-orange-200",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+						"data-uid": "src/pages/PeluciaPerfil.tsx:66:9",
+						"data-prohibitions": "[]",
+						className: "text-xl md:text-2xl font-display font-bold text-center mb-6 text-orange-800",
+						children: "Harmonímetro"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						"data-uid": "src/pages/PeluciaPerfil.tsx:69:9",
+						"data-prohibitions": "[]",
+						className: "text-center text-orange-700 font-bold mb-4",
+						children: "Como estou me sentindo hoje?"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						"data-uid": "src/pages/PeluciaPerfil.tsx:70:9",
 						"data-prohibitions": "[editContent]",
-						className: `w-24 h-24 md:w-28 md:h-28 rounded-full shadow-lg transition-all duration-300 border-4 ${isRecording ? "bg-red-500 border-red-300 hover:bg-red-600 scale-110 animate-pulse box-shadow-magical" : "bg-gradient-to-br from-orange-400 to-red-500 border-orange-200 hover:scale-105"}`,
+						className: "flex flex-col items-center gap-6",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								"data-uid": "src/pages/PeluciaPerfil.tsx:71:11",
+								"data-prohibitions": "[editContent]",
+								className: "text-7xl animate-bounce",
+								style: { animationDuration: "2s" },
+								children: currentEmotion.emoji
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								"data-uid": "src/pages/PeluciaPerfil.tsx:74:11",
+								"data-prohibitions": "[editContent]",
+								className: "bg-orange-100 px-6 py-2 rounded-full border-2 border-orange-200",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									"data-uid": "src/pages/PeluciaPerfil.tsx:75:13",
+									"data-prohibitions": "[editContent]",
+									className: "font-bold text-xl text-orange-900",
+									children: currentEmotion.label
+								})
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Slider, {
+								"data-uid": "src/pages/PeluciaPerfil.tsx:77:11",
+								"data-prohibitions": "[editContent]",
+								value: [plushie.emotion],
+								max: 100,
+								step: 1,
+								onValueChange: handleEmotionChange,
+								className: "w-full mt-4 cursor-grab active:cursor-grabbing"
+							})
+						]
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				"data-uid": "src/pages/PeluciaPerfil.tsx:87:7",
+				"data-prohibitions": "[editContent]",
+				className: "flex gap-4 w-full px-4 justify-center",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					"data-uid": "src/pages/PeluciaPerfil.tsx:88:9",
+					"data-prohibitions": "[editContent]",
+					className: "flex flex-col items-center gap-4",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						"data-uid": "src/pages/PeluciaPerfil.tsx:89:11",
+						"data-prohibitions": "[editContent]",
+						className: `w-28 h-28 md:w-32 md:h-32 rounded-full shadow-xl transition-all duration-300 border-4 ${isRecording ? "bg-red-500 border-red-300 hover:bg-red-600 scale-110 animate-pulse box-shadow-magical" : "bg-gradient-to-br from-orange-400 to-red-500 border-orange-200 hover:scale-105"}`,
 						onMouseDown: () => setIsRecording(true),
 						onMouseUp: () => setIsRecording(false),
 						onMouseLeave: () => setIsRecording(false),
 						onTouchStart: () => setIsRecording(true),
 						onTouchEnd: () => setIsRecording(false),
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mic, {
-							"data-uid": "src/pages/PeluciaPerfil.tsx:93:13",
+							"data-uid": "src/pages/PeluciaPerfil.tsx:101:13",
 							"data-prohibitions": "[editContent]",
-							className: "w-10 h-10 md:w-12 md:h-12 text-white"
-						})
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:95:11",
-						"data-prohibitions": "[editContent]",
-						className: "text-sm md:text-base font-bold text-center text-orange-900 max-w-[160px]",
-						children: [
-							"Segure para falar com ",
-							plushie.name,
-							"!"
-						]
-					})]
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:100:9",
-					"data-prohibitions": "[]",
-					className: "flex-1 flex flex-col items-center gap-4",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:101:11",
-						"data-prohibitions": "[]",
-						variant: "outline",
-						className: "w-24 h-24 md:w-28 md:h-28 rounded-full shadow-lg border-4 border-primary text-primary hover:bg-primary/10 bg-white hover:scale-105 transition-transform duration-300",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Music, {
-							"data-uid": "src/pages/PeluciaPerfil.tsx:105:13",
-							"data-prohibitions": "[editContent]",
-							className: "w-10 h-10 md:w-12 md:h-12"
+							className: "w-12 h-12 md:w-14 md:h-14 text-white"
 						})
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:107:11",
+						"data-uid": "src/pages/PeluciaPerfil.tsx:103:11",
+						"data-prohibitions": "[editContent]",
+						className: "text-base md:text-lg font-bold text-center text-orange-900 max-w-[200px]",
+						children: isRecording ? "Gravando a história..." : "Segure para falar!"
+					})]
+				})
+			})
+		]
+	});
+}
+//#endregion
+//#region src/components/ui/input.tsx
+var Input = import_react.forwardRef(({ className, type, ...props }, ref) => {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+		"data-uid": "src/components/ui/input.tsx:9:7",
+		"data-prohibitions": "[editContent]",
+		type,
+		className: cn$1("flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm", className),
+		ref,
+		...props
+	});
+});
+Input.displayName = "Input";
+//#endregion
+//#region src/components/ui/textarea.tsx
+var Textarea = import_react.forwardRef(({ className, ...props }, ref) => {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("textarea", {
+		"data-uid": "src/components/ui/textarea.tsx:9:7",
+		"data-prohibitions": "[editContent]",
+		className: cn$1("flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm", className),
+		ref,
+		...props
+	});
+});
+Textarea.displayName = "Textarea";
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-primitive@2.1.4_@types+react-dom@19.2.3_@types+react@19.2.14__@types+re_0243fb2db8a1fb85ca77b8d9e5c2d650/node_modules/@radix-ui/react-primitive/dist/index.mjs
+var Primitive = [
+	"a",
+	"button",
+	"div",
+	"form",
+	"h2",
+	"h3",
+	"img",
+	"input",
+	"label",
+	"li",
+	"nav",
+	"ol",
+	"p",
+	"select",
+	"span",
+	"svg",
+	"ul"
+].reduce((primitive, node) => {
+	const Slot = /* @__PURE__ */ createSlot(`Primitive.${node}`);
+	const Node = import_react.forwardRef((props, forwardedRef) => {
+		const { asChild, ...primitiveProps } = props;
+		const Comp = asChild ? Slot : node;
+		if (typeof window !== "undefined") window[Symbol.for("radix-ui")] = true;
+		return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Comp, {
+			...primitiveProps,
+			ref: forwardedRef
+		});
+	});
+	Node.displayName = `Primitive.${node}`;
+	return {
+		...primitive,
+		[node]: Node
+	};
+}, {});
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-label@2.1.8_@types+react-dom@19.2.3_@types+react@19.2.14__@types+react@_55fa612a976b7bdfbf4dcdd93d861aab/node_modules/@radix-ui/react-label/dist/index.mjs
+var NAME = "Label";
+var Label$1 = import_react.forwardRef((props, forwardedRef) => {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.label, {
+		...props,
+		ref: forwardedRef,
+		onMouseDown: (event) => {
+			if (event.target.closest("button, input, select, textarea")) return;
+			props.onMouseDown?.(event);
+			if (!event.defaultPrevented && event.detail > 1) event.preventDefault();
+		}
+	});
+});
+Label$1.displayName = NAME;
+var Root$2 = Label$1;
+//#endregion
+//#region src/components/ui/label.tsx
+var labelVariants = cva("text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70");
+var Label = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$2, {
+	"data-uid": "src/components/ui/label.tsx:16:3",
+	"data-prohibitions": "[editContent]",
+	ref,
+	className: cn$1(labelVariants(), className),
+	...props
+}));
+Label.displayName = Root$2.displayName;
+//#endregion
+//#region src/pages/NovoAmigo.tsx
+function NovoAmigo() {
+	const location = useLocation();
+	const navigate = useNavigate();
+	const { addPlushie } = useAppStore();
+	const [name, setName] = (0, import_react.useState)("");
+	const [powers, setPowers] = (0, import_react.useState)("");
+	const imageUrl = location.state?.imageUrl || "https://img.usecurling.com/p/200/200?q=manga%20plush%20toy&color=orange";
+	const handleSave = () => {
+		if (!name.trim()) return;
+		navigate(`/pelucias/${addPlushie({
+			name,
+			powers,
+			imageUrl,
+			emotion: 80
+		})}`);
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		"data-uid": "src/pages/NovoAmigo.tsx:34:5",
+		"data-prohibitions": "[]",
+		className: "container py-6 max-w-2xl animate-fade-in flex flex-col items-center pb-20",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				"data-uid": "src/pages/NovoAmigo.tsx:35:7",
+				"data-prohibitions": "[]",
+				className: "w-full flex items-center justify-center mb-8 relative",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+					"data-uid": "src/pages/NovoAmigo.tsx:36:9",
+					"data-prohibitions": "[]",
+					variant: "outline",
+					size: "icon",
+					onClick: () => navigate("/pelucias"),
+					className: "absolute left-0 rounded-full border-orange-300 text-orange-600 hover:bg-orange-100 bg-white/80 backdrop-blur-sm z-10 w-12 h-12 shadow-sm",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, {
+						"data-uid": "src/pages/NovoAmigo.tsx:42:11",
+						"data-prohibitions": "[editContent]",
+						className: "w-6 h-6"
+					})
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+					"data-uid": "src/pages/NovoAmigo.tsx:44:9",
+					"data-prohibitions": "[]",
+					className: "w-full text-center text-3xl md:text-4xl font-display font-black text-orange-900 drop-shadow-sm px-14 uppercase tracking-wider",
+					children: "Novo Amigo"
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				"data-uid": "src/pages/NovoAmigo.tsx:49:7",
+				"data-prohibitions": "[]",
+				className: "w-48 h-48 md:w-64 md:h-64 rounded-full border-8 border-white shadow-[0_10px_40px_rgba(251,146,60,0.3)] overflow-hidden mb-8 bg-orange-100 relative animate-float",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+					"data-uid": "src/pages/NovoAmigo.tsx:50:9",
+					"data-prohibitions": "[editContent]",
+					src: imageUrl,
+					alt: "Novo Amigo",
+					className: "w-full h-full object-cover"
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				"data-uid": "src/pages/NovoAmigo.tsx:53:7",
+				"data-prohibitions": "[]",
+				className: "w-full bg-white/70 backdrop-blur-md p-8 rounded-3xl shadow-xl mb-10 border-2 border-orange-200 space-y-6",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					"data-uid": "src/pages/NovoAmigo.tsx:54:9",
+					"data-prohibitions": "[]",
+					className: "space-y-3",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+						"data-uid": "src/pages/NovoAmigo.tsx:55:11",
 						"data-prohibitions": "[]",
-						className: "text-sm md:text-base font-bold text-center text-orange-900",
-						children: "Vincular Música"
+						htmlFor: "name",
+						className: "text-lg font-bold text-orange-900",
+						children: "Nome do Amigo"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+						"data-uid": "src/pages/NovoAmigo.tsx:58:11",
+						"data-prohibitions": "[editContent]",
+						id: "name",
+						placeholder: "Ex: Leãozinho Valente",
+						value: name,
+						onChange: (e) => setName(e.target.value),
+						className: "text-lg py-6 rounded-2xl border-orange-200 focus-visible:ring-orange-400 bg-white/80 font-medium"
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					"data-uid": "src/pages/NovoAmigo.tsx:67:9",
+					"data-prohibitions": "[]",
+					className: "space-y-3",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Label, {
+						"data-uid": "src/pages/NovoAmigo.tsx:68:11",
+						"data-prohibitions": "[]",
+						htmlFor: "powers",
+						className: "text-lg font-bold text-orange-900 flex items-center gap-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Sparkles, {
+							"data-uid": "src/pages/NovoAmigo.tsx:72:13",
+							"data-prohibitions": "[editContent]",
+							className: "w-5 h-5 text-orange-500"
+						}), "Características (Poderes Especiais)"]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Textarea, {
+						"data-uid": "src/pages/NovoAmigo.tsx:75:11",
+						"data-prohibitions": "[editContent]",
+						id: "powers",
+						placeholder: "Ex: Pode voar super rápido e dar abraços mágicos que curam dodóis!",
+						value: powers,
+						onChange: (e) => setPowers(e.target.value),
+						className: "text-base min-h-[120px] rounded-2xl border-orange-200 focus-visible:ring-orange-400 bg-white/80 font-medium"
 					})]
 				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+				"data-uid": "src/pages/NovoAmigo.tsx:85:7",
+				"data-prohibitions": "[]",
+				onClick: handleSave,
+				disabled: !name.trim(),
+				className: "w-full max-w-xs h-16 rounded-full text-xl font-display font-bold bg-gradient-to-r from-orange-400 to-red-500 hover:from-orange-500 hover:to-red-600 shadow-lg hover:scale-105 transition-all duration-300 border-4 border-white/50",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Save, {
+					"data-uid": "src/pages/NovoAmigo.tsx:90:9",
+					"data-prohibitions": "[editContent]",
+					className: "w-6 h-6 mr-2"
+				}), "Salvar Amigo"]
 			})
 		]
 	});
@@ -25752,43 +26042,6 @@ function composeContextScopes(...scopes) {
 	createScope.scopeName = baseScope.scopeName;
 	return createScope;
 }
-//#endregion
-//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-primitive@2.1.4_@types+react-dom@19.2.3_@types+react@19.2.14__@types+re_0243fb2db8a1fb85ca77b8d9e5c2d650/node_modules/@radix-ui/react-primitive/dist/index.mjs
-var Primitive = [
-	"a",
-	"button",
-	"div",
-	"form",
-	"h2",
-	"h3",
-	"img",
-	"input",
-	"label",
-	"li",
-	"nav",
-	"ol",
-	"p",
-	"select",
-	"span",
-	"svg",
-	"ul"
-].reduce((primitive, node) => {
-	const Slot = /* @__PURE__ */ createSlot(`Primitive.${node}`);
-	const Node = import_react.forwardRef((props, forwardedRef) => {
-		const { asChild, ...primitiveProps } = props;
-		const Comp = asChild ? Slot : node;
-		if (typeof window !== "undefined") window[Symbol.for("radix-ui")] = true;
-		return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Comp, {
-			...primitiveProps,
-			ref: forwardedRef
-		});
-	});
-	Node.displayName = `Primitive.${node}`;
-	return {
-		...primitive,
-		[node]: Node
-	};
-}, {});
 //#endregion
 //#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-progress@1.1.8_@types+react-dom@19.2.3_@types+react@19.2.14__@types+rea_7258c0b550570cef5cd6f2d2227aa6b9/node_modules/@radix-ui/react-progress/dist/index.mjs
 var PROGRESS_NAME = "Progress";
@@ -26690,19 +26943,6 @@ function MissoesReino() {
 	});
 }
 //#endregion
-//#region src/components/ui/input.tsx
-var Input = import_react.forwardRef(({ className, type, ...props }, ref) => {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
-		"data-uid": "src/components/ui/input.tsx:9:7",
-		"data-prohibitions": "[editContent]",
-		type,
-		className: cn$1("flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm", className),
-		ref,
-		...props
-	});
-});
-Input.displayName = "Input";
-//#endregion
 //#region src/pages/AreaPais.tsx
 function AreaPais() {
 	const [isAuthenticated, setIsAuthenticated] = (0, import_react.useState)(false);
@@ -27218,117 +27458,126 @@ function Layout() {
 //#endregion
 //#region src/App.tsx
 var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
-	"data-uid": "src/App.tsx:18:3",
+	"data-uid": "src/App.tsx:19:3",
 	"data-prohibitions": "[]",
 	future: {
 		v7_startTransition: false,
 		v7_relativeSplatPath: false
 	},
 	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TooltipProvider, {
-		"data-uid": "src/App.tsx:19:5",
+		"data-uid": "src/App.tsx:20:5",
 		"data-prohibitions": "[]",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(AppProvider, {
-			"data-uid": "src/App.tsx:20:7",
+			"data-uid": "src/App.tsx:21:7",
 			"data-prohibitions": "[]",
 			children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toaster$2, {
-					"data-uid": "src/App.tsx:21:9",
-					"data-prohibitions": "[editContent]"
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toaster, {
 					"data-uid": "src/App.tsx:22:9",
 					"data-prohibitions": "[editContent]"
 				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Routes, {
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toaster, {
 					"data-uid": "src/App.tsx:23:9",
+					"data-prohibitions": "[editContent]"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Routes, {
+					"data-uid": "src/App.tsx:24:9",
 					"data-prohibitions": "[]",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Route, {
-						"data-uid": "src/App.tsx:24:11",
+						"data-uid": "src/App.tsx:25:11",
 						"data-prohibitions": "[]",
 						element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Layout, {
-							"data-uid": "src/App.tsx:24:27",
+							"data-uid": "src/App.tsx:25:27",
 							"data-prohibitions": "[editContent]"
 						}),
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
-								"data-uid": "src/App.tsx:25:13",
+								"data-uid": "src/App.tsx:26:13",
 								"data-prohibitions": "[editContent]",
 								path: "/",
 								element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Index, {
-									"data-uid": "src/App.tsx:25:38",
-									"data-prohibitions": "[editContent]"
-								})
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
-								"data-uid": "src/App.tsx:26:13",
-								"data-prohibitions": "[editContent]",
-								path: "/estante",
-								element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(EstanteMagica, {
-									"data-uid": "src/App.tsx:26:45",
+									"data-uid": "src/App.tsx:26:38",
 									"data-prohibitions": "[editContent]"
 								})
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
 								"data-uid": "src/App.tsx:27:13",
 								"data-prohibitions": "[editContent]",
-								path: "/pelucias",
-								element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(RefugioPelucias, {
-									"data-uid": "src/App.tsx:27:46",
+								path: "/estante",
+								element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(EstanteMagica, {
+									"data-uid": "src/App.tsx:27:45",
 									"data-prohibitions": "[editContent]"
 								})
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
 								"data-uid": "src/App.tsx:28:13",
 								"data-prohibitions": "[editContent]",
-								path: "/pelucias/:id",
-								element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PeluciaPerfil, {
-									"data-uid": "src/App.tsx:28:50",
+								path: "/pelucias",
+								element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(RefugioPelucias, {
+									"data-uid": "src/App.tsx:28:46",
 									"data-prohibitions": "[editContent]"
 								})
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
 								"data-uid": "src/App.tsx:29:13",
 								"data-prohibitions": "[editContent]",
-								path: "/contos",
-								element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ContosNinar, {
-									"data-uid": "src/App.tsx:29:44",
+								path: "/pelucias/novo",
+								element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NovoAmigo, {
+									"data-uid": "src/App.tsx:29:51",
 									"data-prohibitions": "[editContent]"
 								})
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
 								"data-uid": "src/App.tsx:30:13",
 								"data-prohibitions": "[editContent]",
-								path: "/trofeus",
-								element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SalaTrofeus, {
-									"data-uid": "src/App.tsx:30:45",
+								path: "/pelucias/:id",
+								element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PeluciaPerfil, {
+									"data-uid": "src/App.tsx:30:50",
 									"data-prohibitions": "[editContent]"
 								})
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
 								"data-uid": "src/App.tsx:31:13",
 								"data-prohibitions": "[editContent]",
-								path: "/missoes",
-								element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MissoesReino, {
-									"data-uid": "src/App.tsx:31:45",
+								path: "/contos",
+								element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ContosNinar, {
+									"data-uid": "src/App.tsx:31:44",
 									"data-prohibitions": "[editContent]"
 								})
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
 								"data-uid": "src/App.tsx:32:13",
 								"data-prohibitions": "[editContent]",
+								path: "/trofeus",
+								element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SalaTrofeus, {
+									"data-uid": "src/App.tsx:32:45",
+									"data-prohibitions": "[editContent]"
+								})
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
+								"data-uid": "src/App.tsx:33:13",
+								"data-prohibitions": "[editContent]",
+								path: "/missoes",
+								element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MissoesReino, {
+									"data-uid": "src/App.tsx:33:45",
+									"data-prohibitions": "[editContent]"
+								})
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
+								"data-uid": "src/App.tsx:34:13",
+								"data-prohibitions": "[editContent]",
 								path: "/pais",
 								element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AreaPais, {
-									"data-uid": "src/App.tsx:32:42",
+									"data-uid": "src/App.tsx:34:42",
 									"data-prohibitions": "[editContent]"
 								})
 							})
 						]
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
-						"data-uid": "src/App.tsx:34:11",
+						"data-uid": "src/App.tsx:36:11",
 						"data-prohibitions": "[editContent]",
 						path: "*",
 						element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NotFound, {
-							"data-uid": "src/App.tsx:34:36",
+							"data-uid": "src/App.tsx:36:36",
 							"data-prohibitions": "[editContent]"
 						})
 					})]
@@ -27345,4 +27594,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 }));
 //#endregion
 
-//# sourceMappingURL=index-BMyt64au.js.map
+//# sourceMappingURL=index-QkIib-j5.js.map
