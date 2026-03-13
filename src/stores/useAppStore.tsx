@@ -22,24 +22,36 @@ export type Plushie = {
   friendshipXp?: number
 }
 
+export type CustomReward = {
+  id: string
+  name: string
+  icon: string
+}
+
 type AppState = {
   xp: number
   crystals: number
   levelText: string
   tasks: Task[]
   plushies: Plushie[]
+  customRewards: CustomReward[]
+  emotionHistory: { date: string; value: number }[]
   showRafikiSeal: boolean
   isMusicPlaying: boolean
   hasRarePowerUnlocked: boolean
+  isParentAuthenticated: boolean
   lastReward: { xp: number; crystals: number } | null
   toggleMusic: () => void
   submitTask: (id: string) => void
   approveTask: (id: string) => void
+  rejectTask: (id: string) => void
   updatePlushieEmotion: (id: string, emotion: number) => void
   addPlushie: (plushie: Omit<Plushie, 'id' | 'friendshipLevel' | 'friendshipXp'>) => string
   addPlushieXp: (id: string, amount: number) => void
   dismissRafikiSeal: () => void
   unlockRarePower: () => void
+  setParentAuthenticated: (val: boolean) => void
+  updateCustomReward: (id: string, name: string) => void
 }
 
 const getLevelText = (xp: number) => {
@@ -71,7 +83,7 @@ const initialTasks: Task[] = [
     id: 't3',
     title: 'Estratégia do Grande Leão',
     category: 'Sabedoria',
-    status: 'todo',
+    status: 'pending',
     xpReward: 30,
     crystalsReward: 10,
     buttonLabel: 'Xeque-Mate! ♟️',
@@ -80,7 +92,7 @@ const initialTasks: Task[] = [
     id: 't4',
     title: 'Ajudante Real',
     category: 'Ajuda',
-    status: 'todo',
+    status: 'pending',
     xpReward: 35,
     crystalsReward: 10,
     buttonLabel: 'Ajudei! 🤝',
@@ -98,26 +110,23 @@ const initialPlushies: Plushie[] = [
     friendshipLevel: 1,
     friendshipXp: 30,
   },
-  {
-    id: 'p2',
-    name: 'Gato de Botas',
-    emotion: 50,
-    imageUrl: 'https://img.usecurling.com/p/200/200?q=cat%20plush&color=orange',
-    powers: 'Guardião de Segredos, Amigo de Todas as Horas',
-    powerTags: ['segredos', 'amigo'],
-    friendshipLevel: 2,
-    friendshipXp: 15,
-  },
-  {
-    id: 'p3',
-    name: 'Coelho Mágico',
-    emotion: 95,
-    imageUrl: 'https://img.usecurling.com/p/200/200?q=rabbit%20plush&color=white',
-    powers: 'Guardião do Sono, Mestre dos Abraços',
-    powerTags: ['sono', 'abraco'],
-    friendshipLevel: 1,
-    friendshipXp: 80,
-  },
+]
+
+const initialRewards: CustomReward[] = [
+  { id: 'r1', name: 'Sessão de Cinema', icon: '🍿' },
+  { id: 'r2', name: 'Passeio no Parque', icon: '🌳' },
+  { id: 'r3', name: 'História Extra', icon: '📚' },
+  { id: 'r4', name: 'Sobremesa Especial', icon: '🍦' },
+]
+
+const initialEmotionHistory = [
+  { date: 'Seg', value: 65 },
+  { date: 'Ter', value: 80 },
+  { date: 'Qua', value: 50 },
+  { date: 'Qui', value: 90 },
+  { date: 'Sex', value: 85 },
+  { date: 'Sáb', value: 95 },
+  { date: 'Dom', value: 75 },
 ]
 
 export const AppContext = createContext<AppState | null>(null)
@@ -127,10 +136,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [crystals, setCrystals] = useState(10)
   const [tasks, setTasks] = useState<Task[]>(initialTasks)
   const [plushies, setPlushies] = useState<Plushie[]>(initialPlushies)
+  const [customRewards, setCustomRewards] = useState<CustomReward[]>(initialRewards)
   const [showRafikiSeal, setShowRafikiSeal] = useState(false)
   const [isMusicPlaying, setIsMusicPlaying] = useState(false)
   const [hasRarePowerUnlocked, setHasRarePowerUnlocked] = useState(false)
+  const [isParentAuthenticated, setIsParentAuthenticated] = useState(false)
   const [lastReward, setLastReward] = useState<{ xp: number; crystals: number } | null>(null)
+
+  // Avoid using standard useState directly for history to simulate persistence
+  const emotionHistory = initialEmotionHistory
 
   const submitTask = (id: string) => {
     setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, status: 'pending' } : t)))
@@ -148,6 +162,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
       }
       return prev
     })
+  }
+
+  const rejectTask = (id: string) => {
+    setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, status: 'todo' } : t)))
   }
 
   const updatePlushieEmotion = (id: string, emotion: number) => {
@@ -178,6 +196,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     )
   }
 
+  const updateCustomReward = (id: string, name: string) => {
+    setCustomRewards((prev) => prev.map((r) => (r.id === id ? { ...r, name } : r)))
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -186,18 +208,24 @@ export function AppProvider({ children }: { children: ReactNode }) {
         levelText: getLevelText(xp),
         tasks,
         plushies,
+        customRewards,
+        emotionHistory,
         showRafikiSeal,
         isMusicPlaying,
         hasRarePowerUnlocked,
+        isParentAuthenticated,
         lastReward,
         toggleMusic: () => setIsMusicPlaying(!isMusicPlaying),
         submitTask,
         approveTask,
+        rejectTask,
         updatePlushieEmotion,
         addPlushie,
         addPlushieXp,
         dismissRafikiSeal: () => setShowRafikiSeal(false),
         unlockRarePower: () => setHasRarePowerUnlocked(true),
+        setParentAuthenticated: setIsParentAuthenticated,
+        updateCustomReward,
       }}
     >
       {children}
