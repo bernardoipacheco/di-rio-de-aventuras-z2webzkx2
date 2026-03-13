@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { ArrowLeft, Camera, Mic, Play, Square, Sparkles, Shield, Map, Heart } from 'lucide-react'
+import { ArrowLeft, Camera, Mic, Play, Sparkles, Shield, Map, Heart } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -34,27 +34,35 @@ const powersList = [
   },
 ]
 
-function Confetti() {
+function ShineEffect() {
   return (
-    <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden">
-      {Array.from({ length: 80 }).map((_, i) => (
-        <div
-          key={i}
-          className="absolute animate-confetti"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `-10%`,
-            backgroundColor: ['#facc15', '#f87171', '#60a5fa', '#34d399', '#c084fc', '#fb923c'][
-              Math.floor(Math.random() * 6)
-            ],
-            width: `${Math.random() * 12 + 6}px`,
-            height: `${Math.random() * 12 + 6}px`,
-            borderRadius: Math.random() > 0.5 ? '50%' : '2px',
-            animationDuration: `${Math.random() * 2 + 1.5}s`,
-            animationDelay: `${Math.random() * 0.2}s`,
-          }}
-        />
-      ))}
+    <div className="fixed inset-0 pointer-events-none z-[100] flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0 bg-yellow-300/30 backdrop-blur-sm animate-fade-in" />
+      {Array.from({ length: 40 }).map((_, i) => {
+        const angle = Math.random() * Math.PI * 2
+        const distance = Math.random() * 40 + 10 // vh
+        const tx = Math.cos(angle) * distance
+        const ty = Math.sin(angle) * distance
+        const size = Math.random() * 2 + 1 // rem
+
+        return (
+          <Sparkles
+            key={i}
+            className="absolute text-yellow-400 drop-shadow-[0_0_10px_rgba(255,215,0,0.8)] animate-sparkle-fly"
+            style={
+              {
+                '--tx': `${tx}vh`,
+                '--ty': `${ty}vh`,
+                width: `${size}rem`,
+                height: `${size}rem`,
+                animationDuration: `${Math.random() * 1 + 1}s`,
+                animationDelay: `${Math.random() * 0.1}s`,
+              } as React.CSSProperties
+            }
+          />
+        )
+      })}
+      <div className="absolute text-8xl animate-bounce drop-shadow-2xl">🌟</div>
     </div>
   )
 }
@@ -66,7 +74,7 @@ export default function NovoAmigo() {
 
   const [name, setName] = useState('')
   const [selectedPowers, setSelectedPowers] = useState<string[]>([])
-  const [showConfetti, setShowConfetti] = useState(false)
+  const [showShine, setShowShine] = useState(false)
 
   const [image, setImage] = useState<string>(
     location.state?.imageUrl ||
@@ -78,11 +86,16 @@ export default function NovoAmigo() {
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
   const audioChunksRef = useRef<Blob[]>([])
+  const mockTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     return () => {
       if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
         mediaRecorderRef.current.stop()
+        mediaRecorderRef.current.stream.getTracks().forEach((t) => t.stop())
+      }
+      if (mockTimeoutRef.current) {
+        clearTimeout(mockTimeoutRef.current)
       }
     }
   }, [])
@@ -103,6 +116,9 @@ export default function NovoAmigo() {
   }
 
   const startRecording = async () => {
+    if (isRecording) return
+    if (mockTimeoutRef.current) clearTimeout(mockTimeoutRef.current)
+
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
       mediaRecorderRef.current = new MediaRecorder(stream)
@@ -123,16 +139,24 @@ export default function NovoAmigo() {
     } catch (err) {
       console.error('Error accessing microphone', err)
       setIsRecording(true)
-      setTimeout(() => {
-        stopRecording()
-        setAudioUrl('mock-audio-url')
-      }, 2000)
+      mockTimeoutRef.current = setTimeout(() => {
+        if (isRecording) {
+          stopRecording()
+          setAudioUrl('mock-audio-url')
+        }
+      }, 3000)
     }
   }
 
   const stopRecording = () => {
+    if (!isRecording) return
+
     if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
       mediaRecorderRef.current.stop()
+      mediaRecorderRef.current.stream.getTracks().forEach((t) => t.stop())
+    } else {
+      if (mockTimeoutRef.current) clearTimeout(mockTimeoutRef.current)
+      setAudioUrl('mock-audio-url')
     }
     setIsRecording(false)
   }
@@ -147,7 +171,7 @@ export default function NovoAmigo() {
   const handleSave = () => {
     if (!name.trim()) return
 
-    setShowConfetti(true)
+    setShowShine(true)
 
     const powersString =
       selectedPowers.map((id) => powersList.find((p) => p.id === id)?.label).join(', ') ||
@@ -159,6 +183,7 @@ export default function NovoAmigo() {
         powers: powersString,
         imageUrl: image,
         emotion: 80,
+        audioUrl: audioUrl || undefined,
       })
       navigate(`/pelucias/${newId}`)
     }, 2500)
@@ -166,7 +191,7 @@ export default function NovoAmigo() {
 
   return (
     <div className="container py-6 max-w-3xl animate-fade-in flex flex-col items-center pb-20 relative">
-      {showConfetti && <Confetti />}
+      {showShine && <ShineEffect />}
 
       <div className="w-full flex items-center justify-center mb-6 relative">
         <Button
@@ -184,7 +209,13 @@ export default function NovoAmigo() {
         <br className="md:hidden" /> Novo Habitante!
       </h1>
 
-      <div className="w-full bg-white/90 backdrop-blur-md p-6 md:p-10 rounded-[2.5rem] shadow-2xl border-8 border-primary/20 relative">
+      <div className="w-full bg-white/90 backdrop-blur-md p-6 md:p-10 rounded-[2.5rem] shadow-2xl border-8 border-primary/20 relative overflow-hidden">
+        <div className="absolute top-4 right-4 text-4xl opacity-20 rotate-12 pointer-events-none select-none">
+          📜
+        </div>
+        <div className="absolute bottom-4 left-4 text-4xl opacity-20 -rotate-12 pointer-events-none select-none">
+          👑
+        </div>
         <div className="absolute inset-0 border-2 border-dashed border-primary/40 rounded-[2rem] m-2 pointer-events-none" />
 
         <div className="relative z-10 flex flex-col items-center">
@@ -270,19 +301,25 @@ export default function NovoAmigo() {
 
               <div className="flex items-center justify-center gap-6 w-full">
                 <Button
-                  onClick={isRecording ? stopRecording : startRecording}
+                  onMouseDown={startRecording}
+                  onMouseUp={stopRecording}
+                  onMouseLeave={stopRecording}
+                  onTouchStart={startRecording}
+                  onTouchEnd={stopRecording}
+                  onTouchCancel={stopRecording}
                   className={cn(
-                    'w-24 h-24 rounded-full shadow-xl transition-all duration-300 border-4',
+                    'w-24 h-24 rounded-full shadow-xl transition-all duration-300 border-4 select-none touch-none',
                     isRecording
-                      ? 'bg-red-500 hover:bg-red-600 border-red-300 animate-pulse-glow'
+                      ? 'bg-red-500 hover:bg-red-600 border-red-300 animate-pulse-glow scale-110'
                       : 'bg-gradient-to-br from-orange-400 to-red-500 border-white hover:scale-105',
                   )}
                 >
-                  {isRecording ? (
-                    <Square className="w-10 h-10 text-white" />
-                  ) : (
-                    <Mic className="w-10 h-10 text-white" />
-                  )}
+                  <Mic
+                    className={cn(
+                      'w-10 h-10 text-white transition-transform duration-300',
+                      isRecording && 'scale-110',
+                    )}
+                  />
                 </Button>
 
                 {audioUrl && !isRecording && (
@@ -295,7 +332,9 @@ export default function NovoAmigo() {
                 )}
               </div>
               <p className="text-base font-bold text-orange-700 text-center">
-                {isRecording ? 'Gravando... clique para parar' : 'Gravar a História de Origem'}
+                {isRecording
+                  ? 'Gravando a História de Origem...'
+                  : 'Segure para Gravar a História de Origem'}
               </p>
             </div>
           </div>
@@ -305,7 +344,7 @@ export default function NovoAmigo() {
       <div className="mt-10 w-full max-w-sm">
         <Button
           onClick={handleSave}
-          disabled={!name.trim() || showConfetti}
+          disabled={!name.trim() || showShine}
           className="w-full h-20 rounded-[2rem] text-2xl font-display font-black bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 hover:from-yellow-500 hover:via-orange-600 hover:to-red-600 shadow-[0_10px_30px_rgba(251,146,60,0.4)] hover:scale-105 transition-all duration-300 border-4 border-white text-white disabled:opacity-50 disabled:hover:scale-100"
         >
           Apresentar ao Reino! 🦁

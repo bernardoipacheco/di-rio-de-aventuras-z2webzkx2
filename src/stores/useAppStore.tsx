@@ -14,6 +14,7 @@ export type Plushie = {
   emotion: number
   imageUrl: string
   powers?: string
+  audioUrl?: string
 }
 
 type AppState = {

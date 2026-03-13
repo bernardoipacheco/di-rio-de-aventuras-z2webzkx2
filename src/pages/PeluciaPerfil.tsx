@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowLeft, Mic, Sparkles } from 'lucide-react'
+import { ArrowLeft, Mic, Sparkles, Play } from 'lucide-react'
 import { Slider } from '@/components/ui/slider'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/hooks/use-toast'
@@ -136,6 +136,23 @@ export default function PeluciaPerfil() {
         </div>
       )}
 
+      {plushie.audioUrl && plushie.audioUrl !== 'mock-audio-url' && (
+        <div className="w-full bg-white/70 backdrop-blur-md p-6 rounded-3xl shadow-lg mb-8 border-2 border-orange-200 flex flex-col items-center animate-slide-up">
+          <h3 className="text-lg font-display font-bold text-orange-800 mb-4 flex items-center justify-center gap-2">
+            <Mic className="w-5 h-5" /> História de Origem
+          </h3>
+          <Button
+            onClick={() => {
+              const audio = new Audio(plushie.audioUrl)
+              audio.play()
+            }}
+            className="w-16 h-16 rounded-full bg-green-500 hover:bg-green-600 border-4 border-white shadow-lg hover:scale-105 transition-transform"
+          >
+            <Play className="w-8 h-8 text-white ml-1" />
+          </Button>
+        </div>
+      )}
+
       <div className="w-full bg-white/70 backdrop-blur-md p-8 rounded-3xl shadow-xl mb-10 border-2 border-orange-200">
         <h3 className="text-xl md:text-2xl font-display font-bold text-center mb-6 text-orange-800">
           Harmonímetro
@@ -177,7 +194,7 @@ export default function PeluciaPerfil() {
             <Mic
               className={cn(
                 'w-12 h-12 md:w-14 md:h-14 text-white transition-transform duration-300',
-                isRecording && 'scale-110',
+                isRecording && 'scale-110 animate-pulse',
               )}
             />
           </Button>
