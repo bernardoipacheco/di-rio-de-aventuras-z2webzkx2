@@ -25599,19 +25599,30 @@ function PeluciaPerfil() {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const { plushies, updatePlushieEmotion } = useAppStore();
+	const { toast } = useToast();
 	const [isRecording, setIsRecording] = (0, import_react.useState)(false);
+	const isRecordingRef = (0, import_react.useRef)(false);
+	const [stream, setStream] = (0, import_react.useState)(null);
+	const mediaRecorderRef = (0, import_react.useRef)(null);
+	const audioChunksRef = (0, import_react.useRef)([]);
 	const plushie = (0, import_react.useMemo)(() => plushies.find((p) => p.id === id), [plushies, id]);
+	(0, import_react.useEffect)(() => {
+		return () => {
+			if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") mediaRecorderRef.current.stop();
+			if (stream) stream.getTracks().forEach((track) => track.stop());
+		};
+	}, [stream]);
 	if (!plushie) return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		"data-uid": "src/pages/PeluciaPerfil.tsx:19:7",
+		"data-uid": "src/pages/PeluciaPerfil.tsx:38:7",
 		"data-prohibitions": "[]",
 		className: "flex flex-col items-center justify-center h-full gap-4 pt-20",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-			"data-uid": "src/pages/PeluciaPerfil.tsx:20:9",
+			"data-uid": "src/pages/PeluciaPerfil.tsx:39:9",
 			"data-prohibitions": "[]",
 			className: "text-2xl font-bold text-orange-900",
 			children: "Pelúcia não encontrada!"
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-			"data-uid": "src/pages/PeluciaPerfil.tsx:21:9",
+			"data-uid": "src/pages/PeluciaPerfil.tsx:40:9",
 			"data-prohibitions": "[]",
 			onClick: () => navigate("/pelucias"),
 			children: "Voltar"
@@ -25620,41 +25631,81 @@ function PeluciaPerfil() {
 	const handleEmotionChange = (val) => {
 		updatePlushieEmotion(plushie.id, val[0]);
 	};
+	const startRecording = async () => {
+		if (isRecordingRef.current) return;
+		isRecordingRef.current = true;
+		try {
+			let currentStream = stream;
+			if (!currentStream) {
+				currentStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+				setStream(currentStream);
+			}
+			if (!isRecordingRef.current) return;
+			const mediaRecorder = new MediaRecorder(currentStream);
+			mediaRecorderRef.current = mediaRecorder;
+			audioChunksRef.current = [];
+			mediaRecorder.ondataavailable = (event) => {
+				if (event.data.size > 0) audioChunksRef.current.push(event.data);
+			};
+			mediaRecorder.onstop = () => {
+				if (audioChunksRef.current.length > 0) toast({
+					title: "História salva! 🌟",
+					description: `A sua história com ${plushie.name} foi guardada!`
+				});
+			};
+			mediaRecorder.start();
+			setIsRecording(true);
+		} catch (err) {
+			console.error("Microphone error:", err);
+			isRecordingRef.current = false;
+			toast({
+				title: "Oops!",
+				description: "Precisamos do microfone para ouvir a sua história.",
+				variant: "destructive"
+			});
+		}
+	};
+	const stopRecording = () => {
+		if (!isRecordingRef.current) return;
+		isRecordingRef.current = false;
+		if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") mediaRecorderRef.current.stop();
+		setIsRecording(false);
+	};
 	const currentEmotion = getEmotionForValue(plushie.emotion);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		"data-uid": "src/pages/PeluciaPerfil.tsx:33:5",
+		"data-uid": "src/pages/PeluciaPerfil.tsx:107:5",
 		"data-prohibitions": "[editContent]",
 		className: "container py-6 max-w-2xl animate-fade-in flex flex-col items-center pb-20",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/PeluciaPerfil.tsx:34:7",
+				"data-uid": "src/pages/PeluciaPerfil.tsx:108:7",
 				"data-prohibitions": "[editContent]",
 				className: "w-full flex items-center justify-center mb-8 relative",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:35:9",
+					"data-uid": "src/pages/PeluciaPerfil.tsx:109:9",
 					"data-prohibitions": "[]",
 					variant: "outline",
 					size: "icon",
 					onClick: () => navigate("/pelucias"),
 					className: "absolute left-0 rounded-full border-orange-300 text-orange-600 hover:bg-orange-100 bg-white/80 backdrop-blur-sm z-10 w-12 h-12 shadow-sm",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:41:11",
+						"data-uid": "src/pages/PeluciaPerfil.tsx:115:11",
 						"data-prohibitions": "[editContent]",
 						className: "w-6 h-6"
 					})
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:43:9",
+					"data-uid": "src/pages/PeluciaPerfil.tsx:117:9",
 					"data-prohibitions": "[editContent]",
 					className: "w-full text-center text-3xl md:text-4xl font-display font-black text-orange-900 drop-shadow-sm px-14",
 					children: plushie.name
 				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				"data-uid": "src/pages/PeluciaPerfil.tsx:48:7",
+				"data-uid": "src/pages/PeluciaPerfil.tsx:122:7",
 				"data-prohibitions": "[]",
 				className: "w-56 h-56 md:w-72 md:h-72 rounded-full border-8 border-white shadow-[0_10px_40px_rgba(251,146,60,0.3)] overflow-hidden mb-8 bg-orange-100 relative animate-float",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:49:9",
+					"data-uid": "src/pages/PeluciaPerfil.tsx:123:9",
 					"data-prohibitions": "[editContent]",
 					src: plushie.imageUrl,
 					alt: plushie.name,
@@ -25662,67 +25713,67 @@ function PeluciaPerfil() {
 				})
 			}),
 			plushie.powers && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/PeluciaPerfil.tsx:57:9",
+				"data-uid": "src/pages/PeluciaPerfil.tsx:131:9",
 				"data-prohibitions": "[editContent]",
 				className: "w-full bg-white/70 backdrop-blur-md p-6 rounded-3xl shadow-lg mb-8 border-2 border-orange-200",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h3", {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:58:11",
+					"data-uid": "src/pages/PeluciaPerfil.tsx:132:11",
 					"data-prohibitions": "[]",
 					className: "text-lg font-display font-bold text-orange-800 mb-2 flex items-center justify-center gap-2",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Sparkles, {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:59:13",
+						"data-uid": "src/pages/PeluciaPerfil.tsx:133:13",
 						"data-prohibitions": "[editContent]",
 						className: "w-5 h-5"
 					}), " Características"]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:61:11",
+					"data-uid": "src/pages/PeluciaPerfil.tsx:135:11",
 					"data-prohibitions": "[editContent]",
 					className: "text-orange-950 font-medium text-center text-lg",
 					children: plushie.powers
 				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/PeluciaPerfil.tsx:65:7",
+				"data-uid": "src/pages/PeluciaPerfil.tsx:139:7",
 				"data-prohibitions": "[editContent]",
 				className: "w-full bg-white/70 backdrop-blur-md p-8 rounded-3xl shadow-xl mb-10 border-2 border-orange-200",
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:66:9",
+						"data-uid": "src/pages/PeluciaPerfil.tsx:140:9",
 						"data-prohibitions": "[]",
 						className: "text-xl md:text-2xl font-display font-bold text-center mb-6 text-orange-800",
 						children: "Harmonímetro"
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:69:9",
+						"data-uid": "src/pages/PeluciaPerfil.tsx:143:9",
 						"data-prohibitions": "[]",
 						className: "text-center text-orange-700 font-bold mb-4",
 						children: "Como estou me sentindo hoje?"
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:70:9",
+						"data-uid": "src/pages/PeluciaPerfil.tsx:144:9",
 						"data-prohibitions": "[editContent]",
 						className: "flex flex-col items-center gap-6",
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								"data-uid": "src/pages/PeluciaPerfil.tsx:71:11",
+								"data-uid": "src/pages/PeluciaPerfil.tsx:145:11",
 								"data-prohibitions": "[editContent]",
 								className: "text-7xl animate-bounce",
 								style: { animationDuration: "2s" },
 								children: currentEmotion.emoji
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								"data-uid": "src/pages/PeluciaPerfil.tsx:74:11",
+								"data-uid": "src/pages/PeluciaPerfil.tsx:148:11",
 								"data-prohibitions": "[editContent]",
 								className: "bg-orange-100 px-6 py-2 rounded-full border-2 border-orange-200",
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									"data-uid": "src/pages/PeluciaPerfil.tsx:75:13",
+									"data-uid": "src/pages/PeluciaPerfil.tsx:149:13",
 									"data-prohibitions": "[editContent]",
 									className: "font-bold text-xl text-orange-900",
 									children: currentEmotion.label
 								})
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Slider, {
-								"data-uid": "src/pages/PeluciaPerfil.tsx:77:11",
+								"data-uid": "src/pages/PeluciaPerfil.tsx:151:11",
 								"data-prohibitions": "[editContent]",
 								value: [plushie.emotion],
 								max: 100,
@@ -25735,32 +25786,33 @@ function PeluciaPerfil() {
 				]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				"data-uid": "src/pages/PeluciaPerfil.tsx:87:7",
+				"data-uid": "src/pages/PeluciaPerfil.tsx:161:7",
 				"data-prohibitions": "[editContent]",
 				className: "flex gap-4 w-full px-4 justify-center",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:88:9",
+					"data-uid": "src/pages/PeluciaPerfil.tsx:162:9",
 					"data-prohibitions": "[editContent]",
 					className: "flex flex-col items-center gap-4",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:89:11",
+						"data-uid": "src/pages/PeluciaPerfil.tsx:163:11",
 						"data-prohibitions": "[editContent]",
-						className: `w-28 h-28 md:w-32 md:h-32 rounded-full shadow-xl transition-all duration-300 border-4 ${isRecording ? "bg-red-500 border-red-300 hover:bg-red-600 scale-110 animate-pulse box-shadow-magical" : "bg-gradient-to-br from-orange-400 to-red-500 border-orange-200 hover:scale-105"}`,
-						onMouseDown: () => setIsRecording(true),
-						onMouseUp: () => setIsRecording(false),
-						onMouseLeave: () => setIsRecording(false),
-						onTouchStart: () => setIsRecording(true),
-						onTouchEnd: () => setIsRecording(false),
+						className: cn$1("w-28 h-28 md:w-32 md:h-32 rounded-full shadow-xl transition-all duration-300 border-4 flex items-center justify-center select-none touch-none", isRecording ? "bg-red-500 border-yellow-400 animate-pulse-glow" : "bg-gradient-to-br from-orange-400 to-red-500 border-orange-200 hover:scale-105"),
+						onMouseDown: startRecording,
+						onMouseUp: stopRecording,
+						onMouseLeave: stopRecording,
+						onTouchStart: startRecording,
+						onTouchEnd: stopRecording,
+						onTouchCancel: stopRecording,
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mic, {
-							"data-uid": "src/pages/PeluciaPerfil.tsx:101:13",
+							"data-uid": "src/pages/PeluciaPerfil.tsx:177:13",
 							"data-prohibitions": "[editContent]",
-							className: "w-12 h-12 md:w-14 md:h-14 text-white"
+							className: cn$1("w-12 h-12 md:w-14 md:h-14 text-white transition-transform duration-300", isRecording && "scale-110")
 						})
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:103:11",
+						"data-uid": "src/pages/PeluciaPerfil.tsx:184:11",
 						"data-prohibitions": "[editContent]",
-						className: "text-base md:text-lg font-bold text-center text-orange-900 max-w-[200px]",
-						children: isRecording ? "Gravando a história..." : "Segure para falar!"
+						className: "text-base md:text-lg font-bold text-center text-orange-900 max-w-[250px] transition-colors duration-300",
+						children: isRecording ? "Gravando a história..." : `Segure para falar com ${plushie.name}!`
 					})]
 				})
 			})
@@ -27594,4 +27646,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 }));
 //#endregion
 
-//# sourceMappingURL=index-QkIib-j5.js.map
+//# sourceMappingURL=index-BgjWuBXL.js.map

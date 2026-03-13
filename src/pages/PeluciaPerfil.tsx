@@ -1,18 +1,37 @@
-import { useState, useMemo } from 'react'
-import { useParams, Link, useNavigate } from 'react-router-dom'
+import { useState, useMemo, useRef, useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import { ArrowLeft, Mic, Sparkles } from 'lucide-react'
 import { Slider } from '@/components/ui/slider'
 import { Button } from '@/components/ui/button'
+import { useToast } from '@/hooks/use-toast'
 import useAppStore from '@/stores/useAppStore'
 import { getEmotionForValue } from '@/lib/emotions'
+import { cn } from '@/lib/utils'
 
 export default function PeluciaPerfil() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { plushies, updatePlushieEmotion } = useAppStore()
+  const { toast } = useToast()
+
   const [isRecording, setIsRecording] = useState(false)
+  const isRecordingRef = useRef(false)
+  const [stream, setStream] = useState<MediaStream | null>(null)
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null)
+  const audioChunksRef = useRef<Blob[]>([])
 
   const plushie = useMemo(() => plushies.find((p) => p.id === id), [plushies, id])
+
+  useEffect(() => {
+    return () => {
+      if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+        mediaRecorderRef.current.stop()
+      }
+      if (stream) {
+        stream.getTracks().forEach((track) => track.stop())
+      }
+    }
+  }, [stream])
 
   if (!plushie) {
     return (
@@ -25,6 +44,61 @@ export default function PeluciaPerfil() {
 
   const handleEmotionChange = (val: number[]) => {
     updatePlushieEmotion(plushie.id, val[0])
+  }
+
+  const startRecording = async () => {
+    if (isRecordingRef.current) return
+    isRecordingRef.current = true
+
+    try {
+      let currentStream = stream
+      if (!currentStream) {
+        currentStream = await navigator.mediaDevices.getUserMedia({ audio: true })
+        setStream(currentStream)
+      }
+
+      if (!isRecordingRef.current) return
+
+      const mediaRecorder = new MediaRecorder(currentStream)
+      mediaRecorderRef.current = mediaRecorder
+      audioChunksRef.current = []
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data)
+        }
+      }
+
+      mediaRecorder.onstop = () => {
+        if (audioChunksRef.current.length > 0) {
+          toast({
+            title: 'História salva! 🌟',
+            description: `A sua história com ${plushie.name} foi guardada!`,
+          })
+        }
+      }
+
+      mediaRecorder.start()
+      setIsRecording(true)
+    } catch (err) {
+      console.error('Microphone error:', err)
+      isRecordingRef.current = false
+      toast({
+        title: 'Oops!',
+        description: 'Precisamos do microfone para ouvir a sua história.',
+        variant: 'destructive',
+      })
+    }
+  }
+
+  const stopRecording = () => {
+    if (!isRecordingRef.current) return
+
+    isRecordingRef.current = false
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+      mediaRecorderRef.current.stop()
+    }
+    setIsRecording(false)
   }
 
   const currentEmotion = getEmotionForValue(plushie.emotion)
@@ -87,21 +161,28 @@ export default function PeluciaPerfil() {
       <div className="flex gap-4 w-full px-4 justify-center">
         <div className="flex flex-col items-center gap-4">
           <Button
-            className={`w-28 h-28 md:w-32 md:h-32 rounded-full shadow-xl transition-all duration-300 border-4 ${
+            className={cn(
+              'w-28 h-28 md:w-32 md:h-32 rounded-full shadow-xl transition-all duration-300 border-4 flex items-center justify-center select-none touch-none',
               isRecording
-                ? 'bg-red-500 border-red-300 hover:bg-red-600 scale-110 animate-pulse box-shadow-magical'
-                : 'bg-gradient-to-br from-orange-400 to-red-500 border-orange-200 hover:scale-105'
-            }`}
-            onMouseDown={() => setIsRecording(true)}
-            onMouseUp={() => setIsRecording(false)}
-            onMouseLeave={() => setIsRecording(false)}
-            onTouchStart={() => setIsRecording(true)}
-            onTouchEnd={() => setIsRecording(false)}
+                ? 'bg-red-500 border-yellow-400 animate-pulse-glow'
+                : 'bg-gradient-to-br from-orange-400 to-red-500 border-orange-200 hover:scale-105',
+            )}
+            onMouseDown={startRecording}
+            onMouseUp={stopRecording}
+            onMouseLeave={stopRecording}
+            onTouchStart={startRecording}
+            onTouchEnd={stopRecording}
+            onTouchCancel={stopRecording}
           >
-            <Mic className="w-12 h-12 md:w-14 md:h-14 text-white" />
+            <Mic
+              className={cn(
+                'w-12 h-12 md:w-14 md:h-14 text-white transition-transform duration-300',
+                isRecording && 'scale-110',
+              )}
+            />
           </Button>
-          <p className="text-base md:text-lg font-bold text-center text-orange-900 max-w-[200px]">
-            {isRecording ? 'Gravando a história...' : 'Segure para falar!'}
+          <p className="text-base md:text-lg font-bold text-center text-orange-900 max-w-[250px] transition-colors duration-300">
+            {isRecording ? 'Gravando a história...' : `Segure para falar com ${plushie.name}!`}
           </p>
         </div>
       </div>
