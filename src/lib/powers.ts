@@ -1,4 +1,11 @@
-export const POWER_TAGS = [
+export type PowerTag = {
+  id: string
+  label: string
+  emoji: string
+  isRare?: boolean
+}
+
+export const POWER_TAGS: PowerTag[] = [
   { id: 'coragem', label: 'Coragem de Leão', emoji: '🦁' },
   { id: 'sono', label: 'Guardião do Sono', emoji: '🛡️' },
   { id: 'abraco', label: 'Mestre dos Abraços', emoji: '✨' },
@@ -9,4 +16,5 @@ export const POWER_TAGS = [
   { id: 'veloz', label: 'Veloz como o Vento', emoji: '⚡' },
   { id: 'brilho', label: 'Brilho da Pedra do Rei', emoji: '💎' },
   { id: 'amigo', label: 'Amigo de Todas as Horas', emoji: '🌈' },
+  { id: 'guardiao_real', label: 'Guardião Real do Reino', emoji: '🌟', isRare: true },
 ]

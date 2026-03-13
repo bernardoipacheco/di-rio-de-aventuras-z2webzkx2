@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Camera } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
@@ -16,7 +16,8 @@ const QUICK_EMOTIONS = [
 ]
 
 export default function RefugioPelucias() {
-  const { plushies, updatePlushieEmotion } = useAppStore()
+  const { plushies, updatePlushieEmotion, hasRarePowerUnlocked } = useAppStore()
+  const [activeFilter, setActiveFilter] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const navigate = useNavigate()
 
@@ -31,15 +32,56 @@ export default function RefugioPelucias() {
     }
   }
 
+  const visiblePowers = POWER_TAGS.filter((p) => !p.isRare || hasRarePowerUnlocked)
+
+  const filteredPlushies = activeFilter
+    ? plushies.filter((p) => p.powerTags?.includes(activeFilter))
+    : plushies
+
   return (
     <div className="container py-8 max-w-4xl animate-fade-in">
-      <div className="text-center mb-10">
+      <div className="text-center mb-6">
         <h1 className="text-4xl font-display font-bold text-secondary mb-4">
           Refúgio das Pelúcias 🧸
         </h1>
         <p className="text-muted-foreground text-lg font-medium">
           Escolha um amigo macio para cuidar ou crie um novo!
         </p>
+      </div>
+
+      <div className="w-full overflow-x-auto pb-4 mb-6 no-scrollbar flex items-center gap-3 px-1 snap-x">
+        <button
+          onClick={() => setActiveFilter(null)}
+          className={cn(
+            'whitespace-nowrap px-5 py-2.5 rounded-full font-bold text-sm transition-all border-2 snap-center shrink-0 shadow-sm',
+            activeFilter === null
+              ? 'bg-primary text-primary-foreground border-primary'
+              : 'bg-white text-muted-foreground border-muted hover:border-primary/50',
+          )}
+        >
+          Ver Todos
+        </button>
+        {visiblePowers.map((p) => {
+          const isActive = activeFilter === p.id
+          const isRare = p.isRare
+          return (
+            <button
+              key={p.id}
+              onClick={() => setActiveFilter(p.id)}
+              className={cn(
+                'whitespace-nowrap px-4 py-2.5 rounded-full font-bold text-sm transition-all border-2 snap-center shrink-0 shadow-sm flex items-center gap-2',
+                isActive
+                  ? 'bg-yellow-100 text-orange-900 border-yellow-400 scale-105'
+                  : 'bg-white text-muted-foreground border-muted hover:border-yellow-200',
+                isRare && !isActive && 'border-yellow-300 shadow-[0_0_8px_rgba(255,215,0,0.3)]',
+                isRare && isActive && 'shadow-[0_0_15px_rgba(255,215,0,0.6)] animate-pulse-glow',
+              )}
+            >
+              <span className="text-lg">{p.emoji}</span>
+              <span>{p.label}</span>
+            </button>
+          )
+        })}
       </div>
 
       <input
@@ -64,7 +106,7 @@ export default function RefugioPelucias() {
           </h3>
         </Card>
 
-        {plushies.map((plushie) => {
+        {filteredPlushies.map((plushie) => {
           const currentEmotion = getEmotionForValue(plushie.emotion)
 
           return (
@@ -91,7 +133,12 @@ export default function RefugioPelucias() {
                           return (
                             <div
                               key={tagId}
-                              className="flex items-center gap-1 bg-gradient-to-r from-yellow-100 to-yellow-50 border border-yellow-400 text-orange-900 text-[11px] px-2 py-0.5 rounded-full shadow-sm"
+                              className={cn(
+                                'flex items-center gap-1 bg-gradient-to-r border text-[11px] px-2 py-0.5 rounded-full shadow-sm',
+                                tag.isRare
+                                  ? 'from-yellow-200 to-yellow-100 border-yellow-500 text-yellow-900 animate-pulse'
+                                  : 'from-yellow-100 to-yellow-50 border-yellow-400 text-orange-900',
+                              )}
                             >
                               <span className="text-[14px] leading-none drop-shadow-sm">
                                 {tag.emoji}

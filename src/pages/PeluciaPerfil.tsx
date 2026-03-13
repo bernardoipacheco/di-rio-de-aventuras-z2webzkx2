@@ -1,8 +1,9 @@
 import { useState, useMemo, useRef, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowLeft, Mic, Sparkles, Play } from 'lucide-react'
+import { ArrowLeft, Mic, Sparkles, Play, Heart } from 'lucide-react'
 import { Slider } from '@/components/ui/slider'
 import { Button } from '@/components/ui/button'
+import { Progress } from '@/components/ui/progress'
 import { useToast } from '@/hooks/use-toast'
 import useAppStore from '@/stores/useAppStore'
 import { getEmotionForValue } from '@/lib/emotions'
@@ -11,7 +12,7 @@ import { cn } from '@/lib/utils'
 export default function PeluciaPerfil() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { plushies, updatePlushieEmotion } = useAppStore()
+  const { plushies, updatePlushieEmotion, addPlushieXp } = useAppStore()
   const { toast } = useToast()
 
   const [isRecording, setIsRecording] = useState(false)
@@ -73,8 +74,9 @@ export default function PeluciaPerfil() {
         if (audioChunksRef.current.length > 0) {
           toast({
             title: 'História salva! 🌟',
-            description: `A sua história com ${plushie.name} foi guardada!`,
+            description: `A sua história com ${plushie.name} foi guardada e a amizade aumentou!`,
           })
+          addPlushieXp(plushie.id, 34)
         }
       }
 
@@ -127,8 +129,31 @@ export default function PeluciaPerfil() {
         />
       </div>
 
+      <div className="w-full bg-white/70 backdrop-blur-md p-6 rounded-3xl shadow-lg mb-8 border-2 border-orange-200 animate-slide-up">
+        <div className="flex justify-between items-center mb-3">
+          <h3 className="text-lg font-display font-bold text-orange-800 flex items-center gap-2">
+            <Heart className="w-6 h-6 text-red-500 fill-current animate-pulse" /> Nível de Amizade
+          </h3>
+          <span className="font-bold text-orange-900 bg-orange-100 px-4 py-1 rounded-full shadow-inner border border-orange-200">
+            Nível {plushie.friendshipLevel || 1}
+          </span>
+        </div>
+        <div className="relative pt-2">
+          <Progress
+            value={plushie.friendshipXp || 0}
+            className="h-4 bg-orange-100 [&>div]:bg-gradient-to-r [&>div]:from-orange-400 [&>div]:to-red-500"
+          />
+          <p className="text-xs text-center mt-3 text-orange-600 font-medium">
+            Grave histórias para aumentar a amizade!
+          </p>
+        </div>
+      </div>
+
       {plushie.powers && (
-        <div className="w-full bg-white/70 backdrop-blur-md p-6 rounded-3xl shadow-lg mb-8 border-2 border-orange-200">
+        <div
+          className="w-full bg-white/70 backdrop-blur-md p-6 rounded-3xl shadow-lg mb-8 border-2 border-orange-200 animate-slide-up"
+          style={{ animationDelay: '0.1s' }}
+        >
           <h3 className="text-lg font-display font-bold text-orange-800 mb-2 flex items-center justify-center gap-2">
             <Sparkles className="w-5 h-5" /> Características
           </h3>
@@ -137,7 +162,10 @@ export default function PeluciaPerfil() {
       )}
 
       {plushie.audioUrl && plushie.audioUrl !== 'mock-audio-url' && (
-        <div className="w-full bg-white/70 backdrop-blur-md p-6 rounded-3xl shadow-lg mb-8 border-2 border-orange-200 flex flex-col items-center animate-slide-up">
+        <div
+          className="w-full bg-white/70 backdrop-blur-md p-6 rounded-3xl shadow-lg mb-8 border-2 border-orange-200 flex flex-col items-center animate-slide-up"
+          style={{ animationDelay: '0.2s' }}
+        >
           <h3 className="text-lg font-display font-bold text-orange-800 mb-4 flex items-center justify-center gap-2">
             <Mic className="w-5 h-5" /> História de Origem
           </h3>

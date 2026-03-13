@@ -15986,7 +15986,7 @@ function useLocation() {
 	return import_react.useContext(LocationContext).location;
 }
 var navigateEffectWarning = `You should call navigate() in a React.useEffect(), not when your component is first rendered.`;
-function useIsomorphicLayoutEffect(cb) {
+function useIsomorphicLayoutEffect$1(cb) {
 	if (!import_react.useContext(NavigationContext).static) import_react.useLayoutEffect(cb);
 }
 function useNavigate() {
@@ -16001,7 +16001,7 @@ function useNavigateUnstable() {
 	let { pathname: locationPathname } = useLocation();
 	let routePathnamesJson = JSON.stringify(getResolveToMatches(matches));
 	let activeRef = import_react.useRef(false);
-	useIsomorphicLayoutEffect(() => {
+	useIsomorphicLayoutEffect$1(() => {
 		activeRef.current = true;
 	});
 	return import_react.useCallback((to, options = {}) => {
@@ -16326,7 +16326,7 @@ function useNavigateStable() {
 	let { router } = useDataRouterContext("useNavigate");
 	let id = useCurrentRouteId("useNavigate");
 	let activeRef = import_react.useRef(false);
-	useIsomorphicLayoutEffect(() => {
+	useIsomorphicLayoutEffect$1(() => {
 		activeRef.current = true;
 	});
 	return import_react.useCallback(async (to, options = {}) => {
@@ -17283,10 +17283,10 @@ function useViewTransitionState(to, { relative } = {}) {
 var import_client = require_client();
 var TOAST_LIMIT = 1;
 var TOAST_REMOVE_DELAY = 1e6;
-var count$1 = 0;
+var count$2 = 0;
 function genId() {
-	count$1 = (count$1 + 1) % Number.MAX_SAFE_INTEGER;
-	return count$1.toString();
+	count$2 = (count$2 + 1) % Number.MAX_SAFE_INTEGER;
+	return count$2.toString();
 }
 var toastTimeouts = /* @__PURE__ */ new Map();
 var addToRemoveQueue = (toastId) => {
@@ -17634,6 +17634,25 @@ var require_react_jsx_runtime_development = /* @__PURE__ */ __commonJSMin(((expo
 var import_jsx_runtime = (/* @__PURE__ */ __commonJSMin(((exports, module) => {
 	module.exports = require_react_jsx_runtime_development();
 })))();
+function createContext2(rootComponentName, defaultContext) {
+	const Context = import_react.createContext(defaultContext);
+	const Provider = (props) => {
+		const { children, ...context } = props;
+		const value = import_react.useMemo(() => context, Object.values(context));
+		return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Context.Provider, {
+			value,
+			children
+		});
+	};
+	Provider.displayName = rootComponentName + "Provider";
+	function useContext2(consumerName) {
+		const context = import_react.useContext(Context);
+		if (context) return context;
+		if (defaultContext !== void 0) return defaultContext;
+		throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``);
+	}
+	return [Provider, useContext2];
+}
 function createContextScope$1(scopeName, createContextScopeDeps = []) {
 	let defaultContexts = [];
 	function createContext3(rootComponentName, defaultContext) {
@@ -17902,7 +17921,7 @@ function dispatchDiscreteCustomEvent(target, event) {
 }
 //#endregion
 //#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-use-callback-ref@1.1.1_@types+react@19.2.14_react@19.2.4/node_modules/@radix-ui/react-use-callback-ref/dist/index.mjs
-function useCallbackRef(callback) {
+function useCallbackRef$1(callback) {
 	const callbackRef = import_react.useRef(callback);
 	import_react.useEffect(() => {
 		callbackRef.current = callback;
@@ -17912,7 +17931,7 @@ function useCallbackRef(callback) {
 //#endregion
 //#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-use-escape-keydown@1.1.1_@types+react@19.2.14_react@19.2.4/node_modules/@radix-ui/react-use-escape-keydown/dist/index.mjs
 function useEscapeKeydown(onEscapeKeyDownProp, ownerDocument = globalThis?.document) {
-	const onEscapeKeyDown = useCallbackRef(onEscapeKeyDownProp);
+	const onEscapeKeyDown = useCallbackRef$1(onEscapeKeyDownProp);
 	import_react.useEffect(() => {
 		const handleKeyDown = (event) => {
 			if (event.key === "Escape") onEscapeKeyDown(event);
@@ -18036,7 +18055,7 @@ var DismissableLayerBranch = import_react.forwardRef((props, forwardedRef) => {
 });
 DismissableLayerBranch.displayName = BRANCH_NAME;
 function usePointerDownOutside(onPointerDownOutside, ownerDocument = globalThis?.document) {
-	const handlePointerDownOutside = useCallbackRef(onPointerDownOutside);
+	const handlePointerDownOutside = useCallbackRef$1(onPointerDownOutside);
 	const isPointerInsideReactTreeRef = import_react.useRef(false);
 	const handleClickRef = import_react.useRef(() => {});
 	import_react.useEffect(() => {
@@ -18066,7 +18085,7 @@ function usePointerDownOutside(onPointerDownOutside, ownerDocument = globalThis?
 	return { onPointerDownCapture: () => isPointerInsideReactTreeRef.current = true };
 }
 function useFocusOutside(onFocusOutside, ownerDocument = globalThis?.document) {
-	const handleFocusOutside = useCallbackRef(onFocusOutside);
+	const handleFocusOutside = useCallbackRef$1(onFocusOutside);
 	const isFocusInsideReactTreeRef = import_react.useRef(false);
 	import_react.useEffect(() => {
 		const handleFocus = (event) => {
@@ -18095,15 +18114,15 @@ function handleAndDispatchCustomEvent$1(name, handler, detail, { discrete }) {
 	if (discrete) dispatchDiscreteCustomEvent(target, event);
 	else target.dispatchEvent(event);
 }
-var Root$6 = DismissableLayer;
+var Root$7 = DismissableLayer;
 var Branch = DismissableLayerBranch;
 //#endregion
 //#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-use-layout-effect@1.1.1_@types+react@19.2.14_react@19.2.4/node_modules/@radix-ui/react-use-layout-effect/dist/index.mjs
 var useLayoutEffect2 = globalThis?.document ? import_react.useLayoutEffect : () => {};
 //#endregion
 //#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-portal@1.1.9_@types+react-dom@19.2.3_@types+react@19.2.14__@types+react_7668895bec2444446faa4e0f4eb5244b/node_modules/@radix-ui/react-portal/dist/index.mjs
-var PORTAL_NAME$1 = "Portal";
-var Portal = import_react.forwardRef((props, forwardedRef) => {
+var PORTAL_NAME$2 = "Portal";
+var Portal$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { container: containerProp, ...portalProps } = props;
 	const [mounted, setMounted] = import_react.useState(false);
 	useLayoutEffect2(() => setMounted(true), []);
@@ -18113,7 +18132,7 @@ var Portal = import_react.forwardRef((props, forwardedRef) => {
 		ref: forwardedRef
 	}), container) : null;
 });
-Portal.displayName = PORTAL_NAME$1;
+Portal$1.displayName = PORTAL_NAME$2;
 //#endregion
 //#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-presence@1.1.5_@types+react-dom@19.2.3_@types+react@19.2.14__@types+rea_c01c26c80b5ab5e3ecefbda6eca51ad1/node_modules/@radix-ui/react-presence/dist/index.mjs
 function useStateMachine(initialState, machine) {
@@ -18295,7 +18314,7 @@ var VisuallyHidden = import_react.forwardRef((props, forwardedRef) => {
 	});
 });
 VisuallyHidden.displayName = NAME$2;
-var Root$5 = VisuallyHidden;
+var Root$6 = VisuallyHidden;
 //#endregion
 //#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-toast@1.2.15_@types+react-dom@19.2.3_@types+react@19.2.14__@types+react_4581e89c6ba13e4159ce65546c8b2a16/node_modules/@radix-ui/react-toast/dist/index.mjs
 var PROVIDER_NAME$1 = "ToastProvider";
@@ -18394,7 +18413,7 @@ var ToastViewport$1 = import_react.forwardRef((props, forwardedRef) => {
 	const getSortedTabbableCandidates = import_react.useCallback(({ tabbingDirection }) => {
 		const tabbableCandidates = getItems().map((toastItem) => {
 			const toastNode = toastItem.ref.current;
-			const toastTabbableCandidates = [toastNode, ...getTabbableCandidates(toastNode)];
+			const toastTabbableCandidates = [toastNode, ...getTabbableCandidates$1(toastNode)];
 			return tabbingDirection === "forwards" ? toastTabbableCandidates : toastTabbableCandidates.reverse();
 		});
 		return (tabbingDirection === "forwards" ? tabbableCandidates.reverse() : tabbableCandidates).flat();
@@ -18413,7 +18432,7 @@ var ToastViewport$1 = import_react.forwardRef((props, forwardedRef) => {
 					}
 					const sortedCandidates = getSortedTabbableCandidates({ tabbingDirection: isTabbingBackwards ? "backwards" : "forwards" });
 					const index = sortedCandidates.findIndex((candidate) => candidate === focusedElement);
-					if (focusFirst$1(sortedCandidates.slice(index + 1))) event.preventDefault();
+					if (focusFirst$2(sortedCandidates.slice(index + 1))) event.preventDefault();
 					else isTabbingBackwards ? headFocusProxyRef.current?.focus() : tailFocusProxyRef.current?.focus();
 				}
 			};
@@ -18431,7 +18450,7 @@ var ToastViewport$1 = import_react.forwardRef((props, forwardedRef) => {
 			hasToasts && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(FocusProxy, {
 				ref: headFocusProxyRef,
 				onFocusFromOutsideViewport: () => {
-					focusFirst$1(getSortedTabbableCandidates({ tabbingDirection: "forwards" }));
+					focusFirst$2(getSortedTabbableCandidates({ tabbingDirection: "forwards" }));
 				}
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Collection$2.Slot, {
@@ -18445,7 +18464,7 @@ var ToastViewport$1 = import_react.forwardRef((props, forwardedRef) => {
 			hasToasts && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(FocusProxy, {
 				ref: tailFocusProxyRef,
 				onFocusFromOutsideViewport: () => {
-					focusFirst$1(getSortedTabbableCandidates({ tabbingDirection: "backwards" }));
+					focusFirst$2(getSortedTabbableCandidates({ tabbingDirection: "backwards" }));
 				}
 			})
 		]
@@ -18488,8 +18507,8 @@ var Toast$2 = import_react.forwardRef((props, forwardedRef) => {
 			...toastProps,
 			ref: forwardedRef,
 			onClose: () => setOpen(false),
-			onPause: useCallbackRef(props.onPause),
-			onResume: useCallbackRef(props.onResume),
+			onPause: useCallbackRef$1(props.onPause),
+			onResume: useCallbackRef$1(props.onResume),
 			onSwipeStart: composeEventHandlers(props.onSwipeStart, (event) => {
 				event.currentTarget.setAttribute("data-swipe", "start");
 			}),
@@ -18532,7 +18551,7 @@ var ToastImpl = import_react.forwardRef((props, forwardedRef) => {
 	const closeTimerRemainingTimeRef = import_react.useRef(duration);
 	const closeTimerRef = import_react.useRef(0);
 	const { onToastAdd, onToastRemove } = context;
-	const handleClose = useCallbackRef(() => {
+	const handleClose = useCallbackRef$1(() => {
 		if (node?.contains(document.activeElement)) context.viewport?.focus();
 		onClose();
 	});
@@ -18595,7 +18614,7 @@ var ToastImpl = import_react.forwardRef((props, forwardedRef) => {
 		onClose: handleClose,
 		children: import_react_dom.createPortal(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Collection$2.ItemSlot, {
 			scope: __scopeToast,
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$6, {
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$7, {
 				asChild: true,
 				onEscapeKeyDown: composeEventHandlers(onEscapeKeyDown, () => {
 					if (!context.isFocusedToastEscapeKeyDownRef.current) handleClose();
@@ -18686,7 +18705,7 @@ var ToastAnnounce = (props) => {
 		const timer = window.setTimeout(() => setIsAnnounced(true), 1e3);
 		return () => window.clearTimeout(timer);
 	}, []);
-	return isAnnounced ? null : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Portal, {
+	return isAnnounced ? null : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Portal$1, {
 		asChild: true,
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(VisuallyHidden, {
 			...announceProps,
@@ -18698,7 +18717,7 @@ var ToastAnnounce = (props) => {
 		})
 	});
 };
-var TITLE_NAME = "ToastTitle";
+var TITLE_NAME$1 = "ToastTitle";
 var ToastTitle$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeToast, ...titleProps } = props;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
@@ -18706,8 +18725,8 @@ var ToastTitle$1 = import_react.forwardRef((props, forwardedRef) => {
 		ref: forwardedRef
 	});
 });
-ToastTitle$1.displayName = TITLE_NAME;
-var DESCRIPTION_NAME = "ToastDescription";
+ToastTitle$1.displayName = TITLE_NAME$1;
+var DESCRIPTION_NAME$1 = "ToastDescription";
 var ToastDescription$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeToast, ...descriptionProps } = props;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
@@ -18715,7 +18734,7 @@ var ToastDescription$1 = import_react.forwardRef((props, forwardedRef) => {
 		ref: forwardedRef
 	});
 });
-ToastDescription$1.displayName = DESCRIPTION_NAME;
+ToastDescription$1.displayName = DESCRIPTION_NAME$1;
 var ACTION_NAME = "ToastAction";
 var ToastAction$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { altText, ...actionProps } = props;
@@ -18733,10 +18752,10 @@ var ToastAction$1 = import_react.forwardRef((props, forwardedRef) => {
 	});
 });
 ToastAction$1.displayName = ACTION_NAME;
-var CLOSE_NAME = "ToastClose";
+var CLOSE_NAME$1 = "ToastClose";
 var ToastClose$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeToast, ...closeProps } = props;
-	const interactiveContext = useToastInteractiveContext(CLOSE_NAME, __scopeToast);
+	const interactiveContext = useToastInteractiveContext(CLOSE_NAME$1, __scopeToast);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ToastAnnounceExclude, {
 		asChild: true,
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.button, {
@@ -18747,7 +18766,7 @@ var ToastClose$1 = import_react.forwardRef((props, forwardedRef) => {
 		})
 	});
 });
-ToastClose$1.displayName = CLOSE_NAME;
+ToastClose$1.displayName = CLOSE_NAME$1;
 var ToastAnnounceExclude = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeToast, altText, ...announceExcludeProps } = props;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
@@ -18791,7 +18810,7 @@ var isDeltaInDirection = (delta, direction, threshold = 0) => {
 	else return !isDeltaX && deltaY > threshold;
 };
 function useNextFrame(callback = () => {}) {
-	const fn = useCallbackRef(callback);
+	const fn = useCallbackRef$1(callback);
 	useLayoutEffect2(() => {
 		let raf1 = 0;
 		let raf2 = 0;
@@ -18805,7 +18824,7 @@ function useNextFrame(callback = () => {}) {
 function isHTMLElement$1(node) {
 	return node.nodeType === node.ELEMENT_NODE;
 }
-function getTabbableCandidates(container) {
+function getTabbableCandidates$1(container) {
 	const nodes = [];
 	const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, { acceptNode: (node) => {
 		const isHiddenInput = node.tagName === "INPUT" && node.type === "hidden";
@@ -18815,7 +18834,7 @@ function getTabbableCandidates(container) {
 	while (walker.nextNode()) nodes.push(walker.currentNode);
 	return nodes;
 }
-function focusFirst$1(candidates) {
+function focusFirst$2(candidates) {
 	const previouslyFocusedElement = document.activeElement;
 	return candidates.some((candidate) => {
 		if (candidate === previouslyFocusedElement) return true;
@@ -18826,10 +18845,10 @@ function focusFirst$1(candidates) {
 var Provider$1 = ToastProvider$1;
 var Viewport = ToastViewport$1;
 var Root2$2 = Toast$2;
-var Title = ToastTitle$1;
-var Description = ToastDescription$1;
+var Title$1 = ToastTitle$1;
+var Description$1 = ToastDescription$1;
 var Action = ToastAction$1;
-var Close = ToastClose$1;
+var Close$1 = ToastClose$1;
 //#endregion
 //#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/clsx@2.1.1/node_modules/clsx/dist/clsx.mjs
 function r(e) {
@@ -19062,6 +19081,10 @@ var Crown = createLucideIcon("crown", [["path", {
 var Headphones = createLucideIcon("headphones", [["path", {
 	d: "M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3",
 	key: "1xhozi"
+}]]);
+var Heart = createLucideIcon("heart", [["path", {
+	d: "M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5",
+	key: "mvr1a0"
 }]]);
 var House = createLucideIcon("house", [["path", {
 	d: "M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8",
@@ -20720,7 +20743,7 @@ var ToastAction = import_react.forwardRef(({ className, ...props }, ref) => /* @
 	...props
 }));
 ToastAction.displayName = Action.displayName;
-var ToastClose = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Close, {
+var ToastClose = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Close$1, {
 	"data-uid": "src/components/ui/toast.tsx:75:3",
 	"data-prohibitions": "[editContent]",
 	ref,
@@ -20733,23 +20756,23 @@ var ToastClose = import_react.forwardRef(({ className, ...props }, ref) => /* @_
 		className: "h-4 w-4"
 	})
 }));
-ToastClose.displayName = Close.displayName;
-var ToastTitle = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Title, {
+ToastClose.displayName = Close$1.displayName;
+var ToastTitle = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Title$1, {
 	"data-uid": "src/components/ui/toast.tsx:93:3",
 	"data-prohibitions": "[editContent]",
 	ref,
 	className: cn$1("text-sm font-semibold", className),
 	...props
 }));
-ToastTitle.displayName = Title.displayName;
-var ToastDescription = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Description, {
+ToastTitle.displayName = Title$1.displayName;
+var ToastDescription = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Description$1, {
 	"data-uid": "src/components/ui/toast.tsx:101:3",
 	"data-prohibitions": "[editContent]",
 	ref,
 	className: cn$1("text-sm opacity-90", className),
 	...props
 }));
-ToastDescription.displayName = Description.displayName;
+ToastDescription.displayName = Description$1.displayName;
 //#endregion
 //#region src/components/ui/toaster.tsx
 function Toaster$2() {
@@ -21760,11 +21783,11 @@ var Toaster = ({ ...props }) => {
 //#endregion
 //#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-id@1.1.1_@types+react@19.2.14_react@19.2.4/node_modules/@radix-ui/react-id/dist/index.mjs
 var useReactId = import_react[" useId ".trim().toString()] || (() => void 0);
-var count = 0;
+var count$1 = 0;
 function useId(deterministicId) {
 	const [id, setId] = import_react.useState(useReactId());
 	useLayoutEffect2(() => {
-		if (!deterministicId) setId((reactId) => reactId ?? String(count++));
+		if (!deterministicId) setId((reactId) => reactId ?? String(count$1++));
 	}, [deterministicId]);
 	return deterministicId || (id ? `radix-${id}` : "");
 }
@@ -23437,7 +23460,7 @@ var Arrow$1 = import_react.forwardRef((props, forwardedRef) => {
 	});
 });
 Arrow$1.displayName = NAME$1;
-var Root$4 = Arrow$1;
+var Root$5 = Arrow$1;
 //#endregion
 //#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-use-size@1.1.1_@types+react@19.2.14_react@19.2.4/node_modules/@radix-ui/react-use-size/dist/index.mjs
 function useSize(element) {
@@ -23508,11 +23531,11 @@ var PopperAnchor = import_react.forwardRef((props, forwardedRef) => {
 	});
 });
 PopperAnchor.displayName = ANCHOR_NAME;
-var CONTENT_NAME$2 = "PopperContent";
-var [PopperContentProvider, useContentContext] = createPopperContext(CONTENT_NAME$2);
+var CONTENT_NAME$3 = "PopperContent";
+var [PopperContentProvider, useContentContext] = createPopperContext(CONTENT_NAME$3);
 var PopperContent = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopePopper, side = "bottom", sideOffset = 0, align = "center", alignOffset = 0, arrowPadding = 0, avoidCollisions = true, collisionBoundary = [], collisionPadding: collisionPaddingProp = 0, sticky = "partial", hideWhenDetached = false, updatePositionStrategy = "optimized", onPlaced, ...contentProps } = props;
-	const context = usePopperContext(CONTENT_NAME$2, __scopePopper);
+	const context = usePopperContext(CONTENT_NAME$3, __scopePopper);
 	const [content, setContent] = import_react.useState(null);
 	const composedRefs = useComposedRefs(forwardedRef, (node) => setContent(node));
 	const [arrow$4, setArrow] = import_react.useState(null);
@@ -23579,7 +23602,7 @@ var PopperContent = import_react.forwardRef((props, forwardedRef) => {
 		]
 	});
 	const [placedSide, placedAlign] = getSideAndAlignFromPlacement(placement);
-	const handlePlaced = useCallbackRef(onPlaced);
+	const handlePlaced = useCallbackRef$1(onPlaced);
 	useLayoutEffect2(() => {
 		if (isPositioned) handlePlaced?.();
 	}, [isPositioned, handlePlaced]);
@@ -23625,7 +23648,7 @@ var PopperContent = import_react.forwardRef((props, forwardedRef) => {
 		})
 	});
 });
-PopperContent.displayName = CONTENT_NAME$2;
+PopperContent.displayName = CONTENT_NAME$3;
 var ARROW_NAME$1 = "PopperArrow";
 var OPPOSITE_SIDE = {
 	top: "bottom",
@@ -23658,7 +23681,7 @@ var PopperArrow = import_react.forwardRef(function PopperArrow2(props, forwarded
 			}[contentContext.placedSide],
 			visibility: contentContext.shouldHideArrow ? "hidden" : void 0
 		},
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$4, {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$5, {
 			...arrowProps,
 			ref: forwardedRef,
 			style: {
@@ -23715,7 +23738,7 @@ function getSideAndAlignFromPlacement(placement) {
 }
 var Root2$1 = Popper;
 var Anchor = PopperAnchor;
-var Content$1 = PopperContent;
+var Content$2 = PopperContent;
 var Arrow = PopperArrow;
 //#endregion
 //#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-tooltip@1.2.8_@types+react-dom@19.2.3_@types+react@19.2.14__@types+reac_9074d9fb06315b089b2bee17c4c65951/node_modules/@radix-ui/react-tooltip/dist/index.mjs
@@ -23841,11 +23864,11 @@ var Tooltip$1 = (props) => {
 	});
 };
 Tooltip$1.displayName = TOOLTIP_NAME;
-var TRIGGER_NAME$1 = "TooltipTrigger";
+var TRIGGER_NAME$2 = "TooltipTrigger";
 var TooltipTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeTooltip, ...triggerProps } = props;
-	const context = useTooltipContext(TRIGGER_NAME$1, __scopeTooltip);
-	const providerContext = useTooltipProviderContext(TRIGGER_NAME$1, __scopeTooltip);
+	const context = useTooltipContext(TRIGGER_NAME$2, __scopeTooltip);
+	const providerContext = useTooltipProviderContext(TRIGGER_NAME$2, __scopeTooltip);
 	const popperScope = usePopperScope(__scopeTooltip);
 	const composedRefs = useComposedRefs(forwardedRef, import_react.useRef(null), context.onTriggerChange);
 	const isPointerDownRef = import_react.useRef(false);
@@ -23886,18 +23909,18 @@ var TooltipTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
 		})
 	});
 });
-TooltipTrigger$1.displayName = TRIGGER_NAME$1;
-var PORTAL_NAME = "TooltipPortal";
-var [PortalProvider, usePortalContext] = createTooltipContext(PORTAL_NAME, { forceMount: void 0 });
+TooltipTrigger$1.displayName = TRIGGER_NAME$2;
+var PORTAL_NAME$1 = "TooltipPortal";
+var [PortalProvider$1, usePortalContext$1] = createTooltipContext(PORTAL_NAME$1, { forceMount: void 0 });
 var TooltipPortal = (props) => {
 	const { __scopeTooltip, forceMount, children, container } = props;
-	const context = useTooltipContext(PORTAL_NAME, __scopeTooltip);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PortalProvider, {
+	const context = useTooltipContext(PORTAL_NAME$1, __scopeTooltip);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PortalProvider$1, {
 		scope: __scopeTooltip,
 		forceMount,
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Presence, {
 			present: forceMount || context.open,
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Portal, {
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Portal$1, {
 				asChild: true,
 				container,
 				children
@@ -23905,12 +23928,12 @@ var TooltipPortal = (props) => {
 		})
 	});
 };
-TooltipPortal.displayName = PORTAL_NAME;
-var CONTENT_NAME$1 = "TooltipContent";
+TooltipPortal.displayName = PORTAL_NAME$1;
+var CONTENT_NAME$2 = "TooltipContent";
 var TooltipContent$1 = import_react.forwardRef((props, forwardedRef) => {
-	const portalContext = usePortalContext(CONTENT_NAME$1, props.__scopeTooltip);
+	const portalContext = usePortalContext$1(CONTENT_NAME$2, props.__scopeTooltip);
 	const { forceMount = portalContext.forceMount, side = "top", ...contentProps } = props;
-	const context = useTooltipContext(CONTENT_NAME$1, props.__scopeTooltip);
+	const context = useTooltipContext(CONTENT_NAME$2, props.__scopeTooltip);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Presence, {
 		present: forceMount || context.open,
 		children: context.disableHoverableContent ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TooltipContentImpl, {
@@ -23925,8 +23948,8 @@ var TooltipContent$1 = import_react.forwardRef((props, forwardedRef) => {
 	});
 });
 var TooltipContentHoverable = import_react.forwardRef((props, forwardedRef) => {
-	const context = useTooltipContext(CONTENT_NAME$1, props.__scopeTooltip);
-	const providerContext = useTooltipProviderContext(CONTENT_NAME$1, props.__scopeTooltip);
+	const context = useTooltipContext(CONTENT_NAME$2, props.__scopeTooltip);
+	const providerContext = useTooltipProviderContext(CONTENT_NAME$2, props.__scopeTooltip);
 	const ref = import_react.useRef(null);
 	const composedRefs = useComposedRefs(forwardedRef, ref);
 	const [pointerGraceArea, setPointerGraceArea] = import_react.useState(null);
@@ -24003,7 +24026,7 @@ var [VisuallyHiddenContentContextProvider, useVisuallyHiddenContentContext] = cr
 var Slottable = /* @__PURE__ */ createSlottable("TooltipContent");
 var TooltipContentImpl = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeTooltip, children, "aria-label": ariaLabel, onEscapeKeyDown, onPointerDownOutside, ...contentProps } = props;
-	const context = useTooltipContext(CONTENT_NAME$1, __scopeTooltip);
+	const context = useTooltipContext(CONTENT_NAME$2, __scopeTooltip);
 	const popperScope = usePopperScope(__scopeTooltip);
 	const { onClose } = context;
 	import_react.useEffect(() => {
@@ -24026,7 +24049,7 @@ var TooltipContentImpl = import_react.forwardRef((props, forwardedRef) => {
 		onPointerDownOutside,
 		onFocusOutside: (event) => event.preventDefault(),
 		onDismiss: onClose,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Content$1, {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Content$2, {
 			"data-state": context.stateAttribute,
 			...popperScope,
 			...contentProps,
@@ -24042,7 +24065,7 @@ var TooltipContentImpl = import_react.forwardRef((props, forwardedRef) => {
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Slottable, { children }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(VisuallyHiddenContentContextProvider, {
 				scope: __scopeTooltip,
 				isInside: true,
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$5, {
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$6, {
 					id: context.contentId,
 					role: "tooltip",
 					children: ariaLabel || children
@@ -24051,7 +24074,7 @@ var TooltipContentImpl = import_react.forwardRef((props, forwardedRef) => {
 		})
 	});
 });
-TooltipContent$1.displayName = CONTENT_NAME$1;
+TooltipContent$1.displayName = CONTENT_NAME$2;
 var ARROW_NAME = "TooltipArrow";
 var TooltipArrow = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeTooltip, ...arrowProps } = props;
@@ -24523,7 +24546,7 @@ function createSlot(ownerName) {
 	Slot2.displayName = `${ownerName}.Slot`;
 	return Slot2;
 }
-var Slot = /* @__PURE__ */ createSlot("Slot");
+var Slot$1 = /* @__PURE__ */ createSlot("Slot");
 /* @__NO_SIDE_EFFECTS__ */
 function createSlotClone(ownerName) {
 	const SlotClone = import_react.forwardRef((props, forwardedRef) => {
@@ -24601,7 +24624,7 @@ var buttonVariants = cva("inline-flex items-center justify-center gap-2 whitespa
 	}
 });
 var Button = import_react.forwardRef(({ className, variant, size, asChild = false, ...props }, ref) => {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(asChild ? Slot : "button", {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(asChild ? Slot$1 : "button", {
 		"data-uid": "src/components/ui/button.tsx:44:7",
 		"data-prohibitions": "[editContent]",
 		className: cn$1(buttonVariants({
@@ -24794,7 +24817,9 @@ var initialPlushies = [
 		emotion: 80,
 		imageUrl: "https://img.usecurling.com/p/200/200?q=lion%20plush&color=orange",
 		powers: "Coragem de Leão, Explorador da Savana",
-		powerTags: ["coragem", "explorador"]
+		powerTags: ["coragem", "explorador"],
+		friendshipLevel: 1,
+		friendshipXp: 30
 	},
 	{
 		id: "p2",
@@ -24802,7 +24827,9 @@ var initialPlushies = [
 		emotion: 50,
 		imageUrl: "https://img.usecurling.com/p/200/200?q=cat%20plush&color=orange",
 		powers: "Guardião de Segredos, Amigo de Todas as Horas",
-		powerTags: ["segredos", "amigo"]
+		powerTags: ["segredos", "amigo"],
+		friendshipLevel: 2,
+		friendshipXp: 15
 	},
 	{
 		id: "p3",
@@ -24810,7 +24837,9 @@ var initialPlushies = [
 		emotion: 95,
 		imageUrl: "https://img.usecurling.com/p/200/200?q=rabbit%20plush&color=white",
 		powers: "Guardião do Sono, Mestre dos Abraços",
-		powerTags: ["sono", "abraco"]
+		powerTags: ["sono", "abraco"],
+		friendshipLevel: 1,
+		friendshipXp: 80
 	}
 ];
 var AppContext = (0, import_react.createContext)(null);
@@ -24820,6 +24849,7 @@ function AppProvider({ children }) {
 	const [plushies, setPlushies] = (0, import_react.useState)(initialPlushies);
 	const [showRafikiSeal, setShowRafikiSeal] = (0, import_react.useState)(false);
 	const [isMusicPlaying, setIsMusicPlaying] = (0, import_react.useState)(false);
+	const [hasRarePowerUnlocked, setHasRarePowerUnlocked] = (0, import_react.useState)(false);
 	const submitTask = (id) => {
 		setTasks((prev) => prev.map((t) => t.id === id ? {
 			...t,
@@ -24850,12 +24880,30 @@ function AppProvider({ children }) {
 		const newId = `p${Date.now()}`;
 		setPlushies((prev) => [{
 			...plushieData,
-			id: newId
+			id: newId,
+			friendshipLevel: 1,
+			friendshipXp: 0
 		}, ...prev]);
 		return newId;
 	};
+	const addPlushieXp = (id, amount) => {
+		setPlushies((prev) => prev.map((p) => {
+			if (p.id !== id) return p;
+			let xp = (p.friendshipXp || 0) + amount;
+			let level = p.friendshipLevel || 1;
+			while (xp >= 100) {
+				level += 1;
+				xp -= 100;
+			}
+			return {
+				...p,
+				friendshipXp: xp,
+				friendshipLevel: level
+			};
+		}));
+	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AppContext.Provider, {
-		"data-uid": "src/stores/useAppStore.tsx:145:5",
+		"data-uid": "src/stores/useAppStore.tsx:175:5",
 		"data-prohibitions": "[editContent]",
 		value: {
 			xp,
@@ -24864,12 +24912,15 @@ function AppProvider({ children }) {
 			plushies,
 			showRafikiSeal,
 			isMusicPlaying,
+			hasRarePowerUnlocked,
 			toggleMusic: () => setIsMusicPlaying(!isMusicPlaying),
 			submitTask,
 			approveTask,
 			updatePlushieEmotion,
 			addPlushie,
-			dismissRafikiSeal: () => setShowRafikiSeal(false)
+			addPlushieXp,
+			dismissRafikiSeal: () => setShowRafikiSeal(false),
+			unlockRarePower: () => setHasRarePowerUnlocked(true)
 		},
 		children
 	});
@@ -25026,6 +25077,12 @@ var POWER_TAGS = [
 		id: "amigo",
 		label: "Amigo de Todas as Horas",
 		emoji: "🌈"
+	},
+	{
+		id: "guardiao_real",
+		label: "Guardião Real do Reino",
+		emoji: "🌟",
+		isRare: true
 	}
 ];
 //#endregion
@@ -25053,7 +25110,8 @@ var QUICK_EMOTIONS = [
 	}
 ];
 function RefugioPelucias() {
-	const { plushies, updatePlushieEmotion } = useAppStore();
+	const { plushies, updatePlushieEmotion, hasRarePowerUnlocked } = useAppStore();
+	const [activeFilter, setActiveFilter] = (0, import_react.useState)(null);
 	const fileInputRef = (0, import_react.useRef)(null);
 	const navigate = useNavigate();
 	const handleFileChange = (e) => {
@@ -25066,29 +25124,62 @@ function RefugioPelucias() {
 			reader.readAsDataURL(file);
 		}
 	};
+	const visiblePowers = POWER_TAGS.filter((p) => !p.isRare || hasRarePowerUnlocked);
+	const filteredPlushies = activeFilter ? plushies.filter((p) => p.powerTags?.includes(activeFilter)) : plushies;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		"data-uid": "src/pages/RefugioPelucias.tsx:35:5",
+		"data-uid": "src/pages/RefugioPelucias.tsx:42:5",
 		"data-prohibitions": "[editContent]",
 		className: "container py-8 max-w-4xl animate-fade-in",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/RefugioPelucias.tsx:36:7",
+				"data-uid": "src/pages/RefugioPelucias.tsx:43:7",
 				"data-prohibitions": "[]",
-				className: "text-center mb-10",
+				className: "text-center mb-6",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-					"data-uid": "src/pages/RefugioPelucias.tsx:37:9",
+					"data-uid": "src/pages/RefugioPelucias.tsx:44:9",
 					"data-prohibitions": "[]",
 					className: "text-4xl font-display font-bold text-secondary mb-4",
 					children: "Refúgio das Pelúcias 🧸"
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					"data-uid": "src/pages/RefugioPelucias.tsx:40:9",
+					"data-uid": "src/pages/RefugioPelucias.tsx:47:9",
 					"data-prohibitions": "[]",
 					className: "text-muted-foreground text-lg font-medium",
 					children: "Escolha um amigo macio para cuidar ou crie um novo!"
 				})]
 			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				"data-uid": "src/pages/RefugioPelucias.tsx:52:7",
+				"data-prohibitions": "[editContent]",
+				className: "w-full overflow-x-auto pb-4 mb-6 no-scrollbar flex items-center gap-3 px-1 snap-x",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					"data-uid": "src/pages/RefugioPelucias.tsx:53:9",
+					"data-prohibitions": "[editContent]",
+					onClick: () => setActiveFilter(null),
+					className: cn$1("whitespace-nowrap px-5 py-2.5 rounded-full font-bold text-sm transition-all border-2 snap-center shrink-0 shadow-sm", activeFilter === null ? "bg-primary text-primary-foreground border-primary" : "bg-white text-muted-foreground border-muted hover:border-primary/50"),
+					children: "Ver Todos"
+				}), visiblePowers.map((p) => {
+					const isActive = activeFilter === p.id;
+					const isRare = p.isRare;
+					return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						"data-uid": "src/pages/RefugioPelucias.tsx:68:13",
+						"data-prohibitions": "[editContent]",
+						onClick: () => setActiveFilter(p.id),
+						className: cn$1("whitespace-nowrap px-4 py-2.5 rounded-full font-bold text-sm transition-all border-2 snap-center shrink-0 shadow-sm flex items-center gap-2", isActive ? "bg-yellow-100 text-orange-900 border-yellow-400 scale-105" : "bg-white text-muted-foreground border-muted hover:border-yellow-200", isRare && !isActive && "border-yellow-300 shadow-[0_0_8px_rgba(255,215,0,0.3)]", isRare && isActive && "shadow-[0_0_15px_rgba(255,215,0,0.6)] animate-pulse-glow"),
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							"data-uid": "src/pages/RefugioPelucias.tsx:80:15",
+							"data-prohibitions": "[editContent]",
+							className: "text-lg",
+							children: p.emoji
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							"data-uid": "src/pages/RefugioPelucias.tsx:81:15",
+							"data-prohibitions": "[editContent]",
+							children: p.label
+						})]
+					}, p.id);
+				})]
+			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
-				"data-uid": "src/pages/RefugioPelucias.tsx:45:7",
+				"data-uid": "src/pages/RefugioPelucias.tsx:87:7",
 				"data-prohibitions": "[editContent]",
 				type: "file",
 				accept: "image/*",
@@ -25098,55 +25189,55 @@ function RefugioPelucias() {
 				onChange: handleFileChange
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/RefugioPelucias.tsx:54:7",
+				"data-uid": "src/pages/RefugioPelucias.tsx:96:7",
 				"data-prohibitions": "[editContent]",
 				className: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
-					"data-uid": "src/pages/RefugioPelucias.tsx:55:9",
+					"data-uid": "src/pages/RefugioPelucias.tsx:97:9",
 					"data-prohibitions": "[]",
 					onClick: () => fileInputRef.current?.click(),
 					className: "cursor-pointer hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-4 border-dashed border-orange-300 hover:border-orange-500 rounded-3xl h-full bg-orange-50/50 backdrop-blur-sm animate-float flex flex-col items-center justify-center p-6 min-h-[260px]",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/RefugioPelucias.tsx:59:11",
+						"data-uid": "src/pages/RefugioPelucias.tsx:101:11",
 						"data-prohibitions": "[]",
 						className: "w-24 h-24 rounded-full bg-orange-100 flex items-center justify-center mb-4 border-2 border-orange-200 shadow-inner group-hover:bg-orange-200 transition-colors",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Camera, {
-							"data-uid": "src/pages/RefugioPelucias.tsx:60:13",
+							"data-uid": "src/pages/RefugioPelucias.tsx:102:13",
 							"data-prohibitions": "[editContent]",
 							className: "w-12 h-12 text-orange-500"
 						})
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-						"data-uid": "src/pages/RefugioPelucias.tsx:62:11",
+						"data-uid": "src/pages/RefugioPelucias.tsx:104:11",
 						"data-prohibitions": "[]",
 						className: "font-display font-black text-2xl text-orange-600 uppercase tracking-wide text-center",
 						children: "Novo Amigo"
 					})]
-				}), plushies.map((plushie) => {
+				}), filteredPlushies.map((plushie) => {
 					const currentEmotion = getEmotionForValue(plushie.emotion);
 					return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-						"data-uid": "src/pages/RefugioPelucias.tsx:71:13",
+						"data-uid": "src/pages/RefugioPelucias.tsx:113:13",
 						"data-prohibitions": "[editContent]",
 						to: `/pelucias/${plushie.id}`,
 						className: "block group",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Card, {
-							"data-uid": "src/pages/RefugioPelucias.tsx:72:15",
+							"data-uid": "src/pages/RefugioPelucias.tsx:114:15",
 							"data-prohibitions": "[editContent]",
 							className: "cursor-pointer hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-4 border-secondary/20 rounded-3xl h-full bg-white/60 backdrop-blur-sm",
 							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
-								"data-uid": "src/pages/RefugioPelucias.tsx:73:17",
+								"data-uid": "src/pages/RefugioPelucias.tsx:115:17",
 								"data-prohibitions": "[editContent]",
 								className: "p-5 flex flex-col items-center text-center gap-3 h-full justify-between",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									"data-uid": "src/pages/RefugioPelucias.tsx:74:19",
+									"data-uid": "src/pages/RefugioPelucias.tsx:116:19",
 									"data-prohibitions": "[editContent]",
 									className: "flex flex-col items-center gap-2 w-full",
 									children: [
 										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-											"data-uid": "src/pages/RefugioPelucias.tsx:75:21",
+											"data-uid": "src/pages/RefugioPelucias.tsx:117:21",
 											"data-prohibitions": "[]",
 											className: "relative w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-secondary bg-muted shadow-inner group-hover:border-primary transition-colors",
 											children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-												"data-uid": "src/pages/RefugioPelucias.tsx:76:23",
+												"data-uid": "src/pages/RefugioPelucias.tsx:118:23",
 												"data-prohibitions": "[editContent]",
 												src: plushie.imageUrl,
 												alt: plushie.name,
@@ -25154,29 +25245,29 @@ function RefugioPelucias() {
 											})
 										}),
 										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-											"data-uid": "src/pages/RefugioPelucias.tsx:82:21",
+											"data-uid": "src/pages/RefugioPelucias.tsx:124:21",
 											"data-prohibitions": "[editContent]",
 											className: "font-display font-bold text-lg text-orange-950 line-clamp-1 w-full px-2",
 											children: plushie.name
 										}),
 										plushie.powerTags && plushie.powerTags.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-											"data-uid": "src/pages/RefugioPelucias.tsx:87:23",
+											"data-uid": "src/pages/RefugioPelucias.tsx:129:23",
 											"data-prohibitions": "[editContent]",
 											className: "flex flex-wrap justify-center gap-1.5 mt-1 w-full",
 											children: plushie.powerTags.map((tagId) => {
 												const tag = POWER_TAGS.find((t) => t.id === tagId);
 												if (!tag) return null;
 												return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-													"data-uid": "src/pages/RefugioPelucias.tsx:92:29",
+													"data-uid": "src/pages/RefugioPelucias.tsx:134:29",
 													"data-prohibitions": "[editContent]",
-													className: "flex items-center gap-1 bg-gradient-to-r from-yellow-100 to-yellow-50 border border-yellow-400 text-orange-900 text-[11px] px-2 py-0.5 rounded-full shadow-sm",
+													className: cn$1("flex items-center gap-1 bg-gradient-to-r border text-[11px] px-2 py-0.5 rounded-full shadow-sm", tag.isRare ? "from-yellow-200 to-yellow-100 border-yellow-500 text-yellow-900 animate-pulse" : "from-yellow-100 to-yellow-50 border-yellow-400 text-orange-900"),
 													children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-														"data-uid": "src/pages/RefugioPelucias.tsx:96:31",
+														"data-uid": "src/pages/RefugioPelucias.tsx:143:31",
 														"data-prohibitions": "[editContent]",
 														className: "text-[14px] leading-none drop-shadow-sm",
 														children: tag.emoji
 													}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-														"data-uid": "src/pages/RefugioPelucias.tsx:99:31",
+														"data-uid": "src/pages/RefugioPelucias.tsx:146:31",
 														"data-prohibitions": "[editContent]",
 														className: "font-bold truncate max-w-[80px]",
 														children: tag.label
@@ -25186,17 +25277,17 @@ function RefugioPelucias() {
 										})
 									]
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									"data-uid": "src/pages/RefugioPelucias.tsx:107:19",
+									"data-uid": "src/pages/RefugioPelucias.tsx:154:19",
 									"data-prohibitions": "[editContent]",
 									className: "w-full flex flex-col items-center gap-2 mt-auto",
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-										"data-uid": "src/pages/RefugioPelucias.tsx:108:21",
+										"data-uid": "src/pages/RefugioPelucias.tsx:155:21",
 										"data-prohibitions": "[editContent]",
 										className: "text-4xl animate-bounce drop-shadow-sm",
 										style: { animationDuration: "3s" },
 										children: currentEmotion.emoji
 									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-										"data-uid": "src/pages/RefugioPelucias.tsx:115:21",
+										"data-uid": "src/pages/RefugioPelucias.tsx:162:21",
 										"data-prohibitions": "[editContent]",
 										className: "flex justify-between items-center bg-orange-100/50 p-1.5 rounded-full w-full max-w-[220px]",
 										onClick: (e) => {
@@ -25206,7 +25297,7 @@ function RefugioPelucias() {
 										children: QUICK_EMOTIONS.map((em) => {
 											const isSelected = Math.abs(plushie.emotion - em.value) <= 15;
 											return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-												"data-uid": "src/pages/RefugioPelucias.tsx:125:27",
+												"data-uid": "src/pages/RefugioPelucias.tsx:172:27",
 												"data-prohibitions": "[editContent]",
 												onClick: (e) => {
 													e.preventDefault();
@@ -25689,13 +25780,13 @@ function roundValue(value, decimalCount) {
 	const rounder = Math.pow(10, decimalCount);
 	return Math.round(value * rounder) / rounder;
 }
-var Root$3 = Slider$1;
+var Root$4 = Slider$1;
 var Track = SliderTrack;
 var Range = SliderRange;
 var Thumb = SliderThumb;
 //#endregion
 //#region src/components/ui/slider.tsx
-var Slider = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Root$3, {
+var Slider = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Root$4, {
 	"data-uid": "src/components/ui/slider.tsx:11:3",
 	"data-prohibitions": "[editContent]",
 	ref,
@@ -25716,273 +25807,72 @@ var Slider = import_react.forwardRef(({ className, ...props }, ref) => /* @__PUR
 		className: "block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
 	})]
 }));
-Slider.displayName = Root$3.displayName;
+Slider.displayName = Root$4.displayName;
 //#endregion
-//#region src/pages/PeluciaPerfil.tsx
-function PeluciaPerfil() {
-	const { id } = useParams();
-	const navigate = useNavigate();
-	const { plushies, updatePlushieEmotion } = useAppStore();
-	const { toast } = useToast();
-	const [isRecording, setIsRecording] = (0, import_react.useState)(false);
-	const isRecordingRef = (0, import_react.useRef)(false);
-	const [stream, setStream] = (0, import_react.useState)(null);
-	const mediaRecorderRef = (0, import_react.useRef)(null);
-	const audioChunksRef = (0, import_react.useRef)([]);
-	const plushie = (0, import_react.useMemo)(() => plushies.find((p) => p.id === id), [plushies, id]);
-	(0, import_react.useEffect)(() => {
-		return () => {
-			if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") mediaRecorderRef.current.stop();
-			if (stream) stream.getTracks().forEach((track) => track.stop());
-		};
-	}, [stream]);
-	if (!plushie) return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		"data-uid": "src/pages/PeluciaPerfil.tsx:38:7",
-		"data-prohibitions": "[]",
-		className: "flex flex-col items-center justify-center h-full gap-4 pt-20",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-			"data-uid": "src/pages/PeluciaPerfil.tsx:39:9",
-			"data-prohibitions": "[]",
-			className: "text-2xl font-bold text-orange-900",
-			children: "Pelúcia não encontrada!"
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-			"data-uid": "src/pages/PeluciaPerfil.tsx:40:9",
-			"data-prohibitions": "[]",
-			onClick: () => navigate("/pelucias"),
-			children: "Voltar"
-		})]
-	});
-	const handleEmotionChange = (val) => {
-		updatePlushieEmotion(plushie.id, val[0]);
-	};
-	const startRecording = async () => {
-		if (isRecordingRef.current) return;
-		isRecordingRef.current = true;
-		try {
-			let currentStream = stream;
-			if (!currentStream) {
-				currentStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-				setStream(currentStream);
-			}
-			if (!isRecordingRef.current) return;
-			const mediaRecorder = new MediaRecorder(currentStream);
-			mediaRecorderRef.current = mediaRecorder;
-			audioChunksRef.current = [];
-			mediaRecorder.ondataavailable = (event) => {
-				if (event.data.size > 0) audioChunksRef.current.push(event.data);
-			};
-			mediaRecorder.onstop = () => {
-				if (audioChunksRef.current.length > 0) toast({
-					title: "História salva! 🌟",
-					description: `A sua história com ${plushie.name} foi guardada!`
-				});
-			};
-			mediaRecorder.start();
-			setIsRecording(true);
-		} catch (err) {
-			console.error("Microphone error:", err);
-			isRecordingRef.current = false;
-			toast({
-				title: "Oops!",
-				description: "Precisamos do microfone para ouvir a sua história.",
-				variant: "destructive"
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-context@1.1.3_@types+react@19.2.14_react@19.2.4/node_modules/@radix-ui/react-context/dist/index.mjs
+function createContextScope(scopeName, createContextScopeDeps = []) {
+	let defaultContexts = [];
+	function createContext3(rootComponentName, defaultContext) {
+		const BaseContext = import_react.createContext(defaultContext);
+		BaseContext.displayName = rootComponentName + "Context";
+		const index = defaultContexts.length;
+		defaultContexts = [...defaultContexts, defaultContext];
+		const Provider = (props) => {
+			const { scope, children, ...context } = props;
+			const Context = scope?.[scopeName]?.[index] || BaseContext;
+			const value = import_react.useMemo(() => context, Object.values(context));
+			return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Context.Provider, {
+				value,
+				children
 			});
+		};
+		Provider.displayName = rootComponentName + "Provider";
+		function useContext2(consumerName, scope) {
+			const Context = scope?.[scopeName]?.[index] || BaseContext;
+			const context = import_react.useContext(Context);
+			if (context) return context;
+			if (defaultContext !== void 0) return defaultContext;
+			throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``);
 		}
+		return [Provider, useContext2];
+	}
+	const createScope = () => {
+		const scopeContexts = defaultContexts.map((defaultContext) => {
+			return import_react.createContext(defaultContext);
+		});
+		return function useScope(scope) {
+			const contexts = scope?.[scopeName] || scopeContexts;
+			return import_react.useMemo(() => ({ [`__scope${scopeName}`]: {
+				...scope,
+				[scopeName]: contexts
+			} }), [scope, contexts]);
+		};
 	};
-	const stopRecording = () => {
-		if (!isRecordingRef.current) return;
-		isRecordingRef.current = false;
-		if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") mediaRecorderRef.current.stop();
-		setIsRecording(false);
-	};
-	const currentEmotion = getEmotionForValue(plushie.emotion);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		"data-uid": "src/pages/PeluciaPerfil.tsx:107:5",
-		"data-prohibitions": "[editContent]",
-		className: "container py-6 max-w-2xl animate-fade-in flex flex-col items-center pb-20",
-		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/PeluciaPerfil.tsx:108:7",
-				"data-prohibitions": "[editContent]",
-				className: "w-full flex items-center justify-center mb-8 relative",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:109:9",
-					"data-prohibitions": "[]",
-					variant: "outline",
-					size: "icon",
-					onClick: () => navigate("/pelucias"),
-					className: "absolute left-0 rounded-full border-orange-300 text-orange-600 hover:bg-orange-100 bg-white/80 backdrop-blur-sm z-10 w-12 h-12 shadow-sm",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:115:11",
-						"data-prohibitions": "[editContent]",
-						className: "w-6 h-6"
-					})
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:117:9",
-					"data-prohibitions": "[editContent]",
-					className: "w-full text-center text-3xl md:text-4xl font-display font-black text-orange-900 drop-shadow-sm px-14",
-					children: plushie.name
-				})]
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				"data-uid": "src/pages/PeluciaPerfil.tsx:122:7",
-				"data-prohibitions": "[]",
-				className: "w-56 h-56 md:w-72 md:h-72 rounded-full border-8 border-white shadow-[0_10px_40px_rgba(251,146,60,0.3)] overflow-hidden mb-8 bg-orange-100 relative animate-float",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:123:9",
-					"data-prohibitions": "[editContent]",
-					src: plushie.imageUrl,
-					alt: plushie.name,
-					className: "w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-				})
-			}),
-			plushie.powers && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/PeluciaPerfil.tsx:131:9",
-				"data-prohibitions": "[editContent]",
-				className: "w-full bg-white/70 backdrop-blur-md p-6 rounded-3xl shadow-lg mb-8 border-2 border-orange-200",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h3", {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:132:11",
-					"data-prohibitions": "[]",
-					className: "text-lg font-display font-bold text-orange-800 mb-2 flex items-center justify-center gap-2",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Sparkles, {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:133:13",
-						"data-prohibitions": "[editContent]",
-						className: "w-5 h-5"
-					}), " Características"]
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:135:11",
-					"data-prohibitions": "[editContent]",
-					className: "text-orange-950 font-medium text-center text-lg",
-					children: plushie.powers
-				})]
-			}),
-			plushie.audioUrl && plushie.audioUrl !== "mock-audio-url" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/PeluciaPerfil.tsx:140:9",
-				"data-prohibitions": "[]",
-				className: "w-full bg-white/70 backdrop-blur-md p-6 rounded-3xl shadow-lg mb-8 border-2 border-orange-200 flex flex-col items-center animate-slide-up",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h3", {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:141:11",
-					"data-prohibitions": "[]",
-					className: "text-lg font-display font-bold text-orange-800 mb-4 flex items-center justify-center gap-2",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mic, {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:142:13",
-						"data-prohibitions": "[editContent]",
-						className: "w-5 h-5"
-					}), " História de Origem"]
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:144:11",
-					"data-prohibitions": "[]",
-					onClick: () => {
-						new Audio(plushie.audioUrl).play();
-					},
-					className: "w-16 h-16 rounded-full bg-green-500 hover:bg-green-600 border-4 border-white shadow-lg hover:scale-105 transition-transform",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:151:13",
-						"data-prohibitions": "[editContent]",
-						className: "w-8 h-8 text-white ml-1"
-					})
-				})]
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/PeluciaPerfil.tsx:156:7",
-				"data-prohibitions": "[editContent]",
-				className: "w-full bg-white/70 backdrop-blur-md p-8 rounded-3xl shadow-xl mb-10 border-2 border-orange-200",
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:157:9",
-						"data-prohibitions": "[]",
-						className: "text-xl md:text-2xl font-display font-bold text-center mb-6 text-orange-800",
-						children: "Harmonímetro"
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:160:9",
-						"data-prohibitions": "[]",
-						className: "text-center text-orange-700 font-bold mb-4",
-						children: "Como estou me sentindo hoje?"
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:161:9",
-						"data-prohibitions": "[editContent]",
-						className: "flex flex-col items-center gap-6",
-						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								"data-uid": "src/pages/PeluciaPerfil.tsx:162:11",
-								"data-prohibitions": "[editContent]",
-								className: "text-7xl animate-bounce",
-								style: { animationDuration: "2s" },
-								children: currentEmotion.emoji
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								"data-uid": "src/pages/PeluciaPerfil.tsx:165:11",
-								"data-prohibitions": "[editContent]",
-								className: "bg-orange-100 px-6 py-2 rounded-full border-2 border-orange-200",
-								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									"data-uid": "src/pages/PeluciaPerfil.tsx:166:13",
-									"data-prohibitions": "[editContent]",
-									className: "font-bold text-xl text-orange-900",
-									children: currentEmotion.label
-								})
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Slider, {
-								"data-uid": "src/pages/PeluciaPerfil.tsx:168:11",
-								"data-prohibitions": "[editContent]",
-								value: [plushie.emotion],
-								max: 100,
-								step: 1,
-								onValueChange: handleEmotionChange,
-								className: "w-full mt-4 cursor-grab active:cursor-grabbing"
-							})
-						]
-					})
-				]
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				"data-uid": "src/pages/PeluciaPerfil.tsx:178:7",
-				"data-prohibitions": "[editContent]",
-				className: "flex gap-4 w-full px-4 justify-center",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/PeluciaPerfil.tsx:179:9",
-					"data-prohibitions": "[editContent]",
-					className: "flex flex-col items-center gap-4",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:180:11",
-						"data-prohibitions": "[editContent]",
-						className: cn$1("w-28 h-28 md:w-32 md:h-32 rounded-full shadow-xl transition-all duration-300 border-4 flex items-center justify-center select-none touch-none", isRecording ? "bg-red-500 border-yellow-400 animate-pulse-glow" : "bg-gradient-to-br from-orange-400 to-red-500 border-orange-200 hover:scale-105"),
-						onMouseDown: startRecording,
-						onMouseUp: stopRecording,
-						onMouseLeave: stopRecording,
-						onTouchStart: startRecording,
-						onTouchEnd: stopRecording,
-						onTouchCancel: stopRecording,
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mic, {
-							"data-uid": "src/pages/PeluciaPerfil.tsx:194:13",
-							"data-prohibitions": "[editContent]",
-							className: cn$1("w-12 h-12 md:w-14 md:h-14 text-white transition-transform duration-300", isRecording && "scale-110 animate-pulse")
-						})
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						"data-uid": "src/pages/PeluciaPerfil.tsx:201:11",
-						"data-prohibitions": "[editContent]",
-						className: "text-base md:text-lg font-bold text-center text-orange-900 max-w-[250px] transition-colors duration-300",
-						children: isRecording ? "Gravando a história..." : `Segure para falar com ${plushie.name}!`
-					})]
-				})
-			})
-		]
-	});
+	createScope.scopeName = scopeName;
+	return [createContext3, composeContextScopes(createScope, ...createContextScopeDeps)];
 }
-//#endregion
-//#region src/components/ui/input.tsx
-var Input = import_react.forwardRef(({ className, type, ...props }, ref) => {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
-		"data-uid": "src/components/ui/input.tsx:9:7",
-		"data-prohibitions": "[editContent]",
-		type,
-		className: cn$1("flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm", className),
-		ref,
-		...props
-	});
-});
-Input.displayName = "Input";
+function composeContextScopes(...scopes) {
+	const baseScope = scopes[0];
+	if (scopes.length === 1) return baseScope;
+	const createScope = () => {
+		const scopeHooks = scopes.map((createScope2) => ({
+			useScope: createScope2(),
+			scopeName: createScope2.scopeName
+		}));
+		return function useComposedScopes(overrideScopes) {
+			const nextScopes = scopeHooks.reduce((nextScopes2, { useScope, scopeName }) => {
+				const currentScope = useScope(overrideScopes)[`__scope${scopeName}`];
+				return {
+					...nextScopes2,
+					...currentScope
+				};
+			}, {});
+			return import_react.useMemo(() => ({ [`__scope${baseScope.scopeName}`]: nextScopes }), [nextScopes]);
+		};
+	};
+	createScope.scopeName = baseScope.scopeName;
+	return createScope;
+}
 //#endregion
 //#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-primitive@2.1.4_@types+react-dom@19.2.3_@types+react@19.2.14__@types+re_0243fb2db8a1fb85ca77b8d9e5c2d650/node_modules/@radix-ui/react-primitive/dist/index.mjs
 var Primitive = [
@@ -26021,6 +25911,406 @@ var Primitive = [
 	};
 }, {});
 //#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-progress@1.1.8_@types+react-dom@19.2.3_@types+react@19.2.14__@types+rea_7258c0b550570cef5cd6f2d2227aa6b9/node_modules/@radix-ui/react-progress/dist/index.mjs
+var PROGRESS_NAME = "Progress";
+var DEFAULT_MAX = 100;
+var [createProgressContext, createProgressScope] = createContextScope(PROGRESS_NAME);
+var [ProgressProvider, useProgressContext] = createProgressContext(PROGRESS_NAME);
+var Progress$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeProgress, value: valueProp = null, max: maxProp, getValueLabel = defaultGetValueLabel, ...progressProps } = props;
+	if ((maxProp || maxProp === 0) && !isValidMaxNumber(maxProp)) console.error(getInvalidMaxError(`${maxProp}`, "Progress"));
+	const max = isValidMaxNumber(maxProp) ? maxProp : DEFAULT_MAX;
+	if (valueProp !== null && !isValidValueNumber(valueProp, max)) console.error(getInvalidValueError(`${valueProp}`, "Progress"));
+	const value = isValidValueNumber(valueProp, max) ? valueProp : null;
+	const valueLabel = isNumber(value) ? getValueLabel(value, max) : void 0;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ProgressProvider, {
+		scope: __scopeProgress,
+		value,
+		max,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
+			"aria-valuemax": max,
+			"aria-valuemin": 0,
+			"aria-valuenow": isNumber(value) ? value : void 0,
+			"aria-valuetext": valueLabel,
+			role: "progressbar",
+			"data-state": getProgressState(value, max),
+			"data-value": value ?? void 0,
+			"data-max": max,
+			...progressProps,
+			ref: forwardedRef
+		})
+	});
+});
+Progress$1.displayName = PROGRESS_NAME;
+var INDICATOR_NAME = "ProgressIndicator";
+var ProgressIndicator = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeProgress, ...indicatorProps } = props;
+	const context = useProgressContext(INDICATOR_NAME, __scopeProgress);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
+		"data-state": getProgressState(context.value, context.max),
+		"data-value": context.value ?? void 0,
+		"data-max": context.max,
+		...indicatorProps,
+		ref: forwardedRef
+	});
+});
+ProgressIndicator.displayName = INDICATOR_NAME;
+function defaultGetValueLabel(value, max) {
+	return `${Math.round(value / max * 100)}%`;
+}
+function getProgressState(value, maxValue) {
+	return value == null ? "indeterminate" : value === maxValue ? "complete" : "loading";
+}
+function isNumber(value) {
+	return typeof value === "number";
+}
+function isValidMaxNumber(max) {
+	return isNumber(max) && !isNaN(max) && max > 0;
+}
+function isValidValueNumber(value, max) {
+	return isNumber(value) && !isNaN(value) && value <= max && value >= 0;
+}
+function getInvalidMaxError(propValue, componentName) {
+	return `Invalid prop \`max\` of value \`${propValue}\` supplied to \`${componentName}\`. Only numbers greater than 0 are valid max values. Defaulting to \`${DEFAULT_MAX}\`.`;
+}
+function getInvalidValueError(propValue, componentName) {
+	return `Invalid prop \`value\` of value \`${propValue}\` supplied to \`${componentName}\`. The \`value\` prop must be:
+  - a positive number
+  - less than the value passed to \`max\` (or ${DEFAULT_MAX} if no \`max\` prop is set)
+  - \`null\` or \`undefined\` if the progress is indeterminate.
+
+Defaulting to \`null\`.`;
+}
+var Root$3 = Progress$1;
+var Indicator = ProgressIndicator;
+//#endregion
+//#region src/components/ui/progress.tsx
+var Progress = import_react.forwardRef(({ className, value, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$3, {
+	"data-uid": "src/components/ui/progress.tsx:11:3",
+	"data-prohibitions": "[editContent]",
+	ref,
+	className: cn$1("relative h-4 w-full overflow-hidden rounded-full bg-secondary", className),
+	...props,
+	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Indicator, {
+		"data-uid": "src/components/ui/progress.tsx:16:5",
+		"data-prohibitions": "[editContent]",
+		className: "h-full w-full flex-1 bg-primary transition-all",
+		style: { transform: `translateX(-${100 - (value || 0)}%)` }
+	})
+}));
+Progress.displayName = Root$3.displayName;
+//#endregion
+//#region src/pages/PeluciaPerfil.tsx
+function PeluciaPerfil() {
+	const { id } = useParams();
+	const navigate = useNavigate();
+	const { plushies, updatePlushieEmotion, addPlushieXp } = useAppStore();
+	const { toast } = useToast();
+	const [isRecording, setIsRecording] = (0, import_react.useState)(false);
+	const isRecordingRef = (0, import_react.useRef)(false);
+	const [stream, setStream] = (0, import_react.useState)(null);
+	const mediaRecorderRef = (0, import_react.useRef)(null);
+	const audioChunksRef = (0, import_react.useRef)([]);
+	const plushie = (0, import_react.useMemo)(() => plushies.find((p) => p.id === id), [plushies, id]);
+	(0, import_react.useEffect)(() => {
+		return () => {
+			if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") mediaRecorderRef.current.stop();
+			if (stream) stream.getTracks().forEach((track) => track.stop());
+		};
+	}, [stream]);
+	if (!plushie) return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		"data-uid": "src/pages/PeluciaPerfil.tsx:39:7",
+		"data-prohibitions": "[]",
+		className: "flex flex-col items-center justify-center h-full gap-4 pt-20",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+			"data-uid": "src/pages/PeluciaPerfil.tsx:40:9",
+			"data-prohibitions": "[]",
+			className: "text-2xl font-bold text-orange-900",
+			children: "Pelúcia não encontrada!"
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+			"data-uid": "src/pages/PeluciaPerfil.tsx:41:9",
+			"data-prohibitions": "[]",
+			onClick: () => navigate("/pelucias"),
+			children: "Voltar"
+		})]
+	});
+	const handleEmotionChange = (val) => {
+		updatePlushieEmotion(plushie.id, val[0]);
+	};
+	const startRecording = async () => {
+		if (isRecordingRef.current) return;
+		isRecordingRef.current = true;
+		try {
+			let currentStream = stream;
+			if (!currentStream) {
+				currentStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+				setStream(currentStream);
+			}
+			if (!isRecordingRef.current) return;
+			const mediaRecorder = new MediaRecorder(currentStream);
+			mediaRecorderRef.current = mediaRecorder;
+			audioChunksRef.current = [];
+			mediaRecorder.ondataavailable = (event) => {
+				if (event.data.size > 0) audioChunksRef.current.push(event.data);
+			};
+			mediaRecorder.onstop = () => {
+				if (audioChunksRef.current.length > 0) {
+					toast({
+						title: "História salva! 🌟",
+						description: `A sua história com ${plushie.name} foi guardada e a amizade aumentou!`
+					});
+					addPlushieXp(plushie.id, 34);
+				}
+			};
+			mediaRecorder.start();
+			setIsRecording(true);
+		} catch (err) {
+			console.error("Microphone error:", err);
+			isRecordingRef.current = false;
+			toast({
+				title: "Oops!",
+				description: "Precisamos do microfone para ouvir a sua história.",
+				variant: "destructive"
+			});
+		}
+	};
+	const stopRecording = () => {
+		if (!isRecordingRef.current) return;
+		isRecordingRef.current = false;
+		if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") mediaRecorderRef.current.stop();
+		setIsRecording(false);
+	};
+	const currentEmotion = getEmotionForValue(plushie.emotion);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		"data-uid": "src/pages/PeluciaPerfil.tsx:109:5",
+		"data-prohibitions": "[editContent]",
+		className: "container py-6 max-w-2xl animate-fade-in flex flex-col items-center pb-20",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				"data-uid": "src/pages/PeluciaPerfil.tsx:110:7",
+				"data-prohibitions": "[editContent]",
+				className: "w-full flex items-center justify-center mb-8 relative",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+					"data-uid": "src/pages/PeluciaPerfil.tsx:111:9",
+					"data-prohibitions": "[]",
+					variant: "outline",
+					size: "icon",
+					onClick: () => navigate("/pelucias"),
+					className: "absolute left-0 rounded-full border-orange-300 text-orange-600 hover:bg-orange-100 bg-white/80 backdrop-blur-sm z-10 w-12 h-12 shadow-sm",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, {
+						"data-uid": "src/pages/PeluciaPerfil.tsx:117:11",
+						"data-prohibitions": "[editContent]",
+						className: "w-6 h-6"
+					})
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+					"data-uid": "src/pages/PeluciaPerfil.tsx:119:9",
+					"data-prohibitions": "[editContent]",
+					className: "w-full text-center text-3xl md:text-4xl font-display font-black text-orange-900 drop-shadow-sm px-14",
+					children: plushie.name
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				"data-uid": "src/pages/PeluciaPerfil.tsx:124:7",
+				"data-prohibitions": "[]",
+				className: "w-56 h-56 md:w-72 md:h-72 rounded-full border-8 border-white shadow-[0_10px_40px_rgba(251,146,60,0.3)] overflow-hidden mb-8 bg-orange-100 relative animate-float",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+					"data-uid": "src/pages/PeluciaPerfil.tsx:125:9",
+					"data-prohibitions": "[editContent]",
+					src: plushie.imageUrl,
+					alt: plushie.name,
+					className: "w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				"data-uid": "src/pages/PeluciaPerfil.tsx:132:7",
+				"data-prohibitions": "[editContent]",
+				className: "w-full bg-white/70 backdrop-blur-md p-6 rounded-3xl shadow-lg mb-8 border-2 border-orange-200 animate-slide-up",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					"data-uid": "src/pages/PeluciaPerfil.tsx:133:9",
+					"data-prohibitions": "[editContent]",
+					className: "flex justify-between items-center mb-3",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h3", {
+						"data-uid": "src/pages/PeluciaPerfil.tsx:134:11",
+						"data-prohibitions": "[]",
+						className: "text-lg font-display font-bold text-orange-800 flex items-center gap-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Heart, {
+							"data-uid": "src/pages/PeluciaPerfil.tsx:135:13",
+							"data-prohibitions": "[editContent]",
+							className: "w-6 h-6 text-red-500 fill-current animate-pulse"
+						}), " Nível de Amizade"]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						"data-uid": "src/pages/PeluciaPerfil.tsx:137:11",
+						"data-prohibitions": "[editContent]",
+						className: "font-bold text-orange-900 bg-orange-100 px-4 py-1 rounded-full shadow-inner border border-orange-200",
+						children: ["Nível ", plushie.friendshipLevel || 1]
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					"data-uid": "src/pages/PeluciaPerfil.tsx:141:9",
+					"data-prohibitions": "[]",
+					className: "relative pt-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Progress, {
+						"data-uid": "src/pages/PeluciaPerfil.tsx:142:11",
+						"data-prohibitions": "[editContent]",
+						value: plushie.friendshipXp || 0,
+						className: "h-4 bg-orange-100 [&>div]:bg-gradient-to-r [&>div]:from-orange-400 [&>div]:to-red-500"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						"data-uid": "src/pages/PeluciaPerfil.tsx:146:11",
+						"data-prohibitions": "[]",
+						className: "text-xs text-center mt-3 text-orange-600 font-medium",
+						children: "Grave histórias para aumentar a amizade!"
+					})]
+				})]
+			}),
+			plushie.powers && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				"data-uid": "src/pages/PeluciaPerfil.tsx:153:9",
+				"data-prohibitions": "[editContent]",
+				className: "w-full bg-white/70 backdrop-blur-md p-6 rounded-3xl shadow-lg mb-8 border-2 border-orange-200 animate-slide-up",
+				style: { animationDelay: "0.1s" },
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h3", {
+					"data-uid": "src/pages/PeluciaPerfil.tsx:157:11",
+					"data-prohibitions": "[]",
+					className: "text-lg font-display font-bold text-orange-800 mb-2 flex items-center justify-center gap-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Sparkles, {
+						"data-uid": "src/pages/PeluciaPerfil.tsx:158:13",
+						"data-prohibitions": "[editContent]",
+						className: "w-5 h-5"
+					}), " Características"]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					"data-uid": "src/pages/PeluciaPerfil.tsx:160:11",
+					"data-prohibitions": "[editContent]",
+					className: "text-orange-950 font-medium text-center text-lg",
+					children: plushie.powers
+				})]
+			}),
+			plushie.audioUrl && plushie.audioUrl !== "mock-audio-url" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				"data-uid": "src/pages/PeluciaPerfil.tsx:165:9",
+				"data-prohibitions": "[]",
+				className: "w-full bg-white/70 backdrop-blur-md p-6 rounded-3xl shadow-lg mb-8 border-2 border-orange-200 flex flex-col items-center animate-slide-up",
+				style: { animationDelay: "0.2s" },
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h3", {
+					"data-uid": "src/pages/PeluciaPerfil.tsx:169:11",
+					"data-prohibitions": "[]",
+					className: "text-lg font-display font-bold text-orange-800 mb-4 flex items-center justify-center gap-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mic, {
+						"data-uid": "src/pages/PeluciaPerfil.tsx:170:13",
+						"data-prohibitions": "[editContent]",
+						className: "w-5 h-5"
+					}), " História de Origem"]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+					"data-uid": "src/pages/PeluciaPerfil.tsx:172:11",
+					"data-prohibitions": "[]",
+					onClick: () => {
+						new Audio(plushie.audioUrl).play();
+					},
+					className: "w-16 h-16 rounded-full bg-green-500 hover:bg-green-600 border-4 border-white shadow-lg hover:scale-105 transition-transform",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, {
+						"data-uid": "src/pages/PeluciaPerfil.tsx:179:13",
+						"data-prohibitions": "[editContent]",
+						className: "w-8 h-8 text-white ml-1"
+					})
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				"data-uid": "src/pages/PeluciaPerfil.tsx:184:7",
+				"data-prohibitions": "[editContent]",
+				className: "w-full bg-white/70 backdrop-blur-md p-8 rounded-3xl shadow-xl mb-10 border-2 border-orange-200",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+						"data-uid": "src/pages/PeluciaPerfil.tsx:185:9",
+						"data-prohibitions": "[]",
+						className: "text-xl md:text-2xl font-display font-bold text-center mb-6 text-orange-800",
+						children: "Harmonímetro"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						"data-uid": "src/pages/PeluciaPerfil.tsx:188:9",
+						"data-prohibitions": "[]",
+						className: "text-center text-orange-700 font-bold mb-4",
+						children: "Como estou me sentindo hoje?"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						"data-uid": "src/pages/PeluciaPerfil.tsx:189:9",
+						"data-prohibitions": "[editContent]",
+						className: "flex flex-col items-center gap-6",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								"data-uid": "src/pages/PeluciaPerfil.tsx:190:11",
+								"data-prohibitions": "[editContent]",
+								className: "text-7xl animate-bounce",
+								style: { animationDuration: "2s" },
+								children: currentEmotion.emoji
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								"data-uid": "src/pages/PeluciaPerfil.tsx:193:11",
+								"data-prohibitions": "[editContent]",
+								className: "bg-orange-100 px-6 py-2 rounded-full border-2 border-orange-200",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									"data-uid": "src/pages/PeluciaPerfil.tsx:194:13",
+									"data-prohibitions": "[editContent]",
+									className: "font-bold text-xl text-orange-900",
+									children: currentEmotion.label
+								})
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Slider, {
+								"data-uid": "src/pages/PeluciaPerfil.tsx:196:11",
+								"data-prohibitions": "[editContent]",
+								value: [plushie.emotion],
+								max: 100,
+								step: 1,
+								onValueChange: handleEmotionChange,
+								className: "w-full mt-4 cursor-grab active:cursor-grabbing"
+							})
+						]
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				"data-uid": "src/pages/PeluciaPerfil.tsx:206:7",
+				"data-prohibitions": "[editContent]",
+				className: "flex gap-4 w-full px-4 justify-center",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					"data-uid": "src/pages/PeluciaPerfil.tsx:207:9",
+					"data-prohibitions": "[editContent]",
+					className: "flex flex-col items-center gap-4",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						"data-uid": "src/pages/PeluciaPerfil.tsx:208:11",
+						"data-prohibitions": "[editContent]",
+						className: cn$1("w-28 h-28 md:w-32 md:h-32 rounded-full shadow-xl transition-all duration-300 border-4 flex items-center justify-center select-none touch-none", isRecording ? "bg-red-500 border-yellow-400 animate-pulse-glow" : "bg-gradient-to-br from-orange-400 to-red-500 border-orange-200 hover:scale-105"),
+						onMouseDown: startRecording,
+						onMouseUp: stopRecording,
+						onMouseLeave: stopRecording,
+						onTouchStart: startRecording,
+						onTouchEnd: stopRecording,
+						onTouchCancel: stopRecording,
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mic, {
+							"data-uid": "src/pages/PeluciaPerfil.tsx:222:13",
+							"data-prohibitions": "[editContent]",
+							className: cn$1("w-12 h-12 md:w-14 md:h-14 text-white transition-transform duration-300", isRecording && "scale-110 animate-pulse")
+						})
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						"data-uid": "src/pages/PeluciaPerfil.tsx:229:11",
+						"data-prohibitions": "[editContent]",
+						className: "text-base md:text-lg font-bold text-center text-orange-900 max-w-[250px] transition-colors duration-300",
+						children: isRecording ? "Gravando a história..." : `Segure para falar com ${plushie.name}!`
+					})]
+				})
+			})
+		]
+	});
+}
+//#endregion
+//#region src/components/ui/input.tsx
+var Input = import_react.forwardRef(({ className, type, ...props }, ref) => {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+		"data-uid": "src/components/ui/input.tsx:9:7",
+		"data-prohibitions": "[editContent]",
+		type,
+		className: cn$1("flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm", className),
+		ref,
+		...props
+	});
+});
+Input.displayName = "Input";
+//#endregion
 //#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-label@2.1.8_@types+react-dom@19.2.3_@types+react@19.2.14__@types+react@_55fa612a976b7bdfbf4dcdd93d861aab/node_modules/@radix-ui/react-label/dist/index.mjs
 var NAME = "Label";
 var Label$1 = import_react.forwardRef((props, forwardedRef) => {
@@ -26047,6 +26337,1388 @@ var Label = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE
 	...props
 }));
 Label.displayName = Root$2.displayName;
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-focus-scope@1.1.7_@types+react-dom@19.2.3_@types+react@19.2.14__@types+_f62f3af4ca2ba305a7aecf04c8534604/node_modules/@radix-ui/react-focus-scope/dist/index.mjs
+var AUTOFOCUS_ON_MOUNT = "focusScope.autoFocusOnMount";
+var AUTOFOCUS_ON_UNMOUNT = "focusScope.autoFocusOnUnmount";
+var EVENT_OPTIONS$1 = {
+	bubbles: false,
+	cancelable: true
+};
+var FOCUS_SCOPE_NAME = "FocusScope";
+var FocusScope = import_react.forwardRef((props, forwardedRef) => {
+	const { loop = false, trapped = false, onMountAutoFocus: onMountAutoFocusProp, onUnmountAutoFocus: onUnmountAutoFocusProp, ...scopeProps } = props;
+	const [container, setContainer] = import_react.useState(null);
+	const onMountAutoFocus = useCallbackRef$1(onMountAutoFocusProp);
+	const onUnmountAutoFocus = useCallbackRef$1(onUnmountAutoFocusProp);
+	const lastFocusedElementRef = import_react.useRef(null);
+	const composedRefs = useComposedRefs(forwardedRef, (node) => setContainer(node));
+	const focusScope = import_react.useRef({
+		paused: false,
+		pause() {
+			this.paused = true;
+		},
+		resume() {
+			this.paused = false;
+		}
+	}).current;
+	import_react.useEffect(() => {
+		if (trapped) {
+			let handleFocusIn2 = function(event) {
+				if (focusScope.paused || !container) return;
+				const target = event.target;
+				if (container.contains(target)) lastFocusedElementRef.current = target;
+				else focus(lastFocusedElementRef.current, { select: true });
+			}, handleFocusOut2 = function(event) {
+				if (focusScope.paused || !container) return;
+				const relatedTarget = event.relatedTarget;
+				if (relatedTarget === null) return;
+				if (!container.contains(relatedTarget)) focus(lastFocusedElementRef.current, { select: true });
+			}, handleMutations2 = function(mutations) {
+				if (document.activeElement !== document.body) return;
+				for (const mutation of mutations) if (mutation.removedNodes.length > 0) focus(container);
+			};
+			document.addEventListener("focusin", handleFocusIn2);
+			document.addEventListener("focusout", handleFocusOut2);
+			const mutationObserver = new MutationObserver(handleMutations2);
+			if (container) mutationObserver.observe(container, {
+				childList: true,
+				subtree: true
+			});
+			return () => {
+				document.removeEventListener("focusin", handleFocusIn2);
+				document.removeEventListener("focusout", handleFocusOut2);
+				mutationObserver.disconnect();
+			};
+		}
+	}, [
+		trapped,
+		container,
+		focusScope.paused
+	]);
+	import_react.useEffect(() => {
+		if (container) {
+			focusScopesStack.add(focusScope);
+			const previouslyFocusedElement = document.activeElement;
+			if (!container.contains(previouslyFocusedElement)) {
+				const mountEvent = new CustomEvent(AUTOFOCUS_ON_MOUNT, EVENT_OPTIONS$1);
+				container.addEventListener(AUTOFOCUS_ON_MOUNT, onMountAutoFocus);
+				container.dispatchEvent(mountEvent);
+				if (!mountEvent.defaultPrevented) {
+					focusFirst$1(removeLinks(getTabbableCandidates(container)), { select: true });
+					if (document.activeElement === previouslyFocusedElement) focus(container);
+				}
+			}
+			return () => {
+				container.removeEventListener(AUTOFOCUS_ON_MOUNT, onMountAutoFocus);
+				setTimeout(() => {
+					const unmountEvent = new CustomEvent(AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS$1);
+					container.addEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus);
+					container.dispatchEvent(unmountEvent);
+					if (!unmountEvent.defaultPrevented) focus(previouslyFocusedElement ?? document.body, { select: true });
+					container.removeEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus);
+					focusScopesStack.remove(focusScope);
+				}, 0);
+			};
+		}
+	}, [
+		container,
+		onMountAutoFocus,
+		onUnmountAutoFocus,
+		focusScope
+	]);
+	const handleKeyDown = import_react.useCallback((event) => {
+		if (!loop && !trapped) return;
+		if (focusScope.paused) return;
+		const isTabKey = event.key === "Tab" && !event.altKey && !event.ctrlKey && !event.metaKey;
+		const focusedElement = document.activeElement;
+		if (isTabKey && focusedElement) {
+			const container2 = event.currentTarget;
+			const [first, last] = getTabbableEdges(container2);
+			if (!(first && last)) {
+				if (focusedElement === container2) event.preventDefault();
+			} else if (!event.shiftKey && focusedElement === last) {
+				event.preventDefault();
+				if (loop) focus(first, { select: true });
+			} else if (event.shiftKey && focusedElement === first) {
+				event.preventDefault();
+				if (loop) focus(last, { select: true });
+			}
+		}
+	}, [
+		loop,
+		trapped,
+		focusScope.paused
+	]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+		tabIndex: -1,
+		...scopeProps,
+		ref: composedRefs,
+		onKeyDown: handleKeyDown
+	});
+});
+FocusScope.displayName = FOCUS_SCOPE_NAME;
+function focusFirst$1(candidates, { select = false } = {}) {
+	const previouslyFocusedElement = document.activeElement;
+	for (const candidate of candidates) {
+		focus(candidate, { select });
+		if (document.activeElement !== previouslyFocusedElement) return;
+	}
+}
+function getTabbableEdges(container) {
+	const candidates = getTabbableCandidates(container);
+	return [findVisible(candidates, container), findVisible(candidates.reverse(), container)];
+}
+function getTabbableCandidates(container) {
+	const nodes = [];
+	const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, { acceptNode: (node) => {
+		const isHiddenInput = node.tagName === "INPUT" && node.type === "hidden";
+		if (node.disabled || node.hidden || isHiddenInput) return NodeFilter.FILTER_SKIP;
+		return node.tabIndex >= 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+	} });
+	while (walker.nextNode()) nodes.push(walker.currentNode);
+	return nodes;
+}
+function findVisible(elements, container) {
+	for (const element of elements) if (!isHidden(element, { upTo: container })) return element;
+}
+function isHidden(node, { upTo }) {
+	if (getComputedStyle(node).visibility === "hidden") return true;
+	while (node) {
+		if (upTo !== void 0 && node === upTo) return false;
+		if (getComputedStyle(node).display === "none") return true;
+		node = node.parentElement;
+	}
+	return false;
+}
+function isSelectableInput(element) {
+	return element instanceof HTMLInputElement && "select" in element;
+}
+function focus(element, { select = false } = {}) {
+	if (element && element.focus) {
+		const previouslyFocusedElement = document.activeElement;
+		element.focus({ preventScroll: true });
+		if (element !== previouslyFocusedElement && isSelectableInput(element) && select) element.select();
+	}
+}
+var focusScopesStack = createFocusScopesStack();
+function createFocusScopesStack() {
+	let stack = [];
+	return {
+		add(focusScope) {
+			const activeFocusScope = stack[0];
+			if (focusScope !== activeFocusScope) activeFocusScope?.pause();
+			stack = arrayRemove(stack, focusScope);
+			stack.unshift(focusScope);
+		},
+		remove(focusScope) {
+			stack = arrayRemove(stack, focusScope);
+			stack[0]?.resume();
+		}
+	};
+}
+function arrayRemove(array, item) {
+	const updatedArray = [...array];
+	const index = updatedArray.indexOf(item);
+	if (index !== -1) updatedArray.splice(index, 1);
+	return updatedArray;
+}
+function removeLinks(items) {
+	return items.filter((item) => item.tagName !== "A");
+}
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-focus-guards@1.1.3_@types+react@19.2.14_react@19.2.4/node_modules/@radix-ui/react-focus-guards/dist/index.mjs
+var count = 0;
+function useFocusGuards() {
+	import_react.useEffect(() => {
+		const edgeGuards = document.querySelectorAll("[data-radix-focus-guard]");
+		document.body.insertAdjacentElement("afterbegin", edgeGuards[0] ?? createFocusGuard());
+		document.body.insertAdjacentElement("beforeend", edgeGuards[1] ?? createFocusGuard());
+		count++;
+		return () => {
+			if (count === 1) document.querySelectorAll("[data-radix-focus-guard]").forEach((node) => node.remove());
+			count--;
+		};
+	}, []);
+}
+function createFocusGuard() {
+	const element = document.createElement("span");
+	element.setAttribute("data-radix-focus-guard", "");
+	element.tabIndex = 0;
+	element.style.outline = "none";
+	element.style.opacity = "0";
+	element.style.position = "fixed";
+	element.style.pointerEvents = "none";
+	return element;
+}
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/tslib@2.8.1/node_modules/tslib/tslib.es6.mjs
+var __assign = function() {
+	__assign = Object.assign || function __assign(t) {
+		for (var s, i = 1, n = arguments.length; i < n; i++) {
+			s = arguments[i];
+			for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+		}
+		return t;
+	};
+	return __assign.apply(this, arguments);
+};
+function __rest(s, e) {
+	var t = {};
+	for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+	if (s != null && typeof Object.getOwnPropertySymbols === "function") {
+		for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
+	}
+	return t;
+}
+function __spreadArray(to, from, pack) {
+	if (pack || arguments.length === 2) {
+		for (var i = 0, l = from.length, ar; i < l; i++) if (ar || !(i in from)) {
+			if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+			ar[i] = from[i];
+		}
+	}
+	return to.concat(ar || Array.prototype.slice.call(from));
+}
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/react-remove-scroll-bar@2.3.8_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll-bar/dist/es2015/constants.js
+var zeroRightClassName = "right-scroll-bar-position";
+var fullWidthClassName = "width-before-scroll-bar";
+var noScrollbarsClassName = "with-scroll-bars-hidden";
+/**
+* Name of a CSS variable containing the amount of "hidden" scrollbar
+* ! might be undefined ! use will fallback!
+*/
+var removedBarSizeVariable = "--removed-body-scroll-bar-size";
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/use-callback-ref@1.3.3_@types+react@19.2.14_react@19.2.4/node_modules/use-callback-ref/dist/es2015/assignRef.js
+/**
+* Assigns a value for a given ref, no matter of the ref format
+* @param {RefObject} ref - a callback function or ref object
+* @param value - a new value
+*
+* @see https://github.com/theKashey/use-callback-ref#assignref
+* @example
+* const refObject = useRef();
+* const refFn = (ref) => {....}
+*
+* assignRef(refObject, "refValue");
+* assignRef(refFn, "refValue");
+*/
+function assignRef(ref, value) {
+	if (typeof ref === "function") ref(value);
+	else if (ref) ref.current = value;
+	return ref;
+}
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/use-callback-ref@1.3.3_@types+react@19.2.14_react@19.2.4/node_modules/use-callback-ref/dist/es2015/useRef.js
+/**
+* creates a MutableRef with ref change callback
+* @param initialValue - initial ref value
+* @param {Function} callback - a callback to run when value changes
+*
+* @example
+* const ref = useCallbackRef(0, (newValue, oldValue) => console.log(oldValue, '->', newValue);
+* ref.current = 1;
+* // prints 0 -> 1
+*
+* @see https://reactjs.org/docs/hooks-reference.html#useref
+* @see https://github.com/theKashey/use-callback-ref#usecallbackref---to-replace-reactuseref
+* @returns {MutableRefObject}
+*/
+function useCallbackRef(initialValue, callback) {
+	var ref = (0, import_react.useState)(function() {
+		return {
+			value: initialValue,
+			callback,
+			facade: {
+				get current() {
+					return ref.value;
+				},
+				set current(value) {
+					var last = ref.value;
+					if (last !== value) {
+						ref.value = value;
+						ref.callback(value, last);
+					}
+				}
+			}
+		};
+	})[0];
+	ref.callback = callback;
+	return ref.facade;
+}
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/use-callback-ref@1.3.3_@types+react@19.2.14_react@19.2.4/node_modules/use-callback-ref/dist/es2015/useMergeRef.js
+var useIsomorphicLayoutEffect = typeof window !== "undefined" ? import_react.useLayoutEffect : import_react.useEffect;
+var currentValues = /* @__PURE__ */ new WeakMap();
+/**
+* Merges two or more refs together providing a single interface to set their value
+* @param {RefObject|Ref} refs
+* @returns {MutableRefObject} - a new ref, which translates all changes to {refs}
+*
+* @see {@link mergeRefs} a version without buit-in memoization
+* @see https://github.com/theKashey/use-callback-ref#usemergerefs
+* @example
+* const Component = React.forwardRef((props, ref) => {
+*   const ownRef = useRef();
+*   const domRef = useMergeRefs([ref, ownRef]); // 👈 merge together
+*   return <div ref={domRef}>...</div>
+* }
+*/
+function useMergeRefs(refs, defaultValue) {
+	var callbackRef = useCallbackRef(defaultValue || null, function(newValue) {
+		return refs.forEach(function(ref) {
+			return assignRef(ref, newValue);
+		});
+	});
+	useIsomorphicLayoutEffect(function() {
+		var oldValue = currentValues.get(callbackRef);
+		if (oldValue) {
+			var prevRefs_1 = new Set(oldValue);
+			var nextRefs_1 = new Set(refs);
+			var current_1 = callbackRef.current;
+			prevRefs_1.forEach(function(ref) {
+				if (!nextRefs_1.has(ref)) assignRef(ref, null);
+			});
+			nextRefs_1.forEach(function(ref) {
+				if (!prevRefs_1.has(ref)) assignRef(ref, current_1);
+			});
+		}
+		currentValues.set(callbackRef, refs);
+	}, [refs]);
+	return callbackRef;
+}
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/use-sidecar@1.1.3_@types+react@19.2.14_react@19.2.4/node_modules/use-sidecar/dist/es2015/medium.js
+function ItoI(a) {
+	return a;
+}
+function innerCreateMedium(defaults, middleware) {
+	if (middleware === void 0) middleware = ItoI;
+	var buffer = [];
+	var assigned = false;
+	return {
+		read: function() {
+			if (assigned) throw new Error("Sidecar: could not `read` from an `assigned` medium. `read` could be used only with `useMedium`.");
+			if (buffer.length) return buffer[buffer.length - 1];
+			return defaults;
+		},
+		useMedium: function(data) {
+			var item = middleware(data, assigned);
+			buffer.push(item);
+			return function() {
+				buffer = buffer.filter(function(x) {
+					return x !== item;
+				});
+			};
+		},
+		assignSyncMedium: function(cb) {
+			assigned = true;
+			while (buffer.length) {
+				var cbs = buffer;
+				buffer = [];
+				cbs.forEach(cb);
+			}
+			buffer = {
+				push: function(x) {
+					return cb(x);
+				},
+				filter: function() {
+					return buffer;
+				}
+			};
+		},
+		assignMedium: function(cb) {
+			assigned = true;
+			var pendingQueue = [];
+			if (buffer.length) {
+				var cbs = buffer;
+				buffer = [];
+				cbs.forEach(cb);
+				pendingQueue = buffer;
+			}
+			var executeQueue = function() {
+				var cbs = pendingQueue;
+				pendingQueue = [];
+				cbs.forEach(cb);
+			};
+			var cycle = function() {
+				return Promise.resolve().then(executeQueue);
+			};
+			cycle();
+			buffer = {
+				push: function(x) {
+					pendingQueue.push(x);
+					cycle();
+				},
+				filter: function(filter) {
+					pendingQueue = pendingQueue.filter(filter);
+					return buffer;
+				}
+			};
+		}
+	};
+}
+function createSidecarMedium(options) {
+	if (options === void 0) options = {};
+	var medium = innerCreateMedium(null);
+	medium.options = __assign({
+		async: true,
+		ssr: false
+	}, options);
+	return medium;
+}
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/use-sidecar@1.1.3_@types+react@19.2.14_react@19.2.4/node_modules/use-sidecar/dist/es2015/exports.js
+var SideCar = function(_a) {
+	var sideCar = _a.sideCar, rest = __rest(_a, ["sideCar"]);
+	if (!sideCar) throw new Error("Sidecar: please provide `sideCar` property to import the right car");
+	var Target = sideCar.read();
+	if (!Target) throw new Error("Sidecar medium not found");
+	return import_react.createElement(Target, __assign({}, rest));
+};
+SideCar.isSideCarExport = true;
+function exportSidecar(medium, exported) {
+	medium.useMedium(exported);
+	return SideCar;
+}
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/medium.js
+var effectCar = createSidecarMedium();
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/UI.js
+var nothing = function() {};
+/**
+* Removes scrollbar from the page and contain the scroll within the Lock
+*/
+var RemoveScroll = import_react.forwardRef(function(props, parentRef) {
+	var ref = import_react.useRef(null);
+	var _a = import_react.useState({
+		onScrollCapture: nothing,
+		onWheelCapture: nothing,
+		onTouchMoveCapture: nothing
+	}), callbacks = _a[0], setCallbacks = _a[1];
+	var forwardProps = props.forwardProps, children = props.children, className = props.className, removeScrollBar = props.removeScrollBar, enabled = props.enabled, shards = props.shards, sideCar = props.sideCar, noRelative = props.noRelative, noIsolation = props.noIsolation, inert = props.inert, allowPinchZoom = props.allowPinchZoom, _b = props.as, Container = _b === void 0 ? "div" : _b, gapMode = props.gapMode, rest = __rest(props, [
+		"forwardProps",
+		"children",
+		"className",
+		"removeScrollBar",
+		"enabled",
+		"shards",
+		"sideCar",
+		"noRelative",
+		"noIsolation",
+		"inert",
+		"allowPinchZoom",
+		"as",
+		"gapMode"
+	]);
+	var SideCar = sideCar;
+	var containerRef = useMergeRefs([ref, parentRef]);
+	var containerProps = __assign(__assign({}, rest), callbacks);
+	return import_react.createElement(import_react.Fragment, null, enabled && import_react.createElement(SideCar, {
+		sideCar: effectCar,
+		removeScrollBar,
+		shards,
+		noRelative,
+		noIsolation,
+		inert,
+		setCallbacks,
+		allowPinchZoom: !!allowPinchZoom,
+		lockRef: ref,
+		gapMode
+	}), forwardProps ? import_react.cloneElement(import_react.Children.only(children), __assign(__assign({}, containerProps), { ref: containerRef })) : import_react.createElement(Container, __assign({}, containerProps, {
+		className,
+		ref: containerRef
+	}), children));
+});
+RemoveScroll.defaultProps = {
+	enabled: true,
+	removeScrollBar: true,
+	inert: false
+};
+RemoveScroll.classNames = {
+	fullWidth: fullWidthClassName,
+	zeroRight: zeroRightClassName
+};
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/get-nonce@1.0.1/node_modules/get-nonce/dist/es2015/index.js
+var currentNonce;
+var getNonce = function() {
+	if (currentNonce) return currentNonce;
+	if (typeof __webpack_nonce__ !== "undefined") return __webpack_nonce__;
+};
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/react-style-singleton@2.2.3_@types+react@19.2.14_react@19.2.4/node_modules/react-style-singleton/dist/es2015/singleton.js
+function makeStyleTag() {
+	if (!document) return null;
+	var tag = document.createElement("style");
+	tag.type = "text/css";
+	var nonce = getNonce();
+	if (nonce) tag.setAttribute("nonce", nonce);
+	return tag;
+}
+function injectStyles(tag, css) {
+	if (tag.styleSheet) tag.styleSheet.cssText = css;
+	else tag.appendChild(document.createTextNode(css));
+}
+function insertStyleTag(tag) {
+	(document.head || document.getElementsByTagName("head")[0]).appendChild(tag);
+}
+var stylesheetSingleton = function() {
+	var counter = 0;
+	var stylesheet = null;
+	return {
+		add: function(style) {
+			if (counter == 0) {
+				if (stylesheet = makeStyleTag()) {
+					injectStyles(stylesheet, style);
+					insertStyleTag(stylesheet);
+				}
+			}
+			counter++;
+		},
+		remove: function() {
+			counter--;
+			if (!counter && stylesheet) {
+				stylesheet.parentNode && stylesheet.parentNode.removeChild(stylesheet);
+				stylesheet = null;
+			}
+		}
+	};
+};
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/react-style-singleton@2.2.3_@types+react@19.2.14_react@19.2.4/node_modules/react-style-singleton/dist/es2015/hook.js
+/**
+* creates a hook to control style singleton
+* @see {@link styleSingleton} for a safer component version
+* @example
+* ```tsx
+* const useStyle = styleHookSingleton();
+* ///
+* useStyle('body { overflow: hidden}');
+*/
+var styleHookSingleton = function() {
+	var sheet = stylesheetSingleton();
+	return function(styles, isDynamic) {
+		import_react.useEffect(function() {
+			sheet.add(styles);
+			return function() {
+				sheet.remove();
+			};
+		}, [styles && isDynamic]);
+	};
+};
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/react-style-singleton@2.2.3_@types+react@19.2.14_react@19.2.4/node_modules/react-style-singleton/dist/es2015/component.js
+/**
+* create a Component to add styles on demand
+* - styles are added when first instance is mounted
+* - styles are removed when the last instance is unmounted
+* - changing styles in runtime does nothing unless dynamic is set. But with multiple components that can lead to the undefined behavior
+*/
+var styleSingleton = function() {
+	var useStyle = styleHookSingleton();
+	var Sheet = function(_a) {
+		var styles = _a.styles, dynamic = _a.dynamic;
+		useStyle(styles, dynamic);
+		return null;
+	};
+	return Sheet;
+};
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/react-remove-scroll-bar@2.3.8_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll-bar/dist/es2015/utils.js
+var zeroGap = {
+	left: 0,
+	top: 0,
+	right: 0,
+	gap: 0
+};
+var parse = function(x) {
+	return parseInt(x || "", 10) || 0;
+};
+var getOffset = function(gapMode) {
+	var cs = window.getComputedStyle(document.body);
+	var left = cs[gapMode === "padding" ? "paddingLeft" : "marginLeft"];
+	var top = cs[gapMode === "padding" ? "paddingTop" : "marginTop"];
+	var right = cs[gapMode === "padding" ? "paddingRight" : "marginRight"];
+	return [
+		parse(left),
+		parse(top),
+		parse(right)
+	];
+};
+var getGapWidth = function(gapMode) {
+	if (gapMode === void 0) gapMode = "margin";
+	if (typeof window === "undefined") return zeroGap;
+	var offsets = getOffset(gapMode);
+	var documentWidth = document.documentElement.clientWidth;
+	var windowWidth = window.innerWidth;
+	return {
+		left: offsets[0],
+		top: offsets[1],
+		right: offsets[2],
+		gap: Math.max(0, windowWidth - documentWidth + offsets[2] - offsets[0])
+	};
+};
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/react-remove-scroll-bar@2.3.8_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll-bar/dist/es2015/component.js
+var Style = styleSingleton();
+var lockAttribute = "data-scroll-locked";
+var getStyles = function(_a, allowRelative, gapMode, important) {
+	var left = _a.left, top = _a.top, right = _a.right, gap = _a.gap;
+	if (gapMode === void 0) gapMode = "margin";
+	return "\n  .".concat(noScrollbarsClassName, " {\n   overflow: hidden ").concat(important, ";\n   padding-right: ").concat(gap, "px ").concat(important, ";\n  }\n  body[").concat(lockAttribute, "] {\n    overflow: hidden ").concat(important, ";\n    overscroll-behavior: contain;\n    ").concat([
+		allowRelative && "position: relative ".concat(important, ";"),
+		gapMode === "margin" && "\n    padding-left: ".concat(left, "px;\n    padding-top: ").concat(top, "px;\n    padding-right: ").concat(right, "px;\n    margin-left:0;\n    margin-top:0;\n    margin-right: ").concat(gap, "px ").concat(important, ";\n    "),
+		gapMode === "padding" && "padding-right: ".concat(gap, "px ").concat(important, ";")
+	].filter(Boolean).join(""), "\n  }\n  \n  .").concat(zeroRightClassName, " {\n    right: ").concat(gap, "px ").concat(important, ";\n  }\n  \n  .").concat(fullWidthClassName, " {\n    margin-right: ").concat(gap, "px ").concat(important, ";\n  }\n  \n  .").concat(zeroRightClassName, " .").concat(zeroRightClassName, " {\n    right: 0 ").concat(important, ";\n  }\n  \n  .").concat(fullWidthClassName, " .").concat(fullWidthClassName, " {\n    margin-right: 0 ").concat(important, ";\n  }\n  \n  body[").concat(lockAttribute, "] {\n    ").concat(removedBarSizeVariable, ": ").concat(gap, "px;\n  }\n");
+};
+var getCurrentUseCounter = function() {
+	var counter = parseInt(document.body.getAttribute("data-scroll-locked") || "0", 10);
+	return isFinite(counter) ? counter : 0;
+};
+var useLockAttribute = function() {
+	import_react.useEffect(function() {
+		document.body.setAttribute(lockAttribute, (getCurrentUseCounter() + 1).toString());
+		return function() {
+			var newCounter = getCurrentUseCounter() - 1;
+			if (newCounter <= 0) document.body.removeAttribute(lockAttribute);
+			else document.body.setAttribute(lockAttribute, newCounter.toString());
+		};
+	}, []);
+};
+/**
+* Removes page scrollbar and blocks page scroll when mounted
+*/
+var RemoveScrollBar = function(_a) {
+	var noRelative = _a.noRelative, noImportant = _a.noImportant, _b = _a.gapMode, gapMode = _b === void 0 ? "margin" : _b;
+	useLockAttribute();
+	var gap = import_react.useMemo(function() {
+		return getGapWidth(gapMode);
+	}, [gapMode]);
+	return import_react.createElement(Style, { styles: getStyles(gap, !noRelative, gapMode, !noImportant ? "!important" : "") });
+};
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/aggresiveCapture.js
+var passiveSupported = false;
+if (typeof window !== "undefined") try {
+	var options = Object.defineProperty({}, "passive", { get: function() {
+		passiveSupported = true;
+		return true;
+	} });
+	window.addEventListener("test", options, options);
+	window.removeEventListener("test", options, options);
+} catch (err) {
+	passiveSupported = false;
+}
+var nonPassive = passiveSupported ? { passive: false } : false;
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/handleScroll.js
+var alwaysContainsScroll = function(node) {
+	return node.tagName === "TEXTAREA";
+};
+var elementCanBeScrolled = function(node, overflow) {
+	if (!(node instanceof Element)) return false;
+	var styles = window.getComputedStyle(node);
+	return styles[overflow] !== "hidden" && !(styles.overflowY === styles.overflowX && !alwaysContainsScroll(node) && styles[overflow] === "visible");
+};
+var elementCouldBeVScrolled = function(node) {
+	return elementCanBeScrolled(node, "overflowY");
+};
+var elementCouldBeHScrolled = function(node) {
+	return elementCanBeScrolled(node, "overflowX");
+};
+var locationCouldBeScrolled = function(axis, node) {
+	var ownerDocument = node.ownerDocument;
+	var current = node;
+	do {
+		if (typeof ShadowRoot !== "undefined" && current instanceof ShadowRoot) current = current.host;
+		if (elementCouldBeScrolled(axis, current)) {
+			var _a = getScrollVariables(axis, current);
+			if (_a[1] > _a[2]) return true;
+		}
+		current = current.parentNode;
+	} while (current && current !== ownerDocument.body);
+	return false;
+};
+var getVScrollVariables = function(_a) {
+	return [
+		_a.scrollTop,
+		_a.scrollHeight,
+		_a.clientHeight
+	];
+};
+var getHScrollVariables = function(_a) {
+	return [
+		_a.scrollLeft,
+		_a.scrollWidth,
+		_a.clientWidth
+	];
+};
+var elementCouldBeScrolled = function(axis, node) {
+	return axis === "v" ? elementCouldBeVScrolled(node) : elementCouldBeHScrolled(node);
+};
+var getScrollVariables = function(axis, node) {
+	return axis === "v" ? getVScrollVariables(node) : getHScrollVariables(node);
+};
+var getDirectionFactor = function(axis, direction) {
+	/**
+	* If the element's direction is rtl (right-to-left), then scrollLeft is 0 when the scrollbar is at its rightmost position,
+	* and then increasingly negative as you scroll towards the end of the content.
+	* @see https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollLeft
+	*/
+	return axis === "h" && direction === "rtl" ? -1 : 1;
+};
+var handleScroll = function(axis, endTarget, event, sourceDelta, noOverscroll) {
+	var directionFactor = getDirectionFactor(axis, window.getComputedStyle(endTarget).direction);
+	var delta = directionFactor * sourceDelta;
+	var target = event.target;
+	var targetInLock = endTarget.contains(target);
+	var shouldCancelScroll = false;
+	var isDeltaPositive = delta > 0;
+	var availableScroll = 0;
+	var availableScrollTop = 0;
+	do {
+		if (!target) break;
+		var _a = getScrollVariables(axis, target), position = _a[0];
+		var elementScroll = _a[1] - _a[2] - directionFactor * position;
+		if (position || elementScroll) {
+			if (elementCouldBeScrolled(axis, target)) {
+				availableScroll += elementScroll;
+				availableScrollTop += position;
+			}
+		}
+		var parent_1 = target.parentNode;
+		target = parent_1 && parent_1.nodeType === Node.DOCUMENT_FRAGMENT_NODE ? parent_1.host : parent_1;
+	} while (!targetInLock && target !== document.body || targetInLock && (endTarget.contains(target) || endTarget === target));
+	if (isDeltaPositive && (noOverscroll && Math.abs(availableScroll) < 1 || !noOverscroll && delta > availableScroll)) shouldCancelScroll = true;
+	else if (!isDeltaPositive && (noOverscroll && Math.abs(availableScrollTop) < 1 || !noOverscroll && -delta > availableScrollTop)) shouldCancelScroll = true;
+	return shouldCancelScroll;
+};
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/SideEffect.js
+var getTouchXY = function(event) {
+	return "changedTouches" in event ? [event.changedTouches[0].clientX, event.changedTouches[0].clientY] : [0, 0];
+};
+var getDeltaXY = function(event) {
+	return [event.deltaX, event.deltaY];
+};
+var extractRef = function(ref) {
+	return ref && "current" in ref ? ref.current : ref;
+};
+var deltaCompare = function(x, y) {
+	return x[0] === y[0] && x[1] === y[1];
+};
+var generateStyle = function(id) {
+	return "\n  .block-interactivity-".concat(id, " {pointer-events: none;}\n  .allow-interactivity-").concat(id, " {pointer-events: all;}\n");
+};
+var idCounter = 0;
+var lockStack = [];
+function RemoveScrollSideCar(props) {
+	var shouldPreventQueue = import_react.useRef([]);
+	var touchStartRef = import_react.useRef([0, 0]);
+	var activeAxis = import_react.useRef();
+	var id = import_react.useState(idCounter++)[0];
+	var Style = import_react.useState(styleSingleton)[0];
+	var lastProps = import_react.useRef(props);
+	import_react.useEffect(function() {
+		lastProps.current = props;
+	}, [props]);
+	import_react.useEffect(function() {
+		if (props.inert) {
+			document.body.classList.add("block-interactivity-".concat(id));
+			var allow_1 = __spreadArray([props.lockRef.current], (props.shards || []).map(extractRef), true).filter(Boolean);
+			allow_1.forEach(function(el) {
+				return el.classList.add("allow-interactivity-".concat(id));
+			});
+			return function() {
+				document.body.classList.remove("block-interactivity-".concat(id));
+				allow_1.forEach(function(el) {
+					return el.classList.remove("allow-interactivity-".concat(id));
+				});
+			};
+		}
+	}, [
+		props.inert,
+		props.lockRef.current,
+		props.shards
+	]);
+	var shouldCancelEvent = import_react.useCallback(function(event, parent) {
+		if ("touches" in event && event.touches.length === 2 || event.type === "wheel" && event.ctrlKey) return !lastProps.current.allowPinchZoom;
+		var touch = getTouchXY(event);
+		var touchStart = touchStartRef.current;
+		var deltaX = "deltaX" in event ? event.deltaX : touchStart[0] - touch[0];
+		var deltaY = "deltaY" in event ? event.deltaY : touchStart[1] - touch[1];
+		var currentAxis;
+		var target = event.target;
+		var moveDirection = Math.abs(deltaX) > Math.abs(deltaY) ? "h" : "v";
+		if ("touches" in event && moveDirection === "h" && target.type === "range") return false;
+		var selection = window.getSelection();
+		var anchorNode = selection && selection.anchorNode;
+		if (anchorNode ? anchorNode === target || anchorNode.contains(target) : false) return false;
+		var canBeScrolledInMainDirection = locationCouldBeScrolled(moveDirection, target);
+		if (!canBeScrolledInMainDirection) return true;
+		if (canBeScrolledInMainDirection) currentAxis = moveDirection;
+		else {
+			currentAxis = moveDirection === "v" ? "h" : "v";
+			canBeScrolledInMainDirection = locationCouldBeScrolled(moveDirection, target);
+		}
+		if (!canBeScrolledInMainDirection) return false;
+		if (!activeAxis.current && "changedTouches" in event && (deltaX || deltaY)) activeAxis.current = currentAxis;
+		if (!currentAxis) return true;
+		var cancelingAxis = activeAxis.current || currentAxis;
+		return handleScroll(cancelingAxis, parent, event, cancelingAxis === "h" ? deltaX : deltaY, true);
+	}, []);
+	var shouldPrevent = import_react.useCallback(function(_event) {
+		var event = _event;
+		if (!lockStack.length || lockStack[lockStack.length - 1] !== Style) return;
+		var delta = "deltaY" in event ? getDeltaXY(event) : getTouchXY(event);
+		var sourceEvent = shouldPreventQueue.current.filter(function(e) {
+			return e.name === event.type && (e.target === event.target || event.target === e.shadowParent) && deltaCompare(e.delta, delta);
+		})[0];
+		if (sourceEvent && sourceEvent.should) {
+			if (event.cancelable) event.preventDefault();
+			return;
+		}
+		if (!sourceEvent) {
+			var shardNodes = (lastProps.current.shards || []).map(extractRef).filter(Boolean).filter(function(node) {
+				return node.contains(event.target);
+			});
+			if (shardNodes.length > 0 ? shouldCancelEvent(event, shardNodes[0]) : !lastProps.current.noIsolation) {
+				if (event.cancelable) event.preventDefault();
+			}
+		}
+	}, []);
+	var shouldCancel = import_react.useCallback(function(name, delta, target, should) {
+		var event = {
+			name,
+			delta,
+			target,
+			should,
+			shadowParent: getOutermostShadowParent(target)
+		};
+		shouldPreventQueue.current.push(event);
+		setTimeout(function() {
+			shouldPreventQueue.current = shouldPreventQueue.current.filter(function(e) {
+				return e !== event;
+			});
+		}, 1);
+	}, []);
+	var scrollTouchStart = import_react.useCallback(function(event) {
+		touchStartRef.current = getTouchXY(event);
+		activeAxis.current = void 0;
+	}, []);
+	var scrollWheel = import_react.useCallback(function(event) {
+		shouldCancel(event.type, getDeltaXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
+	}, []);
+	var scrollTouchMove = import_react.useCallback(function(event) {
+		shouldCancel(event.type, getTouchXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
+	}, []);
+	import_react.useEffect(function() {
+		lockStack.push(Style);
+		props.setCallbacks({
+			onScrollCapture: scrollWheel,
+			onWheelCapture: scrollWheel,
+			onTouchMoveCapture: scrollTouchMove
+		});
+		document.addEventListener("wheel", shouldPrevent, nonPassive);
+		document.addEventListener("touchmove", shouldPrevent, nonPassive);
+		document.addEventListener("touchstart", scrollTouchStart, nonPassive);
+		return function() {
+			lockStack = lockStack.filter(function(inst) {
+				return inst !== Style;
+			});
+			document.removeEventListener("wheel", shouldPrevent, nonPassive);
+			document.removeEventListener("touchmove", shouldPrevent, nonPassive);
+			document.removeEventListener("touchstart", scrollTouchStart, nonPassive);
+		};
+	}, []);
+	var removeScrollBar = props.removeScrollBar, inert = props.inert;
+	return import_react.createElement(import_react.Fragment, null, inert ? import_react.createElement(Style, { styles: generateStyle(id) }) : null, removeScrollBar ? import_react.createElement(RemoveScrollBar, {
+		noRelative: props.noRelative,
+		gapMode: props.gapMode
+	}) : null);
+}
+function getOutermostShadowParent(node) {
+	var shadowParent = null;
+	while (node !== null) {
+		if (node instanceof ShadowRoot) {
+			shadowParent = node.host;
+			node = node.host;
+		}
+		node = node.parentNode;
+	}
+	return shadowParent;
+}
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/sidecar.js
+var sidecar_default = exportSidecar(effectCar, RemoveScrollSideCar);
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/Combination.js
+var ReactRemoveScroll = import_react.forwardRef(function(props, ref) {
+	return import_react.createElement(RemoveScroll, __assign({}, props, {
+		ref,
+		sideCar: sidecar_default
+	}));
+});
+ReactRemoveScroll.classNames = RemoveScroll.classNames;
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/aria-hidden@1.2.6/node_modules/aria-hidden/dist/es2015/index.js
+var getDefaultParent = function(originalTarget) {
+	if (typeof document === "undefined") return null;
+	return (Array.isArray(originalTarget) ? originalTarget[0] : originalTarget).ownerDocument.body;
+};
+var counterMap = /* @__PURE__ */ new WeakMap();
+var uncontrolledNodes = /* @__PURE__ */ new WeakMap();
+var markerMap = {};
+var lockCount = 0;
+var unwrapHost = function(node) {
+	return node && (node.host || unwrapHost(node.parentNode));
+};
+var correctTargets = function(parent, targets) {
+	return targets.map(function(target) {
+		if (parent.contains(target)) return target;
+		var correctedTarget = unwrapHost(target);
+		if (correctedTarget && parent.contains(correctedTarget)) return correctedTarget;
+		console.error("aria-hidden", target, "in not contained inside", parent, ". Doing nothing");
+		return null;
+	}).filter(function(x) {
+		return Boolean(x);
+	});
+};
+/**
+* Marks everything except given node(or nodes) as aria-hidden
+* @param {Element | Element[]} originalTarget - elements to keep on the page
+* @param [parentNode] - top element, defaults to document.body
+* @param {String} [markerName] - a special attribute to mark every node
+* @param {String} [controlAttribute] - html Attribute to control
+* @return {Undo} undo command
+*/
+var applyAttributeToOthers = function(originalTarget, parentNode, markerName, controlAttribute) {
+	var targets = correctTargets(parentNode, Array.isArray(originalTarget) ? originalTarget : [originalTarget]);
+	if (!markerMap[markerName]) markerMap[markerName] = /* @__PURE__ */ new WeakMap();
+	var markerCounter = markerMap[markerName];
+	var hiddenNodes = [];
+	var elementsToKeep = /* @__PURE__ */ new Set();
+	var elementsToStop = new Set(targets);
+	var keep = function(el) {
+		if (!el || elementsToKeep.has(el)) return;
+		elementsToKeep.add(el);
+		keep(el.parentNode);
+	};
+	targets.forEach(keep);
+	var deep = function(parent) {
+		if (!parent || elementsToStop.has(parent)) return;
+		Array.prototype.forEach.call(parent.children, function(node) {
+			if (elementsToKeep.has(node)) deep(node);
+			else try {
+				var attr = node.getAttribute(controlAttribute);
+				var alreadyHidden = attr !== null && attr !== "false";
+				var counterValue = (counterMap.get(node) || 0) + 1;
+				var markerValue = (markerCounter.get(node) || 0) + 1;
+				counterMap.set(node, counterValue);
+				markerCounter.set(node, markerValue);
+				hiddenNodes.push(node);
+				if (counterValue === 1 && alreadyHidden) uncontrolledNodes.set(node, true);
+				if (markerValue === 1) node.setAttribute(markerName, "true");
+				if (!alreadyHidden) node.setAttribute(controlAttribute, "true");
+			} catch (e) {
+				console.error("aria-hidden: cannot operate on ", node, e);
+			}
+		});
+	};
+	deep(parentNode);
+	elementsToKeep.clear();
+	lockCount++;
+	return function() {
+		hiddenNodes.forEach(function(node) {
+			var counterValue = counterMap.get(node) - 1;
+			var markerValue = markerCounter.get(node) - 1;
+			counterMap.set(node, counterValue);
+			markerCounter.set(node, markerValue);
+			if (!counterValue) {
+				if (!uncontrolledNodes.has(node)) node.removeAttribute(controlAttribute);
+				uncontrolledNodes.delete(node);
+			}
+			if (!markerValue) node.removeAttribute(markerName);
+		});
+		lockCount--;
+		if (!lockCount) {
+			counterMap = /* @__PURE__ */ new WeakMap();
+			counterMap = /* @__PURE__ */ new WeakMap();
+			uncontrolledNodes = /* @__PURE__ */ new WeakMap();
+			markerMap = {};
+		}
+	};
+};
+/**
+* Marks everything except given node(or nodes) as aria-hidden
+* @param {Element | Element[]} originalTarget - elements to keep on the page
+* @param [parentNode] - top element, defaults to document.body
+* @param {String} [markerName] - a special attribute to mark every node
+* @return {Undo} undo command
+*/
+var hideOthers = function(originalTarget, parentNode, markerName) {
+	if (markerName === void 0) markerName = "data-aria-hidden";
+	var targets = Array.from(Array.isArray(originalTarget) ? originalTarget : [originalTarget]);
+	var activeParentNode = parentNode || getDefaultParent(originalTarget);
+	if (!activeParentNode) return function() {
+		return null;
+	};
+	targets.push.apply(targets, Array.from(activeParentNode.querySelectorAll("[aria-live], script")));
+	return applyAttributeToOthers(targets, activeParentNode, markerName, "aria-hidden");
+};
+//#endregion
+//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-dialog@1.1.15_@types+react-dom@19.2.3_@types+react@19.2.14__@types+reac_779045218dc2799d336e7197abef9d38/node_modules/@radix-ui/react-dialog/dist/index.mjs
+var DIALOG_NAME = "Dialog";
+var [createDialogContext, createDialogScope] = createContextScope$1(DIALOG_NAME);
+var [DialogProvider, useDialogContext] = createDialogContext(DIALOG_NAME);
+var Dialog$1 = (props) => {
+	const { __scopeDialog, children, open: openProp, defaultOpen, onOpenChange, modal = true } = props;
+	const triggerRef = import_react.useRef(null);
+	const contentRef = import_react.useRef(null);
+	const [open, setOpen] = useControllableState({
+		prop: openProp,
+		defaultProp: defaultOpen ?? false,
+		onChange: onOpenChange,
+		caller: DIALOG_NAME
+	});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogProvider, {
+		scope: __scopeDialog,
+		triggerRef,
+		contentRef,
+		contentId: useId(),
+		titleId: useId(),
+		descriptionId: useId(),
+		open,
+		onOpenChange: setOpen,
+		onOpenToggle: import_react.useCallback(() => setOpen((prevOpen) => !prevOpen), [setOpen]),
+		modal,
+		children
+	});
+};
+Dialog$1.displayName = DIALOG_NAME;
+var TRIGGER_NAME$1 = "DialogTrigger";
+var DialogTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeDialog, ...triggerProps } = props;
+	const context = useDialogContext(TRIGGER_NAME$1, __scopeDialog);
+	const composedTriggerRef = useComposedRefs(forwardedRef, context.triggerRef);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.button, {
+		type: "button",
+		"aria-haspopup": "dialog",
+		"aria-expanded": context.open,
+		"aria-controls": context.contentId,
+		"data-state": getState(context.open),
+		...triggerProps,
+		ref: composedTriggerRef,
+		onClick: composeEventHandlers(props.onClick, context.onOpenToggle)
+	});
+});
+DialogTrigger$1.displayName = TRIGGER_NAME$1;
+var PORTAL_NAME = "DialogPortal";
+var [PortalProvider, usePortalContext] = createDialogContext(PORTAL_NAME, { forceMount: void 0 });
+var DialogPortal$1 = (props) => {
+	const { __scopeDialog, forceMount, children, container } = props;
+	const context = useDialogContext(PORTAL_NAME, __scopeDialog);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PortalProvider, {
+		scope: __scopeDialog,
+		forceMount,
+		children: import_react.Children.map(children, (child) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Presence, {
+			present: forceMount || context.open,
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Portal$1, {
+				asChild: true,
+				container,
+				children: child
+			})
+		}))
+	});
+};
+DialogPortal$1.displayName = PORTAL_NAME;
+var OVERLAY_NAME = "DialogOverlay";
+var DialogOverlay$1 = import_react.forwardRef((props, forwardedRef) => {
+	const portalContext = usePortalContext(OVERLAY_NAME, props.__scopeDialog);
+	const { forceMount = portalContext.forceMount, ...overlayProps } = props;
+	const context = useDialogContext(OVERLAY_NAME, props.__scopeDialog);
+	return context.modal ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Presence, {
+		present: forceMount || context.open,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogOverlayImpl, {
+			...overlayProps,
+			ref: forwardedRef
+		})
+	}) : null;
+});
+DialogOverlay$1.displayName = OVERLAY_NAME;
+var Slot = /* @__PURE__ */ createSlot$1("DialogOverlay.RemoveScroll");
+var DialogOverlayImpl = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeDialog, ...overlayProps } = props;
+	const context = useDialogContext(OVERLAY_NAME, __scopeDialog);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ReactRemoveScroll, {
+		as: Slot,
+		allowPinchZoom: true,
+		shards: [context.contentRef],
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+			"data-state": getState(context.open),
+			...overlayProps,
+			ref: forwardedRef,
+			style: {
+				pointerEvents: "auto",
+				...overlayProps.style
+			}
+		})
+	});
+});
+var CONTENT_NAME$1 = "DialogContent";
+var DialogContent$1 = import_react.forwardRef((props, forwardedRef) => {
+	const portalContext = usePortalContext(CONTENT_NAME$1, props.__scopeDialog);
+	const { forceMount = portalContext.forceMount, ...contentProps } = props;
+	const context = useDialogContext(CONTENT_NAME$1, props.__scopeDialog);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Presence, {
+		present: forceMount || context.open,
+		children: context.modal ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogContentModal, {
+			...contentProps,
+			ref: forwardedRef
+		}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogContentNonModal, {
+			...contentProps,
+			ref: forwardedRef
+		})
+	});
+});
+DialogContent$1.displayName = CONTENT_NAME$1;
+var DialogContentModal = import_react.forwardRef((props, forwardedRef) => {
+	const context = useDialogContext(CONTENT_NAME$1, props.__scopeDialog);
+	const contentRef = import_react.useRef(null);
+	const composedRefs = useComposedRefs(forwardedRef, context.contentRef, contentRef);
+	import_react.useEffect(() => {
+		const content = contentRef.current;
+		if (content) return hideOthers(content);
+	}, []);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogContentImpl, {
+		...props,
+		ref: composedRefs,
+		trapFocus: context.open,
+		disableOutsidePointerEvents: true,
+		onCloseAutoFocus: composeEventHandlers(props.onCloseAutoFocus, (event) => {
+			event.preventDefault();
+			context.triggerRef.current?.focus();
+		}),
+		onPointerDownOutside: composeEventHandlers(props.onPointerDownOutside, (event) => {
+			const originalEvent = event.detail.originalEvent;
+			const ctrlLeftClick = originalEvent.button === 0 && originalEvent.ctrlKey === true;
+			if (originalEvent.button === 2 || ctrlLeftClick) event.preventDefault();
+		}),
+		onFocusOutside: composeEventHandlers(props.onFocusOutside, (event) => event.preventDefault())
+	});
+});
+var DialogContentNonModal = import_react.forwardRef((props, forwardedRef) => {
+	const context = useDialogContext(CONTENT_NAME$1, props.__scopeDialog);
+	const hasInteractedOutsideRef = import_react.useRef(false);
+	const hasPointerDownOutsideRef = import_react.useRef(false);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogContentImpl, {
+		...props,
+		ref: forwardedRef,
+		trapFocus: false,
+		disableOutsidePointerEvents: false,
+		onCloseAutoFocus: (event) => {
+			props.onCloseAutoFocus?.(event);
+			if (!event.defaultPrevented) {
+				if (!hasInteractedOutsideRef.current) context.triggerRef.current?.focus();
+				event.preventDefault();
+			}
+			hasInteractedOutsideRef.current = false;
+			hasPointerDownOutsideRef.current = false;
+		},
+		onInteractOutside: (event) => {
+			props.onInteractOutside?.(event);
+			if (!event.defaultPrevented) {
+				hasInteractedOutsideRef.current = true;
+				if (event.detail.originalEvent.type === "pointerdown") hasPointerDownOutsideRef.current = true;
+			}
+			const target = event.target;
+			if (context.triggerRef.current?.contains(target)) event.preventDefault();
+			if (event.detail.originalEvent.type === "focusin" && hasPointerDownOutsideRef.current) event.preventDefault();
+		}
+	});
+});
+var DialogContentImpl = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeDialog, trapFocus, onOpenAutoFocus, onCloseAutoFocus, ...contentProps } = props;
+	const context = useDialogContext(CONTENT_NAME$1, __scopeDialog);
+	const contentRef = import_react.useRef(null);
+	const composedRefs = useComposedRefs(forwardedRef, contentRef);
+	useFocusGuards();
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FocusScope, {
+		asChild: true,
+		loop: true,
+		trapped: trapFocus,
+		onMountAutoFocus: onOpenAutoFocus,
+		onUnmountAutoFocus: onCloseAutoFocus,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DismissableLayer, {
+			role: "dialog",
+			id: context.contentId,
+			"aria-describedby": context.descriptionId,
+			"aria-labelledby": context.titleId,
+			"data-state": getState(context.open),
+			...contentProps,
+			ref: composedRefs,
+			onDismiss: () => context.onOpenChange(false)
+		})
+	}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TitleWarning, { titleId: context.titleId }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DescriptionWarning, {
+		contentRef,
+		descriptionId: context.descriptionId
+	})] })] });
+});
+var TITLE_NAME = "DialogTitle";
+var DialogTitle$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeDialog, ...titleProps } = props;
+	const context = useDialogContext(TITLE_NAME, __scopeDialog);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.h2, {
+		id: context.titleId,
+		...titleProps,
+		ref: forwardedRef
+	});
+});
+DialogTitle$1.displayName = TITLE_NAME;
+var DESCRIPTION_NAME = "DialogDescription";
+var DialogDescription$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeDialog, ...descriptionProps } = props;
+	const context = useDialogContext(DESCRIPTION_NAME, __scopeDialog);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.p, {
+		id: context.descriptionId,
+		...descriptionProps,
+		ref: forwardedRef
+	});
+});
+DialogDescription$1.displayName = DESCRIPTION_NAME;
+var CLOSE_NAME = "DialogClose";
+var DialogClose$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeDialog, ...closeProps } = props;
+	const context = useDialogContext(CLOSE_NAME, __scopeDialog);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.button, {
+		type: "button",
+		...closeProps,
+		ref: forwardedRef,
+		onClick: composeEventHandlers(props.onClick, () => context.onOpenChange(false))
+	});
+});
+DialogClose$1.displayName = CLOSE_NAME;
+function getState(open) {
+	return open ? "open" : "closed";
+}
+var TITLE_WARNING_NAME = "DialogTitleWarning";
+var [WarningProvider, useWarningContext] = createContext2(TITLE_WARNING_NAME, {
+	contentName: CONTENT_NAME$1,
+	titleName: TITLE_NAME,
+	docsSlug: "dialog"
+});
+var TitleWarning = ({ titleId }) => {
+	const titleWarningContext = useWarningContext(TITLE_WARNING_NAME);
+	const MESSAGE = `\`${titleWarningContext.contentName}\` requires a \`${titleWarningContext.titleName}\` for the component to be accessible for screen reader users.
+
+If you want to hide the \`${titleWarningContext.titleName}\`, you can wrap it with our VisuallyHidden component.
+
+For more information, see https://radix-ui.com/primitives/docs/components/${titleWarningContext.docsSlug}`;
+	import_react.useEffect(() => {
+		if (titleId) {
+			if (!document.getElementById(titleId)) console.error(MESSAGE);
+		}
+	}, [MESSAGE, titleId]);
+	return null;
+};
+var DESCRIPTION_WARNING_NAME = "DialogDescriptionWarning";
+var DescriptionWarning = ({ contentRef, descriptionId }) => {
+	const MESSAGE = `Warning: Missing \`Description\` or \`aria-describedby={undefined}\` for {${useWarningContext(DESCRIPTION_WARNING_NAME).contentName}}.`;
+	import_react.useEffect(() => {
+		const describedById = contentRef.current?.getAttribute("aria-describedby");
+		if (descriptionId && describedById) {
+			if (!document.getElementById(descriptionId)) console.warn(MESSAGE);
+		}
+	}, [
+		MESSAGE,
+		contentRef,
+		descriptionId
+	]);
+	return null;
+};
+var Root$1 = Dialog$1;
+var Portal = DialogPortal$1;
+var Overlay = DialogOverlay$1;
+var Content$1 = DialogContent$1;
+var Title = DialogTitle$1;
+var Description = DialogDescription$1;
+var Close = DialogClose$1;
+//#endregion
+//#region src/components/ui/dialog.tsx
+var Dialog = Root$1;
+var DialogPortal = Portal;
+var DialogOverlay = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Overlay, {
+	"data-uid": "src/components/ui/dialog.tsx:20:3",
+	"data-prohibitions": "[editContent]",
+	ref,
+	className: cn$1("fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0", className),
+	...props
+}));
+DialogOverlay.displayName = Overlay.displayName;
+var DialogContent = import_react.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogPortal, {
+	"data-uid": "src/components/ui/dialog.tsx:35:3",
+	"data-prohibitions": "[editContent]",
+	children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogOverlay, {
+		"data-uid": "src/components/ui/dialog.tsx:36:5",
+		"data-prohibitions": "[editContent]"
+	}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Content$1, {
+		"data-uid": "src/components/ui/dialog.tsx:37:5",
+		"data-prohibitions": "[editContent]",
+		ref,
+		className: cn$1("fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg overflow-y-auto max-h-screen", className),
+		...props,
+		children: [children, /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Close, {
+			"data-uid": "src/components/ui/dialog.tsx:46:7",
+			"data-prohibitions": "[]",
+			className: "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, {
+				"data-uid": "src/components/ui/dialog.tsx:47:9",
+				"data-prohibitions": "[editContent]",
+				className: "h-4 w-4"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				"data-uid": "src/components/ui/dialog.tsx:48:9",
+				"data-prohibitions": "[]",
+				className: "sr-only",
+				children: "Close"
+			})]
+		})]
+	})]
+}));
+DialogContent.displayName = Content$1.displayName;
+var DialogHeader = ({ className, ...props }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	"data-uid": "src/components/ui/dialog.tsx:56:3",
+	"data-prohibitions": "[editContent]",
+	className: cn$1("flex flex-col space-y-1.5 text-center sm:text-left", className),
+	...props
+});
+DialogHeader.displayName = "DialogHeader";
+var DialogFooter = ({ className, ...props }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	"data-uid": "src/components/ui/dialog.tsx:61:3",
+	"data-prohibitions": "[editContent]",
+	className: cn$1("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className),
+	...props
+});
+DialogFooter.displayName = "DialogFooter";
+var DialogTitle = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Title, {
+	"data-uid": "src/components/ui/dialog.tsx:72:3",
+	"data-prohibitions": "[editContent]",
+	ref,
+	className: cn$1("text-lg font-semibold leading-none tracking-tight", className),
+	...props
+}));
+DialogTitle.displayName = Title.displayName;
+var DialogDescription = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Description, {
+	"data-uid": "src/components/ui/dialog.tsx:84:3",
+	"data-prohibitions": "[editContent]",
+	ref,
+	className: cn$1("text-sm text-muted-foreground", className),
+	...props
+}));
+DialogDescription.displayName = Description.displayName;
 //#endregion
 //#region src/components/ShineEffect.tsx
 function ShineEffect() {
@@ -26204,11 +27876,13 @@ function OriginStoryRecorder({ onAudioReady }) {
 function NovoAmigo() {
 	const location = useLocation();
 	const navigate = useNavigate();
-	const { addPlushie } = useAppStore();
+	const { addPlushie, plushies, hasRarePowerUnlocked, unlockRarePower } = useAppStore();
 	const [name, setName] = (0, import_react.useState)("");
 	const [selectedPowers, setSelectedPowers] = (0, import_react.useState)([]);
 	const [showShine, setShowShine] = (0, import_react.useState)(false);
 	const [audioUrl, setAudioUrl] = (0, import_react.useState)(null);
+	const [showMilestoneDialog, setShowMilestoneDialog] = (0, import_react.useState)(false);
+	const [pendingPlushieId, setPendingPlushieId] = (0, import_react.useState)(null);
 	const [image, setImage] = (0, import_react.useState)(location.state?.imageUrl || "https://img.usecurling.com/p/200/200?q=manga%20plush%20toy&color=orange");
 	const fileInputRef = (0, import_react.useRef)(null);
 	const handleFileChange = (e) => {
@@ -26233,51 +27907,59 @@ function NovoAmigo() {
 		setShowShine(true);
 		const powersString = selectedPowers.map((id) => POWER_TAGS.find((p) => p.id === id)?.label).join(", ") || "Nenhum poder descoberto ainda!";
 		setTimeout(() => {
-			navigate(`/pelucias/${addPlushie({
+			const isMilestone = plushies.length + 1 >= 5 && !hasRarePowerUnlocked;
+			const newId = addPlushie({
 				name,
 				powers: powersString,
 				powerTags: selectedPowers,
 				imageUrl: image,
 				emotion: 80,
 				audioUrl: audioUrl || void 0
-			})}`);
+			});
+			if (isMilestone) {
+				setShowShine(false);
+				unlockRarePower();
+				setPendingPlushieId(newId);
+				setShowMilestoneDialog(true);
+			} else navigate(`/pelucias/${newId}`);
 		}, 2500);
 	};
+	const visiblePowers = POWER_TAGS.filter((p) => !p.isRare || hasRarePowerUnlocked);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		"data-uid": "src/pages/NovoAmigo.tsx:71:5",
+		"data-uid": "src/pages/NovoAmigo.tsx:94:5",
 		"data-prohibitions": "[editContent]",
 		className: "container py-6 max-w-3xl animate-fade-in flex flex-col items-center pb-20 relative",
 		children: [
 			showShine && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ShineEffect, {
-				"data-uid": "src/pages/NovoAmigo.tsx:72:21",
+				"data-uid": "src/pages/NovoAmigo.tsx:95:21",
 				"data-prohibitions": "[editContent]"
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				"data-uid": "src/pages/NovoAmigo.tsx:74:7",
+				"data-uid": "src/pages/NovoAmigo.tsx:97:7",
 				"data-prohibitions": "[]",
 				className: "w-full flex items-center justify-center mb-6 relative",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-					"data-uid": "src/pages/NovoAmigo.tsx:75:9",
+					"data-uid": "src/pages/NovoAmigo.tsx:98:9",
 					"data-prohibitions": "[]",
 					variant: "outline",
 					size: "icon",
 					onClick: () => navigate(-1),
 					className: "absolute left-0 rounded-full border-orange-300 text-orange-600 hover:bg-orange-100 bg-white/80 backdrop-blur-sm z-10 w-12 h-12 shadow-sm",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, {
-						"data-uid": "src/pages/NovoAmigo.tsx:81:11",
+						"data-uid": "src/pages/NovoAmigo.tsx:104:11",
 						"data-prohibitions": "[editContent]",
 						className: "w-6 h-6"
 					})
 				})
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
-				"data-uid": "src/pages/NovoAmigo.tsx:85:7",
+				"data-uid": "src/pages/NovoAmigo.tsx:108:7",
 				"data-prohibitions": "[]",
 				className: "w-full text-center text-3xl md:text-5xl font-display font-black text-primary drop-shadow-md uppercase tracking-wider mb-8",
 				children: [
 					"Apresentando um",
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {
-						"data-uid": "src/pages/NovoAmigo.tsx:87:9",
+						"data-uid": "src/pages/NovoAmigo.tsx:110:9",
 						"data-prohibitions": "[editContent]",
 						className: "md:hidden"
 					}),
@@ -26285,34 +27967,34 @@ function NovoAmigo() {
 				]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/NovoAmigo.tsx:90:7",
+				"data-uid": "src/pages/NovoAmigo.tsx:113:7",
 				"data-prohibitions": "[editContent]",
 				className: "w-full bg-white/90 backdrop-blur-md p-6 md:p-10 rounded-[2.5rem] shadow-2xl border-8 border-primary/20 relative overflow-hidden",
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/NovoAmigo.tsx:91:9",
+						"data-uid": "src/pages/NovoAmigo.tsx:114:9",
 						"data-prohibitions": "[]",
 						className: "absolute top-4 right-4 text-4xl opacity-20 rotate-12 pointer-events-none select-none",
 						children: "📜"
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/NovoAmigo.tsx:94:9",
+						"data-uid": "src/pages/NovoAmigo.tsx:117:9",
 						"data-prohibitions": "[]",
 						className: "absolute bottom-4 left-4 text-4xl opacity-20 -rotate-12 pointer-events-none select-none",
 						children: "👑"
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/NovoAmigo.tsx:97:9",
+						"data-uid": "src/pages/NovoAmigo.tsx:120:9",
 						"data-prohibitions": "[editContent]",
 						className: "absolute inset-0 border-2 border-dashed border-primary/40 rounded-[2rem] m-2 pointer-events-none"
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						"data-uid": "src/pages/NovoAmigo.tsx:99:9",
+						"data-uid": "src/pages/NovoAmigo.tsx:122:9",
 						"data-prohibitions": "[editContent]",
 						className: "relative z-10 flex flex-col items-center",
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
-								"data-uid": "src/pages/NovoAmigo.tsx:100:11",
+								"data-uid": "src/pages/NovoAmigo.tsx:123:11",
 								"data-prohibitions": "[editContent]",
 								type: "file",
 								accept: "image/*",
@@ -26321,22 +28003,22 @@ function NovoAmigo() {
 								onChange: handleFileChange
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/NovoAmigo.tsx:108:11",
+								"data-uid": "src/pages/NovoAmigo.tsx:131:11",
 								"data-prohibitions": "[]",
 								className: "relative w-40 h-40 md:w-56 md:h-56 mx-auto mb-10 cursor-pointer group animate-float",
 								onClick: () => fileInputRef.current?.click(),
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-										"data-uid": "src/pages/NovoAmigo.tsx:112:13",
+										"data-uid": "src/pages/NovoAmigo.tsx:135:13",
 										"data-prohibitions": "[editContent]",
 										className: "absolute inset-0 rounded-full bg-yellow-400 blur-lg animate-pulse-glow opacity-80"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-										"data-uid": "src/pages/NovoAmigo.tsx:113:13",
+										"data-uid": "src/pages/NovoAmigo.tsx:136:13",
 										"data-prohibitions": "[]",
 										className: "absolute inset-0 rounded-full border-[6px] border-yellow-300 bg-orange-50 shadow-[0_0_30px_rgba(255,215,0,0.6)] overflow-hidden z-10",
 										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-											"data-uid": "src/pages/NovoAmigo.tsx:114:15",
+											"data-uid": "src/pages/NovoAmigo.tsx:137:15",
 											"data-prohibitions": "[editContent]",
 											src: image,
 											className: "w-full h-full object-cover group-hover:scale-110 transition-transform duration-500",
@@ -26344,11 +28026,11 @@ function NovoAmigo() {
 										})
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-										"data-uid": "src/pages/NovoAmigo.tsx:120:13",
+										"data-uid": "src/pages/NovoAmigo.tsx:143:13",
 										"data-prohibitions": "[]",
 										className: "absolute bottom-2 right-2 z-20 bg-white p-3 rounded-full shadow-xl border-4 border-yellow-400 group-hover:scale-110 transition-transform",
 										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Camera, {
-											"data-uid": "src/pages/NovoAmigo.tsx:121:15",
+											"data-uid": "src/pages/NovoAmigo.tsx:144:15",
 											"data-prohibitions": "[editContent]",
 											className: "w-6 h-6 text-yellow-600"
 										})
@@ -26356,22 +28038,22 @@ function NovoAmigo() {
 								]
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/NovoAmigo.tsx:125:11",
+								"data-uid": "src/pages/NovoAmigo.tsx:148:11",
 								"data-prohibitions": "[editContent]",
 								className: "w-full space-y-8",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										"data-uid": "src/pages/NovoAmigo.tsx:126:13",
+										"data-uid": "src/pages/NovoAmigo.tsx:149:13",
 										"data-prohibitions": "[]",
 										className: "space-y-3 text-center",
 										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-											"data-uid": "src/pages/NovoAmigo.tsx:127:15",
+											"data-uid": "src/pages/NovoAmigo.tsx:150:15",
 											"data-prohibitions": "[]",
 											htmlFor: "name",
 											className: "text-xl font-display font-bold text-orange-900",
 											children: "Nome do Amigo"
 										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-											"data-uid": "src/pages/NovoAmigo.tsx:130:15",
+											"data-uid": "src/pages/NovoAmigo.tsx:153:15",
 											"data-prohibitions": "[editContent]",
 											id: "name",
 											placeholder: "Ex: Leãozinho Valente",
@@ -26381,38 +28063,39 @@ function NovoAmigo() {
 										})]
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										"data-uid": "src/pages/NovoAmigo.tsx:139:13",
+										"data-uid": "src/pages/NovoAmigo.tsx:162:13",
 										"data-prohibitions": "[editContent]",
 										className: "space-y-4",
 										children: [
 											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Label, {
-												"data-uid": "src/pages/NovoAmigo.tsx:140:15",
+												"data-uid": "src/pages/NovoAmigo.tsx:163:15",
 												"data-prohibitions": "[]",
 												className: "text-xl font-display font-bold text-orange-900 flex items-center justify-center gap-2",
 												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Sparkles, {
-													"data-uid": "src/pages/NovoAmigo.tsx:141:17",
+													"data-uid": "src/pages/NovoAmigo.tsx:164:17",
 													"data-prohibitions": "[editContent]",
 													className: "w-6 h-6 text-orange-500"
 												}), "Tags de Poder"]
 											}),
 											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-												"data-uid": "src/pages/NovoAmigo.tsx:144:15",
+												"data-uid": "src/pages/NovoAmigo.tsx:167:15",
 												"data-prohibitions": "[editContent]",
 												className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3",
-												children: POWER_TAGS.map((p) => {
+												children: visiblePowers.map((p) => {
 													const isSelected = selectedPowers.includes(p.id);
+													const isRare = p.isRare;
 													return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
-														"data-uid": "src/pages/NovoAmigo.tsx:148:21",
+														"data-uid": "src/pages/NovoAmigo.tsx:172:21",
 														"data-prohibitions": "[editContent]",
 														onClick: () => togglePower(p.id),
-														className: cn$1("flex flex-col items-center justify-center p-3 rounded-2xl border-2 transition-all duration-300 gap-1.5 h-full", isSelected ? "border-yellow-400 bg-yellow-50 shadow-[0_0_15px_rgba(255,215,0,0.6)] scale-105" : "border-orange-100 bg-white hover:bg-orange-50 hover:border-orange-200 opacity-90"),
+														className: cn$1("flex flex-col items-center justify-center p-3 rounded-2xl border-2 transition-all duration-300 gap-1.5 h-full relative overflow-hidden", isSelected ? "border-yellow-400 bg-yellow-50 shadow-[0_0_15px_rgba(255,215,0,0.6)] scale-105" : "border-orange-100 bg-white hover:bg-orange-50 hover:border-orange-200 opacity-90", isRare && !isSelected && "border-yellow-300 shadow-[0_0_10px_rgba(255,215,0,0.3)] bg-gradient-to-br from-white to-yellow-50", isRare && isSelected && "border-yellow-500 shadow-[0_0_20px_rgba(255,215,0,0.8)] ring-2 ring-yellow-400 ring-offset-1 bg-gradient-to-br from-yellow-50 to-yellow-200"),
 														children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-															"data-uid": "src/pages/NovoAmigo.tsx:158:23",
+															"data-uid": "src/pages/NovoAmigo.tsx:188:23",
 															"data-prohibitions": "[editContent]",
 															className: cn$1("text-2xl", isSelected && "animate-bounce drop-shadow-md"),
 															children: p.emoji
 														}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-															"data-uid": "src/pages/NovoAmigo.tsx:163:23",
+															"data-uid": "src/pages/NovoAmigo.tsx:193:23",
 															"data-prohibitions": "[editContent]",
 															className: cn$1("text-xs font-bold leading-tight text-center", isSelected ? "text-orange-900" : "text-orange-900/60"),
 															children: p.label
@@ -26421,7 +28104,7 @@ function NovoAmigo() {
 												})
 											}),
 											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-												"data-uid": "src/pages/NovoAmigo.tsx:175:15",
+												"data-uid": "src/pages/NovoAmigo.tsx:205:15",
 												"data-prohibitions": "[editContent]",
 												className: "text-sm text-center text-orange-600 font-medium",
 												children: [
@@ -26433,7 +28116,7 @@ function NovoAmigo() {
 										]
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(OriginStoryRecorder, {
-										"data-uid": "src/pages/NovoAmigo.tsx:180:13",
+										"data-uid": "src/pages/NovoAmigo.tsx:210:13",
 										"data-prohibitions": "[editContent]",
 										onAudioReady: setAudioUrl
 									})
@@ -26444,175 +28127,103 @@ function NovoAmigo() {
 				]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				"data-uid": "src/pages/NovoAmigo.tsx:185:7",
+				"data-uid": "src/pages/NovoAmigo.tsx:215:7",
 				"data-prohibitions": "[]",
 				className: "mt-10 w-full max-w-sm",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-					"data-uid": "src/pages/NovoAmigo.tsx:186:9",
+					"data-uid": "src/pages/NovoAmigo.tsx:216:9",
 					"data-prohibitions": "[]",
 					onClick: handleSave,
 					disabled: !name.trim() || showShine,
 					className: "w-full h-20 rounded-[2rem] text-2xl font-display font-black bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 hover:from-yellow-500 hover:via-orange-600 hover:to-red-600 shadow-[0_10px_30px_rgba(251,146,60,0.4)] hover:scale-105 transition-all duration-300 border-4 border-white text-white disabled:opacity-50 disabled:hover:scale-100",
 					children: "Apresentar ao Reino! 🦁"
 				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Dialog, {
+				"data-uid": "src/pages/NovoAmigo.tsx:225:7",
+				"data-prohibitions": "[editContent]",
+				open: showMilestoneDialog,
+				onOpenChange: (open) => {
+					if (!open && pendingPlushieId) navigate(`/pelucias/${pendingPlushieId}`);
+				},
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogContent, {
+					"data-uid": "src/pages/NovoAmigo.tsx:233:9",
+					"data-prohibitions": "[editContent]",
+					className: "sm:max-w-md text-center bg-gradient-to-b from-yellow-50 to-white border-4 border-yellow-400 rounded-[2rem] overflow-hidden z-[110]",
+					children: [
+						showMilestoneDialog && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ShineEffect, {
+							"data-uid": "src/pages/NovoAmigo.tsx:234:35",
+							"data-prohibitions": "[editContent]"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogHeader, {
+							"data-uid": "src/pages/NovoAmigo.tsx:235:11",
+							"data-prohibitions": "[]",
+							className: "relative z-10 pt-4",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									"data-uid": "src/pages/NovoAmigo.tsx:236:13",
+									"data-prohibitions": "[]",
+									className: "mx-auto w-24 h-24 bg-yellow-100 rounded-full flex items-center justify-center mb-6 border-4 border-yellow-300 shadow-inner animate-bounce",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Crown, {
+										"data-uid": "src/pages/NovoAmigo.tsx:237:15",
+										"data-prohibitions": "[editContent]",
+										className: "w-12 h-12 text-yellow-600"
+									})
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogTitle, {
+									"data-uid": "src/pages/NovoAmigo.tsx:239:13",
+									"data-prohibitions": "[]",
+									className: "text-3xl font-display font-black text-yellow-600 mb-4 drop-shadow-sm leading-tight",
+									children: [
+										"Parabéns! ",
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {
+											"data-uid": "src/pages/NovoAmigo.tsx:240:25",
+											"data-prohibitions": "[editContent]"
+										}),
+										"Seu Reino está crescendo! 🏰"
+									]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogDescription, {
+									"data-uid": "src/pages/NovoAmigo.tsx:243:13",
+									"data-prohibitions": "[]",
+									className: "text-lg font-bold text-orange-800 flex flex-col items-center gap-5 mt-2",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										"data-uid": "src/pages/NovoAmigo.tsx:244:15",
+										"data-prohibitions": "[]",
+										children: "Você desbloqueou um Poder Raro!"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+										"data-uid": "src/pages/NovoAmigo.tsx:245:15",
+										"data-prohibitions": "[]",
+										className: "inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-yellow-100 to-yellow-200 border-2 border-yellow-400 rounded-full text-yellow-800 animate-pulse-glow shadow-md w-full max-w-[280px]",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											"data-uid": "src/pages/NovoAmigo.tsx:246:17",
+											"data-prohibitions": "[]",
+											className: "text-2xl",
+											children: "🌟"
+										}), " Guardião Real do Reino"]
+									})]
+								})
+							]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogFooter, {
+							"data-uid": "src/pages/NovoAmigo.tsx:250:11",
+							"data-prohibitions": "[]",
+							className: "mt-8 flex justify-center w-full sm:justify-center relative z-10 pb-2",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+								"data-uid": "src/pages/NovoAmigo.tsx:251:13",
+								"data-prohibitions": "[]",
+								size: "lg",
+								className: "w-full sm:w-auto px-8 py-6 h-auto text-xl font-display font-bold rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white shadow-lg hover:scale-105 transition-transform border-2 border-white",
+								onClick: () => navigate(`/pelucias/${pendingPlushieId}`),
+								children: "Incrível! Continuar"
+							})
+						})
+					]
+				})
 			})
 		]
 	});
 }
-//#endregion
-//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-context@1.1.3_@types+react@19.2.14_react@19.2.4/node_modules/@radix-ui/react-context/dist/index.mjs
-function createContextScope(scopeName, createContextScopeDeps = []) {
-	let defaultContexts = [];
-	function createContext3(rootComponentName, defaultContext) {
-		const BaseContext = import_react.createContext(defaultContext);
-		BaseContext.displayName = rootComponentName + "Context";
-		const index = defaultContexts.length;
-		defaultContexts = [...defaultContexts, defaultContext];
-		const Provider = (props) => {
-			const { scope, children, ...context } = props;
-			const Context = scope?.[scopeName]?.[index] || BaseContext;
-			const value = import_react.useMemo(() => context, Object.values(context));
-			return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Context.Provider, {
-				value,
-				children
-			});
-		};
-		Provider.displayName = rootComponentName + "Provider";
-		function useContext2(consumerName, scope) {
-			const Context = scope?.[scopeName]?.[index] || BaseContext;
-			const context = import_react.useContext(Context);
-			if (context) return context;
-			if (defaultContext !== void 0) return defaultContext;
-			throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``);
-		}
-		return [Provider, useContext2];
-	}
-	const createScope = () => {
-		const scopeContexts = defaultContexts.map((defaultContext) => {
-			return import_react.createContext(defaultContext);
-		});
-		return function useScope(scope) {
-			const contexts = scope?.[scopeName] || scopeContexts;
-			return import_react.useMemo(() => ({ [`__scope${scopeName}`]: {
-				...scope,
-				[scopeName]: contexts
-			} }), [scope, contexts]);
-		};
-	};
-	createScope.scopeName = scopeName;
-	return [createContext3, composeContextScopes(createScope, ...createContextScopeDeps)];
-}
-function composeContextScopes(...scopes) {
-	const baseScope = scopes[0];
-	if (scopes.length === 1) return baseScope;
-	const createScope = () => {
-		const scopeHooks = scopes.map((createScope2) => ({
-			useScope: createScope2(),
-			scopeName: createScope2.scopeName
-		}));
-		return function useComposedScopes(overrideScopes) {
-			const nextScopes = scopeHooks.reduce((nextScopes2, { useScope, scopeName }) => {
-				const currentScope = useScope(overrideScopes)[`__scope${scopeName}`];
-				return {
-					...nextScopes2,
-					...currentScope
-				};
-			}, {});
-			return import_react.useMemo(() => ({ [`__scope${baseScope.scopeName}`]: nextScopes }), [nextScopes]);
-		};
-	};
-	createScope.scopeName = baseScope.scopeName;
-	return createScope;
-}
-//#endregion
-//#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-progress@1.1.8_@types+react-dom@19.2.3_@types+react@19.2.14__@types+rea_7258c0b550570cef5cd6f2d2227aa6b9/node_modules/@radix-ui/react-progress/dist/index.mjs
-var PROGRESS_NAME = "Progress";
-var DEFAULT_MAX = 100;
-var [createProgressContext, createProgressScope] = createContextScope(PROGRESS_NAME);
-var [ProgressProvider, useProgressContext] = createProgressContext(PROGRESS_NAME);
-var Progress$1 = import_react.forwardRef((props, forwardedRef) => {
-	const { __scopeProgress, value: valueProp = null, max: maxProp, getValueLabel = defaultGetValueLabel, ...progressProps } = props;
-	if ((maxProp || maxProp === 0) && !isValidMaxNumber(maxProp)) console.error(getInvalidMaxError(`${maxProp}`, "Progress"));
-	const max = isValidMaxNumber(maxProp) ? maxProp : DEFAULT_MAX;
-	if (valueProp !== null && !isValidValueNumber(valueProp, max)) console.error(getInvalidValueError(`${valueProp}`, "Progress"));
-	const value = isValidValueNumber(valueProp, max) ? valueProp : null;
-	const valueLabel = isNumber(value) ? getValueLabel(value, max) : void 0;
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ProgressProvider, {
-		scope: __scopeProgress,
-		value,
-		max,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
-			"aria-valuemax": max,
-			"aria-valuemin": 0,
-			"aria-valuenow": isNumber(value) ? value : void 0,
-			"aria-valuetext": valueLabel,
-			role: "progressbar",
-			"data-state": getProgressState(value, max),
-			"data-value": value ?? void 0,
-			"data-max": max,
-			...progressProps,
-			ref: forwardedRef
-		})
-	});
-});
-Progress$1.displayName = PROGRESS_NAME;
-var INDICATOR_NAME = "ProgressIndicator";
-var ProgressIndicator = import_react.forwardRef((props, forwardedRef) => {
-	const { __scopeProgress, ...indicatorProps } = props;
-	const context = useProgressContext(INDICATOR_NAME, __scopeProgress);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
-		"data-state": getProgressState(context.value, context.max),
-		"data-value": context.value ?? void 0,
-		"data-max": context.max,
-		...indicatorProps,
-		ref: forwardedRef
-	});
-});
-ProgressIndicator.displayName = INDICATOR_NAME;
-function defaultGetValueLabel(value, max) {
-	return `${Math.round(value / max * 100)}%`;
-}
-function getProgressState(value, maxValue) {
-	return value == null ? "indeterminate" : value === maxValue ? "complete" : "loading";
-}
-function isNumber(value) {
-	return typeof value === "number";
-}
-function isValidMaxNumber(max) {
-	return isNumber(max) && !isNaN(max) && max > 0;
-}
-function isValidValueNumber(value, max) {
-	return isNumber(value) && !isNaN(value) && value <= max && value >= 0;
-}
-function getInvalidMaxError(propValue, componentName) {
-	return `Invalid prop \`max\` of value \`${propValue}\` supplied to \`${componentName}\`. Only numbers greater than 0 are valid max values. Defaulting to \`${DEFAULT_MAX}\`.`;
-}
-function getInvalidValueError(propValue, componentName) {
-	return `Invalid prop \`value\` of value \`${propValue}\` supplied to \`${componentName}\`. The \`value\` prop must be:
-  - a positive number
-  - less than the value passed to \`max\` (or ${DEFAULT_MAX} if no \`max\` prop is set)
-  - \`null\` or \`undefined\` if the progress is indeterminate.
-
-Defaulting to \`null\`.`;
-}
-var Root$1 = Progress$1;
-var Indicator = ProgressIndicator;
-//#endregion
-//#region src/components/ui/progress.tsx
-var Progress = import_react.forwardRef(({ className, value, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$1, {
-	"data-uid": "src/components/ui/progress.tsx:11:3",
-	"data-prohibitions": "[editContent]",
-	ref,
-	className: cn$1("relative h-4 w-full overflow-hidden rounded-full bg-secondary", className),
-	...props,
-	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Indicator, {
-		"data-uid": "src/components/ui/progress.tsx:16:5",
-		"data-prohibitions": "[editContent]",
-		className: "h-full w-full flex-1 bg-primary transition-all",
-		style: { transform: `translateX(-${100 - (value || 0)}%)` }
-	})
-}));
-Progress.displayName = Root$1.displayName;
 //#endregion
 //#region src/pages/ContosNinar.tsx
 var stories = [
@@ -26769,7 +28380,7 @@ var RovingFocusGroupImpl = import_react.forwardRef((props, forwardedRef) => {
 		caller: GROUP_NAME
 	});
 	const [isTabbingBackOut, setIsTabbingBackOut] = import_react.useState(false);
-	const handleEntryFocus = useCallbackRef(onEntryFocus);
+	const handleEntryFocus = useCallbackRef$1(onEntryFocus);
 	const getItems = useCollection(__scopeRovingFocusGroup);
 	const isClickFocusRef = import_react.useRef(false);
 	const [focusableItemsCount, setFocusableItemsCount] = import_react.useState(0);
@@ -28076,4 +29687,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 }));
 //#endregion
 
-//# sourceMappingURL=index-aB1qfgVk.js.map
+//# sourceMappingURL=index-CcZRId96.js.map

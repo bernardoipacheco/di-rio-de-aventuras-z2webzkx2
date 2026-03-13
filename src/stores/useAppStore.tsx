@@ -16,6 +16,8 @@ export type Plushie = {
   powers?: string
   powerTags?: string[]
   audioUrl?: string
+  friendshipLevel?: number
+  friendshipXp?: number
 }
 
 type AppState = {
@@ -25,12 +27,15 @@ type AppState = {
   plushies: Plushie[]
   showRafikiSeal: boolean
   isMusicPlaying: boolean
+  hasRarePowerUnlocked: boolean
   toggleMusic: () => void
   submitTask: (id: string) => void
   approveTask: (id: string) => void
   updatePlushieEmotion: (id: string, emotion: number) => void
-  addPlushie: (plushie: Omit<Plushie, 'id'>) => string
+  addPlushie: (plushie: Omit<Plushie, 'id' | 'friendshipLevel' | 'friendshipXp'>) => string
+  addPlushieXp: (id: string, amount: number) => void
   dismissRafikiSeal: () => void
+  unlockRarePower: () => void
 }
 
 const getLevelText = (xp: number) => {
@@ -87,6 +92,8 @@ const initialPlushies: Plushie[] = [
     imageUrl: 'https://img.usecurling.com/p/200/200?q=lion%20plush&color=orange',
     powers: 'Coragem de Leão, Explorador da Savana',
     powerTags: ['coragem', 'explorador'],
+    friendshipLevel: 1,
+    friendshipXp: 30,
   },
   {
     id: 'p2',
@@ -95,6 +102,8 @@ const initialPlushies: Plushie[] = [
     imageUrl: 'https://img.usecurling.com/p/200/200?q=cat%20plush&color=orange',
     powers: 'Guardião de Segredos, Amigo de Todas as Horas',
     powerTags: ['segredos', 'amigo'],
+    friendshipLevel: 2,
+    friendshipXp: 15,
   },
   {
     id: 'p3',
@@ -103,6 +112,8 @@ const initialPlushies: Plushie[] = [
     imageUrl: 'https://img.usecurling.com/p/200/200?q=rabbit%20plush&color=white',
     powers: 'Guardião do Sono, Mestre dos Abraços',
     powerTags: ['sono', 'abraco'],
+    friendshipLevel: 1,
+    friendshipXp: 80,
   },
 ]
 
@@ -114,6 +125,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [plushies, setPlushies] = useState<Plushie[]>(initialPlushies)
   const [showRafikiSeal, setShowRafikiSeal] = useState(false)
   const [isMusicPlaying, setIsMusicPlaying] = useState(false)
+  const [hasRarePowerUnlocked, setHasRarePowerUnlocked] = useState(false)
 
   const submitTask = (id: string) => {
     setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, status: 'pending' } : t)))
@@ -135,10 +147,28 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setPlushies((prev) => prev.map((p) => (p.id === id ? { ...p, emotion } : p)))
   }
 
-  const addPlushie = (plushieData: Omit<Plushie, 'id'>) => {
+  const addPlushie = (plushieData: Omit<Plushie, 'id' | 'friendshipLevel' | 'friendshipXp'>) => {
     const newId = `p${Date.now()}`
-    setPlushies((prev) => [{ ...plushieData, id: newId }, ...prev])
+    setPlushies((prev) => [
+      { ...plushieData, id: newId, friendshipLevel: 1, friendshipXp: 0 },
+      ...prev,
+    ])
     return newId
+  }
+
+  const addPlushieXp = (id: string, amount: number) => {
+    setPlushies((prev) =>
+      prev.map((p) => {
+        if (p.id !== id) return p
+        let xp = (p.friendshipXp || 0) + amount
+        let level = p.friendshipLevel || 1
+        while (xp >= 100) {
+          level += 1
+          xp -= 100
+        }
+        return { ...p, friendshipXp: xp, friendshipLevel: level }
+      }),
+    )
   }
 
   return (
@@ -150,12 +180,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
         plushies,
         showRafikiSeal,
         isMusicPlaying,
+        hasRarePowerUnlocked,
         toggleMusic: () => setIsMusicPlaying(!isMusicPlaying),
         submitTask,
         approveTask,
         updatePlushieEmotion,
         addPlushie,
+        addPlushieXp,
         dismissRafikiSeal: () => setShowRafikiSeal(false),
+        unlockRarePower: () => setHasRarePowerUnlocked(true),
       }}
     >
       {children}
