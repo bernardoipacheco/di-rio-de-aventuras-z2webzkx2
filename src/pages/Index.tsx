@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
+import { AlertCircle, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import useAppStore from '@/stores/useAppStore'
 
 const nodes = [
   {
@@ -46,6 +48,12 @@ const nodes = [
 ]
 
 export default function Index() {
+  const { schoolTasks } = useAppStore()
+
+  const urgentTasks = schoolTasks.filter(
+    (t) => t.priority === 'Urgente' && t.status !== 'completed',
+  )
+
   return (
     <div className="min-h-[calc(100vh-80px)] w-full relative flex items-center justify-center p-4 overflow-hidden">
       {/* SVG Branches Background for Map - adjusted for Savanna vibe */}
@@ -96,6 +104,26 @@ export default function Index() {
       </div>
 
       <div className="relative w-full max-w-5xl h-[650px] md:h-[800px]">
+        {/* Urgent Alert Banner */}
+        {urgentTasks.length > 0 && (
+          <Link
+            to="/estante"
+            className="absolute top-0 md:top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-gradient-to-b from-red-500 to-red-700 text-white px-5 py-2.5 md:px-6 md:py-3 rounded-full shadow-[0_10px_30px_rgba(220,38,38,0.5)] border-4 border-yellow-400 hover:scale-110 hover:-translate-y-1 transition-all duration-300 group animate-fade-in-down"
+          >
+            <div className="bg-yellow-400 text-red-700 rounded-full p-1 shadow-inner shrink-0">
+              <AlertCircle className="w-5 h-5 animate-pulse" strokeWidth={3} />
+            </div>
+            <span className="font-display font-black text-sm md:text-base uppercase tracking-wider text-shadow-sm drop-shadow-md whitespace-nowrap">
+              {urgentTasks.length}{' '}
+              {urgentTasks.length === 1 ? 'Tarefa Urgente!' : 'Tarefas Urgentes!'}
+            </span>
+            <ChevronRight
+              className="w-5 h-5 group-hover:translate-x-1 transition-transform text-yellow-300 shrink-0"
+              strokeWidth={3}
+            />
+          </Link>
+        )}
+
         {/* Central Hub */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
           <div className="relative group flex flex-col items-center justify-center animate-float">
