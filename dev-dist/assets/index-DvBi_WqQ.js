@@ -19063,6 +19063,10 @@ var Headphones = createLucideIcon("headphones", [["path", {
 	d: "M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3",
 	key: "1xhozi"
 }]]);
+var Heart = createLucideIcon("heart", [["path", {
+	d: "M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5",
+	key: "mvr1a0"
+}]]);
 var House = createLucideIcon("house", [["path", {
 	d: "M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8",
 	key: "5wwlr5"
@@ -19094,6 +19098,20 @@ var LogOut = createLucideIcon("log-out", [
 	["path", {
 		d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4",
 		key: "1uf3rs"
+	}]
+]);
+var Map$1 = createLucideIcon("map", [
+	["path", {
+		d: "M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z",
+		key: "169xi5"
+	}],
+	["path", {
+		d: "M15 5.764v15",
+		key: "1pn4in"
+	}],
+	["path", {
+		d: "M9 3.236v15",
+		key: "1uimfh"
 	}]
 ]);
 var Medal = createLucideIcon("medal", [
@@ -19188,20 +19206,6 @@ var Play = createLucideIcon("play", [["path", {
 	d: "M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z",
 	key: "10ikf1"
 }]]);
-var Save = createLucideIcon("save", [
-	["path", {
-		d: "M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z",
-		key: "1c8476"
-	}],
-	["path", {
-		d: "M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7",
-		key: "1ydtos"
-	}],
-	["path", {
-		d: "M7 3v4a1 1 0 0 0 1 1h7",
-		key: "t51u73"
-	}]
-]);
 var ShieldCheck = createLucideIcon("shield-check", [["path", {
 	d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
 	key: "oel41y"
@@ -19233,6 +19237,14 @@ var Sparkles = createLucideIcon("sparkles", [
 		key: "6kqj1y"
 	}]
 ]);
+var Square = createLucideIcon("square", [["rect", {
+	width: "18",
+	height: "18",
+	x: "3",
+	y: "3",
+	rx: "2",
+	key: "afitv7"
+}]]);
 var Star = createLucideIcon("star", [["path", {
 	d: "M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z",
 	key: "r04s7s"
@@ -25833,18 +25845,6 @@ var Input = import_react.forwardRef(({ className, type, ...props }, ref) => {
 });
 Input.displayName = "Input";
 //#endregion
-//#region src/components/ui/textarea.tsx
-var Textarea = import_react.forwardRef(({ className, ...props }, ref) => {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("textarea", {
-		"data-uid": "src/components/ui/textarea.tsx:9:7",
-		"data-prohibitions": "[editContent]",
-		className: cn$1("flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm", className),
-		ref,
-		...props
-	});
-});
-Textarea.displayName = "Textarea";
-//#endregion
 //#region ../../cache/modules/diario-de-aventuras-2015f/node_modules/.pnpm/@radix-ui+react-primitive@2.1.4_@types+react-dom@19.2.3_@types+react@19.2.14__@types+re_0243fb2db8a1fb85ca77b8d9e5c2d650/node_modules/@radix-ui/react-primitive/dist/index.mjs
 var Primitive = [
 	"a",
@@ -25910,121 +25910,362 @@ var Label = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE
 Label.displayName = Root$2.displayName;
 //#endregion
 //#region src/pages/NovoAmigo.tsx
+var powersList = [
+	{
+		id: "sono",
+		label: "Protetor do Sono",
+		icon: Shield,
+		color: "text-indigo-500",
+		bg: "bg-indigo-100",
+		border: "border-indigo-300"
+	},
+	{
+		id: "aventura",
+		label: "Companheiro de Aventuras",
+		icon: Map$1,
+		color: "text-orange-500",
+		bg: "bg-orange-100",
+		border: "border-orange-300"
+	},
+	{
+		id: "abraco",
+		label: "Mestre dos Abraços",
+		icon: Heart,
+		color: "text-pink-500",
+		bg: "bg-pink-100",
+		border: "border-pink-300"
+	}
+];
+function Confetti() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		"data-uid": "src/pages/NovoAmigo.tsx:39:5",
+		"data-prohibitions": "[editContent]",
+		className: "fixed inset-0 pointer-events-none z-[100] overflow-hidden",
+		children: Array.from({ length: 80 }).map((_, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			"data-uid": "src/pages/NovoAmigo.tsx:41:9",
+			"data-prohibitions": "[editContent]",
+			className: "absolute animate-confetti",
+			style: {
+				left: `${Math.random() * 100}%`,
+				top: `-10%`,
+				backgroundColor: [
+					"#facc15",
+					"#f87171",
+					"#60a5fa",
+					"#34d399",
+					"#c084fc",
+					"#fb923c"
+				][Math.floor(Math.random() * 6)],
+				width: `${Math.random() * 12 + 6}px`,
+				height: `${Math.random() * 12 + 6}px`,
+				borderRadius: Math.random() > .5 ? "50%" : "2px",
+				animationDuration: `${Math.random() * 2 + 1.5}s`,
+				animationDelay: `${Math.random() * .2}s`
+			}
+		}, i))
+	});
+}
 function NovoAmigo() {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const { addPlushie } = useAppStore();
 	const [name, setName] = (0, import_react.useState)("");
-	const [powers, setPowers] = (0, import_react.useState)("");
-	const imageUrl = location.state?.imageUrl || "https://img.usecurling.com/p/200/200?q=manga%20plush%20toy&color=orange";
+	const [selectedPowers, setSelectedPowers] = (0, import_react.useState)([]);
+	const [showConfetti, setShowConfetti] = (0, import_react.useState)(false);
+	const [image, setImage] = (0, import_react.useState)(location.state?.imageUrl || "https://img.usecurling.com/p/200/200?q=manga%20plush%20toy&color=orange");
+	const fileInputRef = (0, import_react.useRef)(null);
+	const [isRecording, setIsRecording] = (0, import_react.useState)(false);
+	const [audioUrl, setAudioUrl] = (0, import_react.useState)(null);
+	const mediaRecorderRef = (0, import_react.useRef)(null);
+	const audioChunksRef = (0, import_react.useRef)([]);
+	(0, import_react.useEffect)(() => {
+		return () => {
+			if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") mediaRecorderRef.current.stop();
+		};
+	}, []);
+	const handleFileChange = (e) => {
+		const file = e.target.files?.[0];
+		if (file) {
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				setImage(reader.result);
+			};
+			reader.readAsDataURL(file);
+		}
+	};
+	const togglePower = (id) => {
+		setSelectedPowers((prev) => prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id]);
+	};
+	const startRecording = async () => {
+		try {
+			const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+			mediaRecorderRef.current = new MediaRecorder(stream);
+			audioChunksRef.current = [];
+			mediaRecorderRef.current.ondataavailable = (e) => {
+				if (e.data.size > 0) audioChunksRef.current.push(e.data);
+			};
+			mediaRecorderRef.current.onstop = () => {
+				const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+				setAudioUrl(URL.createObjectURL(audioBlob));
+			};
+			mediaRecorderRef.current.start();
+			setIsRecording(true);
+		} catch (err) {
+			console.error("Error accessing microphone", err);
+			setIsRecording(true);
+			setTimeout(() => {
+				stopRecording();
+				setAudioUrl("mock-audio-url");
+			}, 2e3);
+		}
+	};
+	const stopRecording = () => {
+		if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") mediaRecorderRef.current.stop();
+		setIsRecording(false);
+	};
+	const playAudio = () => {
+		if (audioUrl && audioUrl !== "mock-audio-url") new Audio(audioUrl).play();
+	};
 	const handleSave = () => {
 		if (!name.trim()) return;
-		navigate(`/pelucias/${addPlushie({
-			name,
-			powers,
-			imageUrl,
-			emotion: 80
-		})}`);
+		setShowConfetti(true);
+		const powersString = selectedPowers.map((id) => powersList.find((p) => p.id === id)?.label).join(", ") || "Nenhum poder descoberto ainda!";
+		setTimeout(() => {
+			navigate(`/pelucias/${addPlushie({
+				name,
+				powers: powersString,
+				imageUrl: image,
+				emotion: 80
+			})}`);
+		}, 2500);
 	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		"data-uid": "src/pages/NovoAmigo.tsx:34:5",
-		"data-prohibitions": "[]",
-		className: "container py-6 max-w-2xl animate-fade-in flex flex-col items-center pb-20",
+		"data-uid": "src/pages/NovoAmigo.tsx:168:5",
+		"data-prohibitions": "[editContent]",
+		className: "container py-6 max-w-3xl animate-fade-in flex flex-col items-center pb-20 relative",
 		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/NovoAmigo.tsx:35:7",
+			showConfetti && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Confetti, {
+				"data-uid": "src/pages/NovoAmigo.tsx:169:24",
+				"data-prohibitions": "[editContent]"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				"data-uid": "src/pages/NovoAmigo.tsx:171:7",
 				"data-prohibitions": "[]",
-				className: "w-full flex items-center justify-center mb-8 relative",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-					"data-uid": "src/pages/NovoAmigo.tsx:36:9",
+				className: "w-full flex items-center justify-center mb-6 relative",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+					"data-uid": "src/pages/NovoAmigo.tsx:172:9",
 					"data-prohibitions": "[]",
 					variant: "outline",
 					size: "icon",
-					onClick: () => navigate("/pelucias"),
+					onClick: () => navigate(-1),
 					className: "absolute left-0 rounded-full border-orange-300 text-orange-600 hover:bg-orange-100 bg-white/80 backdrop-blur-sm z-10 w-12 h-12 shadow-sm",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, {
-						"data-uid": "src/pages/NovoAmigo.tsx:42:11",
+						"data-uid": "src/pages/NovoAmigo.tsx:178:11",
 						"data-prohibitions": "[editContent]",
 						className: "w-6 h-6"
 					})
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-					"data-uid": "src/pages/NovoAmigo.tsx:44:9",
-					"data-prohibitions": "[]",
-					className: "w-full text-center text-3xl md:text-4xl font-display font-black text-orange-900 drop-shadow-sm px-14 uppercase tracking-wider",
-					children: "Novo Amigo"
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
+				"data-uid": "src/pages/NovoAmigo.tsx:182:7",
+				"data-prohibitions": "[]",
+				className: "w-full text-center text-3xl md:text-5xl font-display font-black text-primary drop-shadow-md uppercase tracking-wider mb-8",
+				children: [
+					"Apresentando um",
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {
+						"data-uid": "src/pages/NovoAmigo.tsx:184:9",
+						"data-prohibitions": "[editContent]",
+						className: "md:hidden"
+					}),
+					" Novo Habitante!"
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				"data-uid": "src/pages/NovoAmigo.tsx:187:7",
+				"data-prohibitions": "[editContent]",
+				className: "w-full bg-white/90 backdrop-blur-md p-6 md:p-10 rounded-[2.5rem] shadow-2xl border-8 border-primary/20 relative",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					"data-uid": "src/pages/NovoAmigo.tsx:188:9",
+					"data-prohibitions": "[editContent]",
+					className: "absolute inset-0 border-2 border-dashed border-primary/40 rounded-[2rem] m-2 pointer-events-none"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					"data-uid": "src/pages/NovoAmigo.tsx:190:9",
+					"data-prohibitions": "[editContent]",
+					className: "relative z-10 flex flex-col items-center",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+							"data-uid": "src/pages/NovoAmigo.tsx:191:11",
+							"data-prohibitions": "[editContent]",
+							type: "file",
+							accept: "image/*",
+							className: "hidden",
+							ref: fileInputRef,
+							onChange: handleFileChange
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							"data-uid": "src/pages/NovoAmigo.tsx:199:11",
+							"data-prohibitions": "[]",
+							className: "relative w-40 h-40 md:w-56 md:h-56 mx-auto mb-10 cursor-pointer group animate-float",
+							onClick: () => fileInputRef.current?.click(),
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									"data-uid": "src/pages/NovoAmigo.tsx:203:13",
+									"data-prohibitions": "[editContent]",
+									className: "absolute inset-0 rounded-full bg-yellow-400 blur-lg animate-pulse-glow opacity-80"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									"data-uid": "src/pages/NovoAmigo.tsx:204:13",
+									"data-prohibitions": "[]",
+									className: "absolute inset-0 rounded-full border-[6px] border-yellow-300 bg-orange-50 shadow-[0_0_30px_rgba(255,215,0,0.6)] overflow-hidden z-10",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+										"data-uid": "src/pages/NovoAmigo.tsx:205:15",
+										"data-prohibitions": "[editContent]",
+										src: image,
+										className: "w-full h-full object-cover group-hover:scale-110 transition-transform duration-500",
+										alt: "Plushie"
+									})
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									"data-uid": "src/pages/NovoAmigo.tsx:211:13",
+									"data-prohibitions": "[]",
+									className: "absolute bottom-2 right-2 z-20 bg-white p-3 rounded-full shadow-xl border-4 border-yellow-400 group-hover:scale-110 transition-transform",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Camera, {
+										"data-uid": "src/pages/NovoAmigo.tsx:212:15",
+										"data-prohibitions": "[editContent]",
+										className: "w-6 h-6 text-yellow-600"
+									})
+								})
+							]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							"data-uid": "src/pages/NovoAmigo.tsx:216:11",
+							"data-prohibitions": "[editContent]",
+							className: "w-full space-y-8",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									"data-uid": "src/pages/NovoAmigo.tsx:217:13",
+									"data-prohibitions": "[]",
+									className: "space-y-3 text-center",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+										"data-uid": "src/pages/NovoAmigo.tsx:218:15",
+										"data-prohibitions": "[]",
+										htmlFor: "name",
+										className: "text-xl font-display font-bold text-orange-900",
+										children: "Nome do Amigo"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+										"data-uid": "src/pages/NovoAmigo.tsx:221:15",
+										"data-prohibitions": "[editContent]",
+										id: "name",
+										placeholder: "Ex: Leãozinho Valente",
+										value: name,
+										onChange: (e) => setName(e.target.value),
+										className: "text-xl py-7 rounded-2xl border-orange-300 focus-visible:ring-orange-500 bg-orange-50/50 font-bold text-center placeholder:text-orange-300 shadow-inner"
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									"data-uid": "src/pages/NovoAmigo.tsx:230:13",
+									"data-prohibitions": "[editContent]",
+									className: "space-y-4",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Label, {
+										"data-uid": "src/pages/NovoAmigo.tsx:231:15",
+										"data-prohibitions": "[]",
+										className: "text-xl font-display font-bold text-orange-900 flex items-center justify-center gap-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Sparkles, {
+											"data-uid": "src/pages/NovoAmigo.tsx:232:17",
+											"data-prohibitions": "[editContent]",
+											className: "w-6 h-6 text-orange-500"
+										}), "Poderes Especiais"]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										"data-uid": "src/pages/NovoAmigo.tsx:235:15",
+										"data-prohibitions": "[editContent]",
+										className: "grid grid-cols-1 md:grid-cols-3 gap-4",
+										children: powersList.map((p) => {
+											const isSelected = selectedPowers.includes(p.id);
+											return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+												"data-uid": "src/pages/NovoAmigo.tsx:239:21",
+												"data-prohibitions": "[editContent]",
+												onClick: () => togglePower(p.id),
+												className: cn$1("flex flex-col items-center p-4 rounded-3xl border-4 transition-all duration-300", isSelected ? `${p.bg} ${p.border} scale-105 shadow-lg` : "bg-white border-orange-100 hover:bg-orange-50 hover:border-orange-200"),
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(p.icon, {
+													"data-uid": "src/pages/NovoAmigo.tsx:249:23",
+													"data-prohibitions": "[editContent]",
+													className: cn$1("w-10 h-10 mb-3", isSelected ? p.color : "text-orange-300")
+												}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+													"data-uid": "src/pages/NovoAmigo.tsx:252:23",
+													"data-prohibitions": "[editContent]",
+													className: cn$1("text-sm font-bold text-center leading-tight", isSelected ? p.color : "text-orange-900/60"),
+													children: p.label
+												})]
+											}, p.id);
+										})
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									"data-uid": "src/pages/NovoAmigo.tsx:266:13",
+									"data-prohibitions": "[editContent]",
+									className: "flex flex-col items-center gap-4 bg-orange-50/80 p-8 rounded-3xl border-4 border-orange-100 mt-6",
+									children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+											"data-uid": "src/pages/NovoAmigo.tsx:267:15",
+											"data-prohibitions": "[]",
+											className: "text-xl font-display font-bold text-orange-900 mb-2 text-center",
+											children: "História de Origem"
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											"data-uid": "src/pages/NovoAmigo.tsx:271:15",
+											"data-prohibitions": "[editContent]",
+											className: "flex items-center justify-center gap-6 w-full",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+												"data-uid": "src/pages/NovoAmigo.tsx:272:17",
+												"data-prohibitions": "[editContent]",
+												onClick: isRecording ? stopRecording : startRecording,
+												className: cn$1("w-24 h-24 rounded-full shadow-xl transition-all duration-300 border-4", isRecording ? "bg-red-500 hover:bg-red-600 border-red-300 animate-pulse-glow" : "bg-gradient-to-br from-orange-400 to-red-500 border-white hover:scale-105"),
+												children: isRecording ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Square, {
+													"data-uid": "src/pages/NovoAmigo.tsx:282:21",
+													"data-prohibitions": "[editContent]",
+													className: "w-10 h-10 text-white"
+												}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mic, {
+													"data-uid": "src/pages/NovoAmigo.tsx:284:21",
+													"data-prohibitions": "[editContent]",
+													className: "w-10 h-10 text-white"
+												})
+											}), audioUrl && !isRecording && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+												"data-uid": "src/pages/NovoAmigo.tsx:289:19",
+												"data-prohibitions": "[]",
+												onClick: playAudio,
+												className: "w-16 h-16 rounded-full bg-green-500 hover:bg-green-600 border-4 border-white shadow-lg hover:scale-105 transition-transform animate-fade-in",
+												children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, {
+													"data-uid": "src/pages/NovoAmigo.tsx:293:21",
+													"data-prohibitions": "[editContent]",
+													className: "w-8 h-8 text-white ml-1"
+												})
+											})]
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+											"data-uid": "src/pages/NovoAmigo.tsx:297:15",
+											"data-prohibitions": "[editContent]",
+											className: "text-base font-bold text-orange-700 text-center",
+											children: isRecording ? "Gravando... clique para parar" : "Gravar a História de Origem"
+										})
+									]
+								})
+							]
+						})
+					]
 				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				"data-uid": "src/pages/NovoAmigo.tsx:49:7",
+				"data-uid": "src/pages/NovoAmigo.tsx:305:7",
 				"data-prohibitions": "[]",
-				className: "w-48 h-48 md:w-64 md:h-64 rounded-full border-8 border-white shadow-[0_10px_40px_rgba(251,146,60,0.3)] overflow-hidden mb-8 bg-orange-100 relative animate-float",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-					"data-uid": "src/pages/NovoAmigo.tsx:50:9",
-					"data-prohibitions": "[editContent]",
-					src: imageUrl,
-					alt: "Novo Amigo",
-					className: "w-full h-full object-cover"
+				className: "mt-10 w-full max-w-sm",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+					"data-uid": "src/pages/NovoAmigo.tsx:306:9",
+					"data-prohibitions": "[]",
+					onClick: handleSave,
+					disabled: !name.trim() || showConfetti,
+					className: "w-full h-20 rounded-[2rem] text-2xl font-display font-black bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 hover:from-yellow-500 hover:via-orange-600 hover:to-red-600 shadow-[0_10px_30px_rgba(251,146,60,0.4)] hover:scale-105 transition-all duration-300 border-4 border-white text-white disabled:opacity-50 disabled:hover:scale-100",
+					children: "Apresentar ao Reino! 🦁"
 				})
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/NovoAmigo.tsx:53:7",
-				"data-prohibitions": "[]",
-				className: "w-full bg-white/70 backdrop-blur-md p-8 rounded-3xl shadow-xl mb-10 border-2 border-orange-200 space-y-6",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/NovoAmigo.tsx:54:9",
-					"data-prohibitions": "[]",
-					className: "space-y-3",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-						"data-uid": "src/pages/NovoAmigo.tsx:55:11",
-						"data-prohibitions": "[]",
-						htmlFor: "name",
-						className: "text-lg font-bold text-orange-900",
-						children: "Nome do Amigo"
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-						"data-uid": "src/pages/NovoAmigo.tsx:58:11",
-						"data-prohibitions": "[editContent]",
-						id: "name",
-						placeholder: "Ex: Leãozinho Valente",
-						value: name,
-						onChange: (e) => setName(e.target.value),
-						className: "text-lg py-6 rounded-2xl border-orange-200 focus-visible:ring-orange-400 bg-white/80 font-medium"
-					})]
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/NovoAmigo.tsx:67:9",
-					"data-prohibitions": "[]",
-					className: "space-y-3",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Label, {
-						"data-uid": "src/pages/NovoAmigo.tsx:68:11",
-						"data-prohibitions": "[]",
-						htmlFor: "powers",
-						className: "text-lg font-bold text-orange-900 flex items-center gap-2",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Sparkles, {
-							"data-uid": "src/pages/NovoAmigo.tsx:72:13",
-							"data-prohibitions": "[editContent]",
-							className: "w-5 h-5 text-orange-500"
-						}), "Características (Poderes Especiais)"]
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Textarea, {
-						"data-uid": "src/pages/NovoAmigo.tsx:75:11",
-						"data-prohibitions": "[editContent]",
-						id: "powers",
-						placeholder: "Ex: Pode voar super rápido e dar abraços mágicos que curam dodóis!",
-						value: powers,
-						onChange: (e) => setPowers(e.target.value),
-						className: "text-base min-h-[120px] rounded-2xl border-orange-200 focus-visible:ring-orange-400 bg-white/80 font-medium"
-					})]
-				})]
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
-				"data-uid": "src/pages/NovoAmigo.tsx:85:7",
-				"data-prohibitions": "[]",
-				onClick: handleSave,
-				disabled: !name.trim(),
-				className: "w-full max-w-xs h-16 rounded-full text-xl font-display font-bold bg-gradient-to-r from-orange-400 to-red-500 hover:from-orange-500 hover:to-red-600 shadow-lg hover:scale-105 transition-all duration-300 border-4 border-white/50",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Save, {
-					"data-uid": "src/pages/NovoAmigo.tsx:90:9",
-					"data-prohibitions": "[editContent]",
-					className: "w-6 h-6 mr-2"
-				}), "Salvar Amigo"]
 			})
 		]
 	});
@@ -27646,4 +27887,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 }));
 //#endregion
 
-//# sourceMappingURL=index-BgjWuBXL.js.map
+//# sourceMappingURL=index-DvBi_WqQ.js.map
