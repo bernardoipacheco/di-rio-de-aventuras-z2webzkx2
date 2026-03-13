@@ -19028,10 +19028,6 @@ var BookOpen = createLucideIcon("book-open", [["path", {
 	d: "M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z",
 	key: "ruj8y"
 }]]);
-var Book = createLucideIcon("book", [["path", {
-	d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20",
-	key: "k3hazp"
-}]]);
 var Check = createLucideIcon("check", [["path", {
 	d: "M20 6 9 17l-5-5",
 	key: "1gmf2c"
@@ -19144,10 +19140,6 @@ var Mic = createLucideIcon("mic", [
 		key: "s6n7sd"
 	}]
 ]);
-var Moon = createLucideIcon("moon", [["path", {
-	d: "M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401",
-	key: "kfwtm"
-}]]);
 var Music2 = createLucideIcon("music-2", [["circle", {
 	cx: "8",
 	cy: "18",
@@ -19229,24 +19221,6 @@ var Star = createLucideIcon("star", [["path", {
 	d: "M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z",
 	key: "r04s7s"
 }]]);
-var Tent = createLucideIcon("tent", [
-	["path", {
-		d: "M3.5 21 14 3",
-		key: "1szst5"
-	}],
-	["path", {
-		d: "M20.5 21 10 3",
-		key: "1310c3"
-	}],
-	["path", {
-		d: "M15.5 21 12 15l-3.5 6",
-		key: "1ddtfw"
-	}],
-	["path", {
-		d: "M2 21h20",
-		key: "1nyx9w"
-	}]
-]);
 var ThumbsUp = createLucideIcon("thumbs-up", [["path", {
 	d: "M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z",
 	key: "emmmcr"
@@ -24236,43 +24210,43 @@ TooltipContent.displayName = Content2.displayName;
 var nodes = [
 	{
 		path: "/estante",
-		icon: Book,
+		image: "https://img.usecurling.com/p/250/250?q=manga%20baobab%20tree%20savanna&color=green",
 		title: "Estante Mágica",
-		color: "bg-accent",
+		color: "border-green-400 shadow-[0_0_15px_rgba(74,222,128,0.5)]",
 		delay: "delay-0",
-		position: "md:top-[15%] md:left-[20%] top-[10%] left-[10%]"
+		position: "top-[15%] left-[20%] md:top-[20%] md:left-[22%] -translate-x-1/2 -translate-y-1/2"
 	},
 	{
 		path: "/pelucias",
-		icon: Tent,
+		image: "https://img.usecurling.com/p/250/250?q=manga%20cozy%20animal%20den%20cave&color=orange",
 		title: "Refúgio das Pelúcias",
-		color: "bg-secondary",
+		color: "border-orange-400 shadow-[0_0_15px_rgba(251,146,60,0.5)]",
 		delay: "delay-75",
-		position: "md:top-[15%] md:left-[80%] top-[10%] right-[10%]"
+		position: "top-[15%] left-[80%] md:top-[20%] md:left-[78%] -translate-x-1/2 -translate-y-1/2"
 	},
 	{
 		path: "/contos",
-		icon: Moon,
+		image: "https://img.usecurling.com/p/250/250?q=manga%20sleeping%20lion%20cub%20night&color=purple",
 		title: "Contos de Ninar",
-		color: "bg-indigo-500",
+		color: "border-purple-400 shadow-[0_0_15px_rgba(192,132,252,0.5)]",
 		delay: "delay-100",
-		position: "md:top-[70%] md:left-[20%] bottom-[20%] left-[10%]"
+		position: "top-[80%] left-[20%] md:top-[75%] md:left-[22%] -translate-x-1/2 -translate-y-1/2"
 	},
 	{
 		path: "/trofeus",
-		icon: Trophy,
+		image: "https://img.usecurling.com/p/250/250?q=manga%20golden%20trophy%20sparkle&color=yellow",
 		title: "Sala de Troféus",
-		color: "bg-primary",
+		color: "border-yellow-400 shadow-[0_0_15px_rgba(250,204,21,0.5)]",
 		delay: "delay-150",
-		position: "md:top-[70%] md:left-[80%] bottom-[20%] right-[10%]"
+		position: "top-[80%] left-[80%] md:top-[75%] md:left-[78%] -translate-x-1/2 -translate-y-1/2"
 	},
 	{
 		path: "/missoes",
-		icon: ShieldCheck,
+		image: "https://img.usecurling.com/p/250/250?q=manga%20savanna%20lion%20shield&color=red",
 		title: "Missões do Reino",
-		color: "bg-green-500",
+		color: "border-red-400 shadow-[0_0_15px_rgba(248,113,113,0.5)]",
 		delay: "delay-200",
-		position: "md:top-[85%] md:left-[50%] bottom-[5%] left-[50%] -translate-x-1/2"
+		position: "top-[92%] left-[50%] md:top-[88%] md:left-[50%] -translate-x-1/2 -translate-y-1/2"
 	}
 ];
 function Index() {
@@ -24283,7 +24257,7 @@ function Index() {
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 			"data-uid": "src/pages/Index.tsx:52:7",
 			"data-prohibitions": "[]",
-			className: "absolute inset-0 pointer-events-none opacity-20",
+			className: "absolute inset-0 pointer-events-none opacity-40",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", {
 				"data-uid": "src/pages/Index.tsx:53:9",
 				"data-prohibitions": "[]",
@@ -24294,114 +24268,161 @@ function Index() {
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
 						"data-uid": "src/pages/Index.tsx:54:11",
 						"data-prohibitions": "[editContent]",
-						d: "M50,50 Q35,32 20,15",
-						stroke: "currentColor",
-						strokeWidth: "0.5",
-						fill: "none",
-						className: "text-primary"
+						d: "M50,50 Q36,35 22,20",
+						stroke: "url(#lineGrad)",
+						strokeWidth: "0.8",
+						strokeDasharray: "1.5 1.5",
+						fill: "none"
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
 						"data-uid": "src/pages/Index.tsx:61:11",
 						"data-prohibitions": "[editContent]",
-						d: "M50,50 Q65,32 80,15",
-						stroke: "currentColor",
-						strokeWidth: "0.5",
-						fill: "none",
-						className: "text-primary"
+						d: "M50,50 Q64,35 78,20",
+						stroke: "url(#lineGrad)",
+						strokeWidth: "0.8",
+						strokeDasharray: "1.5 1.5",
+						fill: "none"
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
 						"data-uid": "src/pages/Index.tsx:68:11",
 						"data-prohibitions": "[editContent]",
-						d: "M50,50 Q35,60 20,70",
-						stroke: "currentColor",
-						strokeWidth: "0.5",
-						fill: "none",
-						className: "text-primary"
+						d: "M50,50 Q36,62 22,75",
+						stroke: "url(#lineGrad)",
+						strokeWidth: "0.8",
+						strokeDasharray: "1.5 1.5",
+						fill: "none"
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
 						"data-uid": "src/pages/Index.tsx:75:11",
 						"data-prohibitions": "[editContent]",
-						d: "M50,50 Q65,60 80,70",
-						stroke: "currentColor",
-						strokeWidth: "0.5",
-						fill: "none",
-						className: "text-primary"
+						d: "M50,50 Q64,62 78,75",
+						stroke: "url(#lineGrad)",
+						strokeWidth: "0.8",
+						strokeDasharray: "1.5 1.5",
+						fill: "none"
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
 						"data-uid": "src/pages/Index.tsx:82:11",
 						"data-prohibitions": "[editContent]",
-						d: "M50,50 Q50,65 50,85",
-						stroke: "currentColor",
-						strokeWidth: "0.5",
-						fill: "none",
-						className: "text-primary"
+						d: "M50,50 Q50,69 50,88",
+						stroke: "url(#lineGrad)",
+						strokeWidth: "0.8",
+						strokeDasharray: "1.5 1.5",
+						fill: "none"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("defs", {
+						"data-uid": "src/pages/Index.tsx:89:11",
+						"data-prohibitions": "[]",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("linearGradient", {
+							"data-uid": "src/pages/Index.tsx:90:13",
+							"data-prohibitions": "[]",
+							id: "lineGrad",
+							x1: "0%",
+							y1: "0%",
+							x2: "100%",
+							y2: "100%",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", {
+								"data-uid": "src/pages/Index.tsx:91:15",
+								"data-prohibitions": "[editContent]",
+								offset: "0%",
+								stopColor: "#EA580C",
+								stopOpacity: "0.8"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", {
+								"data-uid": "src/pages/Index.tsx:92:15",
+								"data-prohibitions": "[editContent]",
+								offset: "100%",
+								stopColor: "#F59E0B",
+								stopOpacity: "0.2"
+							})]
+						})
 					})
 				]
 			})
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			"data-uid": "src/pages/Index.tsx:92:7",
+			"data-uid": "src/pages/Index.tsx:98:7",
 			"data-prohibitions": "[editContent]",
-			className: "relative w-full max-w-4xl h-[600px] md:h-[800px]",
+			className: "relative w-full max-w-5xl h-[650px] md:h-[800px]",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				"data-uid": "src/pages/Index.tsx:94:9",
+				"data-uid": "src/pages/Index.tsx:100:9",
 				"data-prohibitions": "[]",
 				className: "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/Index.tsx:95:11",
+					"data-uid": "src/pages/Index.tsx:101:11",
 					"data-prohibitions": "[]",
 					className: "relative group flex flex-col items-center justify-center animate-float",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/Index.tsx:96:13",
+						"data-uid": "src/pages/Index.tsx:102:13",
 						"data-prohibitions": "[editContent]",
-						className: "absolute inset-0 bg-primary/40 rounded-full blur-2xl animate-pulse-glow"
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/Index.tsx:97:13",
+						className: "absolute inset-0 bg-yellow-400 rounded-full blur-[40px] animate-pulse-glow opacity-90"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						"data-uid": "src/pages/Index.tsx:104:13",
 						"data-prohibitions": "[]",
-						className: "w-32 h-32 md:w-48 md:h-48 rounded-full bg-gradient-to-br from-primary to-secondary p-1 shadow-2xl transition-transform duration-300 group-hover:scale-105",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/pages/Index.tsx:98:15",
+						className: "w-44 h-44 md:w-64 md:h-64 rounded-full bg-gradient-to-br from-yellow-300 via-orange-400 to-red-500 p-2 shadow-[0_0_50px_rgba(255,215,0,0.8)] transition-transform duration-500 group-hover:scale-105 border-4 border-yellow-200 relative overflow-hidden flex flex-col items-center justify-center",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							"data-uid": "src/pages/Index.tsx:105:15",
 							"data-prohibitions": "[]",
-							className: "w-full h-full rounded-full bg-background flex flex-col items-center justify-center border-4 border-transparent p-4 text-center",
+							className: "absolute inset-0 z-0",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+								"data-uid": "src/pages/Index.tsx:106:17",
+								"data-prohibitions": "[editContent]",
+								src: "https://img.usecurling.com/p/400/400?q=manga%20savanna%20sunrise%20lion&color=orange",
+								alt: "Savanna Background",
+								className: "w-full h-full object-cover opacity-60 mix-blend-overlay group-hover:scale-110 transition-transform duration-700"
+							})
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							"data-uid": "src/pages/Index.tsx:113:15",
+							"data-prohibitions": "[]",
+							className: "w-full h-full rounded-full border-4 border-white/40 flex flex-col items-center justify-center p-4 text-center z-10 bg-black/10 backdrop-blur-sm",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								"data-uid": "src/pages/Index.tsx:99:17",
+								"data-uid": "src/pages/Index.tsx:114:17",
 								"data-prohibitions": "[]",
-								className: "text-4xl mb-2",
-								children: "🐾"
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-								"data-uid": "src/pages/Index.tsx:100:17",
+								className: "text-5xl md:text-6xl mb-2 drop-shadow-lg animate-bounce",
+								style: { animationDuration: "3s" },
+								children: "🦁"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
+								"data-uid": "src/pages/Index.tsx:120:17",
 								"data-prohibitions": "[]",
-								className: "font-display font-bold text-xl md:text-2xl leading-tight text-foreground",
-								children: "Diário de Aventuras"
+								className: "font-display font-black text-xl md:text-3xl leading-none text-white uppercase tracking-widest text-shadow-sm drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]",
+								children: [
+									"Diário de",
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {
+										"data-uid": "src/pages/Index.tsx:122:19",
+										"data-prohibitions": "[editContent]"
+									}),
+									"Aventuras"
+								]
 							})]
-						})
+						})]
 					})]
 				})
 			}), nodes.map((node, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-				"data-uid": "src/pages/Index.tsx:110:11",
+				"data-uid": "src/pages/Index.tsx:132:11",
 				"data-prohibitions": "[editContent]",
 				to: node.path,
-				className: cn$1("absolute z-10 flex flex-col items-center gap-2 group transition-all duration-300 hover:scale-110 animate-fade-in-up md:-translate-x-1/2 md:-translate-y-1/2", node.position, node.delay),
+				className: cn$1("absolute z-10 flex flex-col items-center gap-3 group transition-all duration-300 hover:scale-110 animate-float", node.position, node.delay),
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/Index.tsx:119:13",
+					"data-uid": "src/pages/Index.tsx:141:13",
 					"data-prohibitions": "[editContent]",
-					className: cn$1("w-20 h-20 md:w-24 md:h-24 rounded-3xl shadow-lg flex items-center justify-center text-white relative overflow-hidden", node.color),
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/Index.tsx:125:15",
+					className: cn$1("w-20 h-20 md:w-32 md:h-32 rounded-full shadow-xl flex items-center justify-center relative overflow-hidden border-4 bg-white", node.color),
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+						"data-uid": "src/pages/Index.tsx:147:15",
 						"data-prohibitions": "[editContent]",
-						className: "absolute inset-0 bg-black/10 transition-opacity opacity-0 group-hover:opacity-100"
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(node.icon, {
-						"data-uid": "src/pages/Index.tsx:126:15",
+						src: node.image,
+						alt: node.title,
+						className: "w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						"data-uid": "src/pages/Index.tsx:152:15",
 						"data-prohibitions": "[editContent]",
-						className: "w-10 h-10 md:w-12 md:h-12 animate-float"
+						className: "absolute inset-0 bg-gradient-to-t from-black/40 to-transparent transition-opacity opacity-0 group-hover:opacity-100"
 					})]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					"data-uid": "src/pages/Index.tsx:128:13",
+					"data-uid": "src/pages/Index.tsx:155:13",
 					"data-prohibitions": "[editContent]",
-					className: "bg-background/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm border border-border",
+					className: "bg-white/95 backdrop-blur-md px-3 md:px-5 py-1.5 md:py-2 rounded-full shadow-lg border-2 border-orange-200 group-hover:border-orange-400 transition-colors",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-						"data-uid": "src/pages/Index.tsx:129:15",
+						"data-uid": "src/pages/Index.tsx:156:15",
 						"data-prohibitions": "[editContent]",
-						className: "font-display font-bold text-sm md:text-base text-center whitespace-nowrap",
+						className: "font-display font-black text-xs md:text-lg text-orange-900 text-center whitespace-nowrap uppercase tracking-wider",
 						children: node.title
 					})
 				})]
@@ -28572,4 +28593,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 }));
 //#endregion
 
-//# sourceMappingURL=index-1R4t0tzi.js.map
+//# sourceMappingURL=index-BfdC3x87.js.map
