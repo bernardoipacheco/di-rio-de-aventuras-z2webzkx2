@@ -140,4 +140,26 @@
   .animate-shake {
     animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   }
+
+  @keyframes fruit-pop {
+    0% {
+      transform: scale(0) translateY(0) rotate(-10deg);
+      opacity: 0;
+    }
+    30% {
+      transform: scale(1.5) translateY(-30px) rotate(10deg);
+      opacity: 1;
+    }
+    80% {
+      transform: scale(1.5) translateY(-40px) rotate(-5deg);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0) translateY(-100px) rotate(0deg);
+      opacity: 0;
+    }
+  }
+  .animate-fruit-pop {
+    animation: fruit-pop 2.5s ease-out forwards;
+  }
 }

@@ -1,4 +1,15 @@
-import { Shield, Check, X, LogOut, Settings, BarChart3, Edit3, Activity } from 'lucide-react'
+import {
+  Shield,
+  Check,
+  X,
+  LogOut,
+  Settings,
+  BarChart3,
+  Edit3,
+  Activity,
+  BookOpen,
+  ScrollText,
+} from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -15,8 +26,14 @@ export default function AreaPais() {
   const navigate = useNavigate()
   const {
     tasks,
+    books,
+    schoolTasks,
     approveTask,
     rejectTask,
+    approveBook,
+    rejectBook,
+    approveSchoolTask,
+    rejectSchoolTask,
     isParentAuthenticated,
     setParentAuthenticated,
     customRewards,
@@ -31,7 +48,7 @@ export default function AreaPais() {
   }, [isParentAuthenticated, navigate])
 
   if (!isParentAuthenticated) {
-    return null // Will redirect in useEffect
+    return null
   }
 
   const handleLogout = () => {
@@ -40,6 +57,10 @@ export default function AreaPais() {
   }
 
   const pendingTasks = tasks.filter((t) => t.status === 'pending')
+  const pendingBooks = books.filter((b) => b.status === 'pending')
+  const pendingSchoolTasks = schoolTasks.filter((st) => st.status === 'pending')
+
+  const totalPending = pendingTasks.length + pendingBooks.length + pendingSchoolTasks.length
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#FFF6E5] to-white print:bg-white print:min-h-0">
@@ -72,9 +93,9 @@ export default function AreaPais() {
               className="flex-1 sm:flex-none rounded-xl py-3 px-4 font-bold text-[#8B4513] data-[state=active]:bg-white data-[state=active]:text-amber-700 data-[state=active]:shadow-sm transition-all"
             >
               <Check className="w-4 h-4 mr-2 hidden sm:inline" /> Pendentes
-              {pendingTasks.length > 0 && (
+              {totalPending > 0 && (
                 <span className="ml-2 bg-amber-500 text-white text-xs px-2 py-0.5 rounded-full">
-                  {pendingTasks.length}
+                  {totalPending}
                 </span>
               )}
             </TabsTrigger>
@@ -102,22 +123,20 @@ export default function AreaPais() {
             <TabsContent value="pendentes" className="m-0 animate-fade-in-up print:hidden">
               <div className="px-4 py-2 mb-4">
                 <h2 className="text-2xl font-display font-bold text-[#5C3A21] mb-2">
-                  Missões Aguardando Aprovação
+                  Aprovações do Reino
                 </h2>
                 <p className="text-muted-foreground">
-                  Analise as tarefas concluídas e distribua as recompensas.
+                  Analise as missões concluídas e as novas adições para a Estante Mágica.
                 </p>
               </div>
 
-              {pendingTasks.length === 0 ? (
+              {totalPending === 0 ? (
                 <div className="flex flex-col items-center justify-center py-20 text-center bg-[#FFF6E5]/50 rounded-3xl border-2 border-dashed border-[#DEB887]/50 m-4">
                   <div className="text-6xl mb-4 opacity-50 grayscale">🦁</div>
                   <h3 className="font-display font-bold text-xl text-[#8B4513]">
                     Tudo limpo por aqui!
                   </h3>
-                  <p className="text-[#8B4513]/70">
-                    Não há missões aguardando aprovação no momento.
-                  </p>
+                  <p className="text-[#8B4513]/70">Não há itens aguardando aprovação no momento.</p>
                 </div>
               ) : (
                 <div className="grid gap-4 p-2 sm:p-4">
@@ -130,7 +149,7 @@ export default function AreaPais() {
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
                             <span className="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                              {task.category}
+                              Missão: {task.category}
                             </span>
                           </div>
                           <h4 className="font-display font-bold text-xl text-[#5C3A21]">
@@ -158,6 +177,85 @@ export default function AreaPais() {
                             className="flex-1 md:flex-none bg-green-500 hover:bg-green-600 text-white rounded-xl h-12 shadow-md hover:shadow-lg transition-all"
                           >
                             <Check className="w-4 h-4 mr-2" /> Dar Selo do Rafiki
+                          </Button>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+
+                  {pendingBooks.map((book) => (
+                    <Card
+                      key={book.id}
+                      className="border-2 border-purple-200 shadow-sm rounded-2xl overflow-hidden hover:shadow-md transition-shadow bg-purple-50/30"
+                    >
+                      <div className="flex flex-col md:flex-row md:items-center justify-between p-5 gap-6">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
+                              <BookOpen className="w-3 h-3" /> Novo Livro
+                            </span>
+                          </div>
+                          <h4 className="font-display font-bold text-xl text-purple-950">
+                            {book.title}
+                          </h4>
+                          <p className="text-purple-800/80 text-sm mt-1 font-medium">
+                            {book.totalPages} páginas
+                          </p>
+                        </div>
+                        <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                          <Button
+                            variant="outline"
+                            onClick={() => rejectBook(book.id)}
+                            className="flex-1 md:flex-none border-red-200 text-red-600 hover:bg-red-50 rounded-xl h-12"
+                          >
+                            <X className="w-4 h-4 mr-2" /> Recusar
+                          </Button>
+                          <Button
+                            onClick={() => approveBook(book.id)}
+                            className="flex-1 md:flex-none bg-purple-600 hover:bg-purple-700 text-white rounded-xl h-12 shadow-md hover:shadow-lg transition-all"
+                          >
+                            <Check className="w-4 h-4 mr-2" /> Aprovar Livro
+                          </Button>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+
+                  {pendingSchoolTasks.map((task) => (
+                    <Card
+                      key={task.id}
+                      className="border-2 border-blue-200 shadow-sm rounded-2xl overflow-hidden hover:shadow-md transition-shadow bg-blue-50/30"
+                    >
+                      <div className="flex flex-col md:flex-row md:items-center justify-between p-5 gap-6">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
+                              <ScrollText className="w-3 h-3" /> Nova Tarefa
+                            </span>
+                            <span className="bg-white border border-blue-200 text-blue-600 text-xs font-bold px-2 py-0.5 rounded-full">
+                              {task.priority}
+                            </span>
+                          </div>
+                          <h4 className="font-display font-bold text-xl text-blue-950">
+                            {task.title}
+                          </h4>
+                          <p className="text-blue-800/80 text-sm mt-1 font-medium">
+                            Para: {task.dueDate}
+                          </p>
+                        </div>
+                        <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                          <Button
+                            variant="outline"
+                            onClick={() => rejectSchoolTask(task.id)}
+                            className="flex-1 md:flex-none border-red-200 text-red-600 hover:bg-red-50 rounded-xl h-12"
+                          >
+                            <X className="w-4 h-4 mr-2" /> Recusar
+                          </Button>
+                          <Button
+                            onClick={() => approveSchoolTask(task.id)}
+                            className="flex-1 md:flex-none bg-blue-600 hover:bg-blue-700 text-white rounded-xl h-12 shadow-md hover:shadow-lg transition-all"
+                          >
+                            <Check className="w-4 h-4 mr-2" /> Aprovar Tarefa
                           </Button>
                         </div>
                       </div>

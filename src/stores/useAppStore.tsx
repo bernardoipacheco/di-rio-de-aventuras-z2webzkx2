@@ -28,6 +28,25 @@ export type CustomReward = {
   icon: string
 }
 
+export type Book = {
+  id: string
+  title: string
+  cover: string
+  summary: string
+  totalPages: number
+  currentPage: number
+  isRead: boolean
+  status: 'approved' | 'pending'
+}
+
+export type SchoolTask = {
+  id: string
+  title: string
+  dueDate: string
+  priority: 'Urgente' | 'Calmo' | 'Explorar'
+  status: 'todo' | 'pending' | 'completed'
+}
+
 type AppState = {
   xp: number
   crystals: number
@@ -35,6 +54,8 @@ type AppState = {
   tasks: Task[]
   plushies: Plushie[]
   customRewards: CustomReward[]
+  books: Book[]
+  schoolTasks: SchoolTask[]
   emotionHistory: { date: string; value: number; xp: number }[]
   showRafikiSeal: boolean
   isMusicPlaying: boolean
@@ -52,6 +73,16 @@ type AppState = {
   unlockRarePower: () => void
   setParentAuthenticated: (val: boolean) => void
   updateCustomReward: (id: string, name: string) => void
+  addBook: (book: Omit<Book, 'id'>) => void
+  updateBookProgress: (id: string, page: number) => void
+  markBookRead: (id: string) => void
+  approveBook: (id: string) => void
+  rejectBook: (id: string) => void
+  addSchoolTask: (task: Omit<SchoolTask, 'id'>) => void
+  completeSchoolTask: (id: string) => void
+  approveSchoolTask: (id: string) => void
+  rejectSchoolTask: (id: string) => void
+  addGlobalReward: (xp: number, crystals: number) => void
 }
 
 const getLevelText = (xp: number) => {
@@ -119,6 +150,46 @@ const initialRewards: CustomReward[] = [
   { id: 'r4', name: 'Sobremesa Especial', icon: '🍦' },
 ]
 
+const initialBooks: Book[] = [
+  {
+    id: 'b1',
+    title: 'A Jornada do Leão',
+    cover: 'https://img.usecurling.com/p/200/300?q=lion%20illustration&color=yellow',
+    summary: 'Acompanhe as aventuras do sábio Rafiki pelas terras do reino.',
+    totalPages: 120,
+    currentPage: 45,
+    isRead: false,
+    status: 'approved',
+  },
+  {
+    id: 'b2',
+    title: 'O Grande Rugido',
+    cover: 'https://img.usecurling.com/p/200/300?q=mountain&color=orange',
+    summary: 'A lenda do leão que encontrou sua voz nas montanhas.',
+    totalPages: 50,
+    currentPage: 50,
+    isRead: true,
+    status: 'approved',
+  },
+]
+
+const initialSchoolTasks: SchoolTask[] = [
+  {
+    id: 'st1',
+    title: 'Matemática: Contar Frutas da Baobá',
+    dueDate: 'Amanhã',
+    priority: 'Urgente',
+    status: 'todo',
+  },
+  {
+    id: 'st2',
+    title: 'Geografia: Desenhar o Mapa da Savana',
+    dueDate: 'Sexta-feira',
+    priority: 'Explorar',
+    status: 'todo',
+  },
+]
+
 const initialEmotionHistory = [
   { date: 'Seg', value: 65, xp: 20 },
   { date: 'Ter', value: 80, xp: 45 },
@@ -137,13 +208,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [tasks, setTasks] = useState<Task[]>(initialTasks)
   const [plushies, setPlushies] = useState<Plushie[]>(initialPlushies)
   const [customRewards, setCustomRewards] = useState<CustomReward[]>(initialRewards)
+  const [books, setBooks] = useState<Book[]>(initialBooks)
+  const [schoolTasks, setSchoolTasks] = useState<SchoolTask[]>(initialSchoolTasks)
   const [showRafikiSeal, setShowRafikiSeal] = useState(false)
   const [isMusicPlaying, setIsMusicPlaying] = useState(false)
   const [hasRarePowerUnlocked, setHasRarePowerUnlocked] = useState(false)
   const [isParentAuthenticated, setIsParentAuthenticated] = useState(false)
   const [lastReward, setLastReward] = useState<{ xp: number; crystals: number } | null>(null)
 
-  // Avoid using standard useState directly for history to simulate persistence
   const emotionHistory = initialEmotionHistory
 
   const submitTask = (id: string) => {
@@ -200,6 +272,55 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setCustomRewards((prev) => prev.map((r) => (r.id === id ? { ...r, name } : r)))
   }
 
+  const addGlobalReward = (xpReward: number, crystalsReward: number) => {
+    setXp((prev) => prev + xpReward)
+    setCrystals((prev) => prev + crystalsReward)
+  }
+
+  const addBook = (bookData: Omit<Book, 'id'>) => {
+    setBooks((prev) => [...prev, { ...bookData, id: `b${Date.now()}` }])
+  }
+
+  const updateBookProgress = (id: string, page: number) => {
+    setBooks((prev) =>
+      prev.map((b) => {
+        if (b.id !== id) return b
+        const isRead = page >= b.totalPages
+        return { ...b, currentPage: page, isRead }
+      }),
+    )
+  }
+
+  const markBookRead = (id: string) => {
+    setBooks((prev) =>
+      prev.map((b) => (b.id === id ? { ...b, isRead: true, currentPage: b.totalPages } : b)),
+    )
+  }
+
+  const approveBook = (id: string) => {
+    setBooks((prev) => prev.map((b) => (b.id === id ? { ...b, status: 'approved' } : b)))
+  }
+
+  const rejectBook = (id: string) => {
+    setBooks((prev) => prev.filter((b) => b.id !== id))
+  }
+
+  const addSchoolTask = (taskData: Omit<SchoolTask, 'id'>) => {
+    setSchoolTasks((prev) => [...prev, { ...taskData, id: `st${Date.now()}` }])
+  }
+
+  const completeSchoolTask = (id: string) => {
+    setSchoolTasks((prev) => prev.map((t) => (t.id === id ? { ...t, status: 'completed' } : t)))
+  }
+
+  const approveSchoolTask = (id: string) => {
+    setSchoolTasks((prev) => prev.map((t) => (t.id === id ? { ...t, status: 'todo' } : t)))
+  }
+
+  const rejectSchoolTask = (id: string) => {
+    setSchoolTasks((prev) => prev.filter((t) => t.id !== id))
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -209,6 +330,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         tasks,
         plushies,
         customRewards,
+        books,
+        schoolTasks,
         emotionHistory,
         showRafikiSeal,
         isMusicPlaying,
@@ -226,6 +349,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
         unlockRarePower: () => setHasRarePowerUnlocked(true),
         setParentAuthenticated: setIsParentAuthenticated,
         updateCustomReward,
+        addBook,
+        updateBookProgress,
+        markBookRead,
+        approveBook,
+        rejectBook,
+        addSchoolTask,
+        completeSchoolTask,
+        approveSchoolTask,
+        rejectSchoolTask,
+        addGlobalReward,
       }}
     >
       {children}
