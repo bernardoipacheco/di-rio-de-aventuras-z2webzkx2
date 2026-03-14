@@ -69,6 +69,8 @@ type AppState = {
   updatePlushieEmotion: (id: string, emotion: number) => void
   addPlushie: (plushie: Omit<Plushie, 'id' | 'friendshipLevel' | 'friendshipXp'>) => string
   addPlushieXp: (id: string, amount: number) => void
+  updatePlushieAudio: (id: string, audioUrl: string) => void
+  removePlushieAudio: (id: string) => void
   dismissRafikiSeal: () => void
   unlockRarePower: () => void
   setParentAuthenticated: (val: boolean) => void
@@ -268,6 +270,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     )
   }
 
+  const updatePlushieAudio = (id: string, audioUrl: string) => {
+    setPlushies((prev) => prev.map((p) => (p.id === id ? { ...p, audioUrl } : p)))
+  }
+
+  const removePlushieAudio = (id: string) => {
+    setPlushies((prev) => prev.map((p) => (p.id === id ? { ...p, audioUrl: undefined } : p)))
+  }
+
   const updateCustomReward = (id: string, name: string) => {
     setCustomRewards((prev) => prev.map((r) => (r.id === id ? { ...r, name } : r)))
   }
@@ -345,6 +355,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         updatePlushieEmotion,
         addPlushie,
         addPlushieXp,
+        updatePlushieAudio,
+        removePlushieAudio,
         dismissRafikiSeal: () => setShowRafikiSeal(false),
         unlockRarePower: () => setHasRarePowerUnlocked(true),
         setParentAuthenticated: setIsParentAuthenticated,
