@@ -8,6 +8,7 @@ export type Task = {
   xpReward: number
   crystalsReward: number
   buttonLabel: string
+  date: string
 }
 
 export type Plushie = {
@@ -45,6 +46,7 @@ export type SchoolTask = {
   dueDate: string
   priority: 'Urgente' | 'Calmo' | 'Explorar'
   status: 'todo' | 'pending' | 'completed'
+  date: string
 }
 
 type AppState = {
@@ -93,6 +95,11 @@ const getLevelText = (xp: number) => {
   return 'Rei'
 }
 
+const todayStr = new Date().toISOString().split('T')[0]
+const tomorrow = new Date()
+tomorrow.setDate(tomorrow.getDate() + 1)
+const tomorrowStr = tomorrow.toISOString().split('T')[0]
+
 const initialTasks: Task[] = [
   {
     id: 't1',
@@ -102,6 +109,7 @@ const initialTasks: Task[] = [
     xpReward: 20,
     crystalsReward: 5,
     buttonLabel: 'Pronto! 💦',
+    date: todayStr,
   },
   {
     id: 't2',
@@ -111,6 +119,7 @@ const initialTasks: Task[] = [
     xpReward: 15,
     crystalsReward: 5,
     buttonLabel: 'Tudo em Ordem! 🧹',
+    date: todayStr,
   },
   {
     id: 't3',
@@ -120,6 +129,7 @@ const initialTasks: Task[] = [
     xpReward: 30,
     crystalsReward: 10,
     buttonLabel: 'Xeque-Mate! ♟️',
+    date: tomorrowStr,
   },
   {
     id: 't4',
@@ -129,6 +139,7 @@ const initialTasks: Task[] = [
     xpReward: 35,
     crystalsReward: 10,
     buttonLabel: 'Ajudei! 🤝',
+    date: todayStr,
   },
 ]
 
@@ -179,16 +190,18 @@ const initialSchoolTasks: SchoolTask[] = [
   {
     id: 'st1',
     title: 'Matemática: Contar Frutas da Baobá',
-    dueDate: 'Amanhã',
+    dueDate: 'Hoje',
     priority: 'Urgente',
     status: 'todo',
+    date: todayStr,
   },
   {
     id: 'st2',
     title: 'Geografia: Desenhar o Mapa da Savana',
-    dueDate: 'Sexta-feira',
+    dueDate: 'Amanhã',
     priority: 'Explorar',
     status: 'todo',
+    date: tomorrowStr,
   },
 ]
 

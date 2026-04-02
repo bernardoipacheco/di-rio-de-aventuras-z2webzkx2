@@ -27,7 +27,7 @@ const nodes = [
     title: 'Contos de Ninar',
     color: 'border-purple-400 shadow-[0_0_15px_rgba(192,132,252,0.5)]',
     delay: 'delay-100',
-    position: 'top-[70%] left-[26%] md:top-[75%] md:left-[22%] -translate-x-1/2 -translate-y-1/2',
+    position: 'top-[65%] left-[30%] md:top-[65%] md:left-[35%] -translate-x-1/2 -translate-y-1/2',
   },
   {
     path: '/trofeus',
@@ -35,7 +35,7 @@ const nodes = [
     title: 'Sala de Troféus',
     color: 'border-yellow-400 shadow-[0_0_15px_rgba(250,204,21,0.5)]',
     delay: 'delay-150',
-    position: 'top-[70%] left-[74%] md:top-[75%] md:left-[78%] -translate-x-1/2 -translate-y-1/2',
+    position: 'top-[65%] left-[70%] md:top-[65%] md:left-[65%] -translate-x-1/2 -translate-y-1/2',
   },
   {
     path: '/missoes',
@@ -43,7 +43,7 @@ const nodes = [
     title: 'Missões do Reino',
     color: 'border-red-400 shadow-[0_0_15px_rgba(248,113,113,0.5)]',
     delay: 'delay-200',
-    position: 'top-[84%] left-[50%] md:top-[88%] md:left-[50%] -translate-x-1/2 -translate-y-1/2',
+    position: 'top-[78%] left-[50%] md:top-[80%] md:left-[50%] -translate-x-1/2 -translate-y-1/2',
   },
 ]
 
@@ -148,7 +148,7 @@ export default function Index() {
         {/* Urgent Alert Banner */}
         {urgentTasks.length > 0 && (
           <Link
-            to="/estante"
+            to={`/missoes?taskId=${urgentTasks[0].id}`}
             className="absolute -top-4 md:top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 md:gap-3 bg-gradient-to-b from-red-500 to-red-700 text-white px-3 py-2 md:px-6 md:py-3 rounded-full shadow-[0_10px_30px_rgba(220,38,38,0.5)] border-2 md:border-4 border-yellow-400 hover:scale-105 hover:-translate-y-1 transition-all duration-300 group animate-fade-in-down w-[95%] max-w-[320px] md:max-w-none md:w-auto justify-center"
           >
             <div className="bg-yellow-400 text-red-700 rounded-full p-1 md:p-1.5 shadow-inner shrink-0">

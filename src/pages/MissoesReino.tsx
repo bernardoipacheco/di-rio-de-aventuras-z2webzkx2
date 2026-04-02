@@ -1,22 +1,54 @@
-import { Link } from 'react-router-dom'
-import { ArrowLeft, CheckCircle2 } from 'lucide-react'
+import { useEffect, useState, useRef } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
+import { ArrowLeft, CheckCircle2, Calendar as CalendarIcon, BookOpen, Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
-import useAppStore, { Task } from '@/stores/useAppStore'
+import useAppStore, { Task, SchoolTask } from '@/stores/useAppStore'
 import { cn } from '@/lib/utils'
-import { useEffect } from 'react'
 
 export default function MissoesReino() {
   const {
     tasks,
+    schoolTasks,
     submitTask,
     approveTask,
+    completeSchoolTask,
     xp,
     levelText,
     showRafikiSeal,
     lastReward,
     dismissRafikiSeal,
   } = useAppStore()
+
+  const [searchParams] = useSearchParams()
+  const taskIdParam = searchParams.get('taskId')
+
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
+  const taskListRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (taskIdParam) {
+      const foundSchoolTask = schoolTasks.find((t) => t.id === taskIdParam)
+      if (foundSchoolTask && foundSchoolTask.date) {
+        setSelectedDate(new Date(foundSchoolTask.date + 'T12:00:00'))
+        setTimeout(() => {
+          document
+            .getElementById(`task-${taskIdParam}`)
+            ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }, 300)
+      } else {
+        const foundTask = tasks.find((t) => t.id === taskIdParam)
+        if (foundTask && foundTask.date) {
+          setSelectedDate(new Date(foundTask.date + 'T12:00:00'))
+          setTimeout(() => {
+            document
+              .getElementById(`task-${taskIdParam}`)
+              ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+          }, 300)
+        }
+      }
+    }
+  }, [taskIdParam, schoolTasks, tasks])
 
   useEffect(() => {
     if (showRafikiSeal) {
@@ -25,8 +57,17 @@ export default function MissoesReino() {
     }
   }, [showRafikiSeal, dismissRafikiSeal])
 
-  const pendingOrTodoTasks = tasks.filter((t) => t.status !== 'completed')
-  const completedTasks = tasks.filter((t) => t.status === 'completed')
+  const selectedDateStr = selectedDate.toISOString().split('T')[0]
+  const todayStr = new Date().toISOString().split('T')[0]
+
+  const dayTasks = tasks.filter((t) => t.date === selectedDateStr)
+  const daySchoolTasks = schoolTasks.filter((t) => t.date === selectedDateStr)
+
+  const pendingOrTodoTasks = dayTasks.filter((t) => t.status !== 'completed')
+  const completedTasks = dayTasks.filter((t) => t.status === 'completed')
+
+  const pendingOrTodoSchoolTasks = daySchoolTasks.filter((t) => t.status !== 'completed')
+  const completedSchoolTasks = daySchoolTasks.filter((t) => t.status === 'completed')
 
   const evolutionIcon =
     levelText === 'Rei'
@@ -41,9 +82,25 @@ export default function MissoesReino() {
     if (task.status === 'todo') {
       submitTask(task.id)
     } else if (task.status === 'pending') {
-      // Simulation: Clicking a pending task immediately approves it for demonstration purposes
       approveTask(task.id)
     }
+  }
+
+  const handleSchoolTaskAction = (task: SchoolTask) => {
+    if (task.status !== 'completed') {
+      completeSchoolTask(task.id)
+    }
+  }
+
+  const getFormatDateTitle = () => {
+    if (selectedDateStr === todayStr) return 'Hoje na Savana'
+
+    const d = new Date(selectedDateStr + 'T12:00:00')
+    const tomorrow = new Date()
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    if (selectedDateStr === tomorrow.toISOString().split('T')[0]) return 'Amanhã na Savana'
+
+    return d.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })
   }
 
   return (
@@ -93,8 +150,78 @@ export default function MissoesReino() {
           </div>
         </div>
 
+        {/* Playful Calendar */}
+        <div className="w-full bg-[#DEB887]/30 p-4 md:p-6 rounded-3xl border-4 border-dashed border-[#DEB887] mb-8 shadow-sm relative overflow-hidden animate-slide-up backdrop-blur-sm">
+          <div className="absolute top-0 left-0 w-full h-full bg-[url('https://img.usecurling.com/p/400/100?q=leaves&color=yellow')] opacity-10 pointer-events-none mix-blend-multiply" />
+
+          <div className="flex items-center justify-center gap-2 mb-5 relative z-10">
+            <CalendarIcon className="w-6 h-6 text-[#8B4513]" />
+            <h2 className="text-[#8B4513] font-display font-black text-2xl uppercase tracking-wider">
+              Calendário Mágico
+            </h2>
+          </div>
+
+          <div className="flex gap-2 md:gap-3 overflow-x-auto pb-4 snap-x hide-scrollbar justify-start sm:justify-center relative z-10 px-2">
+            {Array.from({ length: 14 }).map((_, i) => {
+              const d = new Date()
+              d.setDate(d.getDate() - 3 + i)
+              const dStr = d.toISOString().split('T')[0]
+              const isSelected = selectedDateStr === dStr
+              const isToday = dStr === todayStr
+
+              const hasTasks = tasks.some((t) => t.date === dStr && t.status !== 'completed')
+              const hasSchool = schoolTasks.some((t) => t.date === dStr && t.status !== 'completed')
+
+              return (
+                <button
+                  key={dStr}
+                  onClick={() => setSelectedDate(d)}
+                  className={cn(
+                    'flex flex-col items-center justify-center min-w-[4.5rem] md:min-w-[5rem] p-3 rounded-2xl border-[3px] transition-all snap-center shadow-sm',
+                    isSelected
+                      ? 'bg-gradient-to-b from-orange-400 to-orange-500 border-orange-200 text-white scale-110 shadow-lg ring-4 ring-orange-400/30'
+                      : isToday
+                        ? 'bg-gradient-to-b from-yellow-200 to-yellow-300 border-yellow-400 text-yellow-900'
+                        : 'bg-white/90 border-[#DEB887] text-[#8B4513] hover:bg-orange-50 hover:scale-105',
+                  )}
+                >
+                  <span className="text-[10px] md:text-xs font-black uppercase tracking-widest opacity-90 mb-1">
+                    {d.toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', '')}
+                  </span>
+                  <span className="text-2xl md:text-3xl font-black font-display leading-none drop-shadow-sm">
+                    {d.getDate()}
+                  </span>
+                  <div className="flex gap-1.5 mt-2 h-2.5">
+                    {hasTasks && (
+                      <div className="w-2.5 h-2.5 rounded-full bg-red-500 shadow-sm border border-white" />
+                    )}
+                    {hasSchool && (
+                      <div className="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-sm border border-white" />
+                    )}
+                    {!hasTasks && !hasSchool && <div className="w-2.5 h-2.5" />}
+                  </div>
+                </button>
+              )
+            })}
+          </div>
+
+          <div className="flex justify-center gap-6 mt-2 text-xs md:text-sm font-bold text-[#8B4513] relative z-10 bg-white/50 w-fit mx-auto px-4 py-1.5 rounded-full">
+            <div className="flex items-center gap-1.5 uppercase tracking-wide">
+              <div className="w-3 h-3 rounded-full bg-red-500 border border-white shadow-sm" />{' '}
+              Missões
+            </div>
+            <div className="flex items-center gap-1.5 uppercase tracking-wide">
+              <div className="w-3 h-3 rounded-full bg-blue-500 border border-white shadow-sm" />{' '}
+              Aulas
+            </div>
+          </div>
+        </div>
+
         {/* Savannah Scroll Interface */}
-        <div className="relative mx-auto w-full max-w-full animate-slide-up pb-20 overflow-visible">
+        <div
+          className="relative mx-auto w-full max-w-full animate-slide-up pb-20 overflow-visible"
+          ref={taskListRef}
+        >
           {/* Top Wooden Rod */}
           <div className="h-8 md:h-10 bg-gradient-to-r from-[#8B4513] via-[#A0522D] to-[#8B4513] rounded-full mx-[-0.25rem] md:mx-[-1rem] shadow-[0_4px_10px_rgba(0,0,0,0.4)] relative z-20 flex items-center justify-between px-1 md:px-2">
             <div className="w-4 md:w-6 h-12 md:h-14 bg-gradient-to-r from-[#D2691E] to-[#8B4513] rounded-full border-2 border-[#5C3A21] -ml-2 md:-ml-4 shadow-md" />
@@ -104,79 +231,150 @@ export default function MissoesReino() {
           {/* Paper Content */}
           <div className="bg-[#FFF6E5] border-x-[6px] md:border-x-[12px] border-[#DEB887] py-8 md:py-12 px-3 sm:px-10 shadow-2xl relative z-10 min-h-[500px] flex flex-col items-center mx-1 md:mx-0">
             {/* Title */}
-            <div className="text-center mb-8 md:mb-10 w-full px-2">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-black text-[#5C3A21] tracking-wider mb-2 md:mb-3 drop-shadow-sm uppercase">
-                Missões do Reino
+            <div className="text-center mb-8 w-full px-2">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-[#5C3A21] tracking-wider mb-2 drop-shadow-sm uppercase capitalize">
+                {getFormatDateTitle()}
               </h1>
               <div className="w-24 md:w-32 h-1 md:h-1.5 bg-[#8B4513] mx-auto rounded-full opacity-40" />
             </div>
 
-            {/* Interactive Mission Cards */}
-            <div className="w-full space-y-3 md:space-y-4 max-w-xl">
-              {pendingOrTodoTasks.length === 0 ? (
-                <p className="text-[#8B4513] text-center py-6 md:py-8 font-bold text-base md:text-lg bg-[#DEB887]/20 rounded-xl md:rounded-2xl border-2 border-dashed border-[#DEB887]">
-                  Todas as missões ativas foram concluídas! A Savana está em paz. 🌅
+            {daySchoolTasks.length === 0 && dayTasks.length === 0 ? (
+              <div className="w-full max-w-xl text-center py-10 bg-[#DEB887]/20 rounded-2xl border-2 border-dashed border-[#DEB887] mb-8">
+                <span className="text-4xl block mb-3">🌅</span>
+                <p className="text-[#8B4513] font-bold text-lg">
+                  Dia livre! Nenhuma aula ou missão programada para esta data.
                 </p>
-              ) : (
-                pendingOrTodoTasks.map((task) => (
-                  <div
-                    key={task.id}
-                    className="bg-white/80 rounded-xl md:rounded-2xl p-3 md:p-4 border-2 border-[#DEB887] shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row items-center justify-between gap-3 md:gap-4 overflow-hidden"
-                  >
-                    <div className="flex-1 text-center sm:text-left w-full min-w-0">
-                      <h3 className="font-display font-bold text-lg md:text-xl text-[#5C3A21] leading-tight mb-2 md:mb-1 truncate whitespace-normal break-words">
-                        {task.title}
+              </div>
+            ) : (
+              <div className="w-full space-y-8 max-w-xl">
+                {/* School Tasks Section */}
+                {(pendingOrTodoSchoolTasks.length > 0 || completedSchoolTasks.length > 0) && (
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <BookOpen className="w-5 h-5 text-blue-600" />
+                      <h3 className="font-display font-black text-xl text-blue-900 uppercase tracking-widest">
+                        Aulas e Estudos
                       </h3>
-                      <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 md:gap-3">
-                        <span className="text-xs md:text-sm font-bold text-orange-600 bg-orange-100 px-2.5 py-0.5 rounded-full whitespace-nowrap">
-                          +{task.xpReward} XP
-                        </span>
-                        <span className="text-xs md:text-sm font-bold text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded-full flex items-center gap-1 whitespace-nowrap">
-                          +{task.crystalsReward} 💎
-                        </span>
-                      </div>
                     </div>
-                    <div className="w-full sm:w-auto shrink-0 flex flex-col items-center">
-                      <Button
-                        onClick={() => handleTaskAction(task)}
-                        className={cn(
-                          'w-full sm:w-auto rounded-full font-bold text-sm md:text-base h-10 md:h-12 px-4 md:px-6 transition-all duration-300 border-b-4 active:border-b-0 active:translate-y-1 whitespace-normal text-center leading-tight',
-                          task.status === 'pending'
-                            ? 'bg-amber-100 hover:bg-amber-200 text-amber-800 border-amber-300'
-                            : 'bg-green-500 hover:bg-green-600 text-white border-green-700 shadow-md',
-                        )}
-                        style={{ height: 'auto', minHeight: '40px', padding: '8px 16px' }}
-                      >
-                        {task.status === 'pending' ? 'Esperando o Rafiki...' : task.buttonLabel}
-                      </Button>
-                      {task.status === 'pending' && (
-                        <p className="text-[9px] md:text-[10px] text-center text-[#A0522D] mt-1.5 opacity-70 font-bold uppercase tracking-widest leading-tight">
-                          Toque p/ simular
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
 
-            {/* Completed Tasks Minimal List */}
-            {completedTasks.length > 0 && (
-              <div className="w-full max-w-xl mt-10 border-t-2 border-dashed border-[#DEB887] pt-6 opacity-60 hover:opacity-100 transition-opacity">
-                <h4 className="text-[#8B4513] font-bold text-center mb-4 uppercase tracking-widest text-sm">
-                  Missões Concluídas
-                </h4>
-                <div className="flex flex-wrap justify-center gap-2">
-                  {completedTasks.map((t) => (
-                    <div
-                      key={t.id}
-                      className="flex items-center gap-1.5 bg-[#DEB887]/30 px-3 py-1.5 rounded-full text-sm font-medium text-[#5C3A21]"
-                    >
-                      <CheckCircle2 className="w-4 h-4 text-green-600" />
-                      {t.title}
+                    {pendingOrTodoSchoolTasks.map((task) => (
+                      <div
+                        key={task.id}
+                        id={`task-${task.id}`}
+                        className={cn(
+                          'bg-white/90 rounded-2xl p-4 border-l-8 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row items-center justify-between gap-4 overflow-hidden relative',
+                          task.priority === 'Urgente'
+                            ? 'border-red-500 ring-2 ring-red-200'
+                            : 'border-blue-500',
+                          taskIdParam === task.id
+                            ? 'ring-4 ring-yellow-400 animate-pulse-glow'
+                            : '',
+                        )}
+                      >
+                        {task.priority === 'Urgente' && (
+                          <div className="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-bl-lg uppercase">
+                            Urgente
+                          </div>
+                        )}
+                        <div className="flex-1 text-center sm:text-left w-full min-w-0">
+                          <h4 className="font-display font-bold text-lg md:text-xl text-[#5C3A21] leading-tight mb-2 truncate whitespace-normal break-words">
+                            {task.title}
+                          </h4>
+                          <span className="text-xs md:text-sm font-bold text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded-full inline-block">
+                            📚 Estudo
+                          </span>
+                        </div>
+                        <Button
+                          onClick={() => handleSchoolTaskAction(task)}
+                          className="w-full sm:w-auto rounded-full font-bold text-sm md:text-base h-10 md:h-12 px-4 md:px-6 transition-all duration-300 border-b-4 active:border-b-0 active:translate-y-1 bg-blue-500 hover:bg-blue-600 text-white border-blue-700 shadow-md shrink-0"
+                        >
+                          Concluir Aula ✨
+                        </Button>
+                      </div>
+                    ))}
+
+                    {completedSchoolTasks.map((task) => (
+                      <div
+                        key={task.id}
+                        className="bg-blue-50/50 rounded-2xl p-4 border-2 border-blue-200 flex flex-col sm:flex-row items-center justify-between gap-4 opacity-70"
+                      >
+                        <div className="flex-1 text-center sm:text-left flex items-center gap-2 justify-center sm:justify-start">
+                          <CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0" />
+                          <h4 className="font-bold text-blue-900 line-through decoration-blue-300">
+                            {task.title}
+                          </h4>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Regular Tasks Section */}
+                {(pendingOrTodoTasks.length > 0 || completedTasks.length > 0) && (
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2 mb-2 pt-4 border-t-2 border-dashed border-[#DEB887]">
+                      <Star className="w-5 h-5 text-orange-500 fill-orange-500" />
+                      <h3 className="font-display font-black text-xl text-orange-900 uppercase tracking-widest">
+                        Missões da Savana
+                      </h3>
                     </div>
-                  ))}
-                </div>
+
+                    {pendingOrTodoTasks.map((task) => (
+                      <div
+                        key={task.id}
+                        id={`task-${task.id}`}
+                        className={cn(
+                          'bg-white/90 rounded-2xl p-4 border-2 border-[#DEB887] shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row items-center justify-between gap-4 overflow-hidden',
+                          taskIdParam === task.id
+                            ? 'ring-4 ring-yellow-400 animate-pulse-glow'
+                            : '',
+                        )}
+                      >
+                        <div className="flex-1 text-center sm:text-left w-full min-w-0">
+                          <h4 className="font-display font-bold text-lg md:text-xl text-[#5C3A21] leading-tight mb-2 truncate whitespace-normal break-words">
+                            {task.title}
+                          </h4>
+                          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 md:gap-3">
+                            <span className="text-xs md:text-sm font-bold text-orange-600 bg-orange-100 px-2.5 py-0.5 rounded-full whitespace-nowrap">
+                              +{task.xpReward} XP
+                            </span>
+                            <span className="text-xs md:text-sm font-bold text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded-full flex items-center gap-1 whitespace-nowrap">
+                              +{task.crystalsReward} 💎
+                            </span>
+                          </div>
+                        </div>
+                        <div className="w-full sm:w-auto shrink-0 flex flex-col items-center">
+                          <Button
+                            onClick={() => handleTaskAction(task)}
+                            className={cn(
+                              'w-full sm:w-auto rounded-full font-bold text-sm md:text-base h-10 md:h-12 px-4 md:px-6 transition-all duration-300 border-b-4 active:border-b-0 active:translate-y-1 whitespace-normal text-center leading-tight',
+                              task.status === 'pending'
+                                ? 'bg-amber-100 hover:bg-amber-200 text-amber-800 border-amber-300'
+                                : 'bg-green-500 hover:bg-green-600 text-white border-green-700 shadow-md',
+                            )}
+                            style={{ height: 'auto', minHeight: '40px', padding: '8px 16px' }}
+                          >
+                            {task.status === 'pending' ? 'Esperando o Rei...' : task.buttonLabel}
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+
+                    {completedTasks.length > 0 && (
+                      <div className="flex flex-wrap justify-center sm:justify-start gap-2 pt-2">
+                        {completedTasks.map((t) => (
+                          <div
+                            key={t.id}
+                            className="flex items-center gap-1.5 bg-[#DEB887]/30 px-3 py-1.5 rounded-full text-sm font-medium text-[#5C3A21] opacity-70"
+                          >
+                            <CheckCircle2 className="w-4 h-4 text-green-600" />
+                            {t.title}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             )}
 
