@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { PawPrint, Plus } from 'lucide-react'
+import { PawPrint, Plus, Swords } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import useAppStore, { Book } from '@/stores/useAppStore'
 import { MagicTree } from '@/components/MagicTree'
 import { AddToTreeModal } from '@/components/AddToTreeModal'
 import { BookDetailsModal } from '@/components/BookDetailsModal'
+import { KnowledgeDuelModal } from '@/components/KnowledgeDuelModal'
 
 export default function EstanteMagica() {
   const {
@@ -21,6 +22,7 @@ export default function EstanteMagica() {
 
   const [selectedBook, setSelectedBook] = useState<Book | null>(null)
   const [isAddModalOpen, setAddModalOpen] = useState(false)
+  const [isDuelModalOpen, setDuelModalOpen] = useState(false)
   const [activeFruits, setActiveFruits] = useState<string[]>([])
 
   const triggerFruitAnim = (id: string) => {
@@ -63,6 +65,15 @@ export default function EstanteMagica() {
         <PawPrint className="w-8 h-8 text-orange-900 group-hover:text-orange-600 transition-colors" />
       </Link>
 
+      <Button
+        onClick={() => setDuelModalOpen(true)}
+        className="absolute top-4 right-4 z-50 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-full px-4 md:px-6 h-[52px] shadow-[0_4px_15px_rgba(0,0,0,0.2)] border-2 border-orange-200 hover:scale-105 transition-all flex items-center gap-2 font-bold text-base md:text-lg group"
+      >
+        <Swords className="w-5 h-5 md:w-6 md:h-6 group-hover:rotate-12 transition-transform" />
+        <span className="hidden md:inline">Duelo de Conhecimento</span>
+        <span className="md:hidden">Duelo</span>
+      </Button>
+
       <div className="mt-6 md:mt-10 text-center relative z-20 px-4">
         <h1 className="text-4xl md:text-5xl font-display font-black text-orange-950 drop-shadow-md tracking-wider uppercase bg-white/40 backdrop-blur-sm px-8 py-2 rounded-full border-4 border-white/50 inline-block">
           Estante Mágica
@@ -97,6 +108,8 @@ export default function EstanteMagica() {
         onAddBook={addBook}
         onAddTask={addSchoolTask}
       />
+
+      <KnowledgeDuelModal isOpen={isDuelModalOpen} onClose={() => setDuelModalOpen(false)} />
     </div>
   )
 }
