@@ -94,63 +94,64 @@ export default function MissoesReino() {
         </div>
 
         {/* Savannah Scroll Interface */}
-        <div className="relative mx-auto w-full animate-slide-up pb-20">
+        <div className="relative mx-auto w-full max-w-full animate-slide-up pb-20 overflow-visible">
           {/* Top Wooden Rod */}
-          <div className="h-10 bg-gradient-to-r from-[#8B4513] via-[#A0522D] to-[#8B4513] rounded-full mx-[-0.5rem] md:mx-[-1rem] shadow-[0_4px_10px_rgba(0,0,0,0.4)] relative z-20 flex items-center justify-between px-2">
-            <div className="w-6 h-14 bg-gradient-to-r from-[#D2691E] to-[#8B4513] rounded-full border-2 border-[#5C3A21] -ml-4 shadow-md" />
-            <div className="w-6 h-14 bg-gradient-to-r from-[#D2691E] to-[#8B4513] rounded-full border-2 border-[#5C3A21] -mr-4 shadow-md" />
+          <div className="h-8 md:h-10 bg-gradient-to-r from-[#8B4513] via-[#A0522D] to-[#8B4513] rounded-full mx-[-0.25rem] md:mx-[-1rem] shadow-[0_4px_10px_rgba(0,0,0,0.4)] relative z-20 flex items-center justify-between px-1 md:px-2">
+            <div className="w-4 md:w-6 h-12 md:h-14 bg-gradient-to-r from-[#D2691E] to-[#8B4513] rounded-full border-2 border-[#5C3A21] -ml-2 md:-ml-4 shadow-md" />
+            <div className="w-4 md:w-6 h-12 md:h-14 bg-gradient-to-r from-[#D2691E] to-[#8B4513] rounded-full border-2 border-[#5C3A21] -mr-2 md:-mr-4 shadow-md" />
           </div>
 
           {/* Paper Content */}
-          <div className="bg-[#FFF6E5] border-x-[12px] border-[#DEB887] py-12 px-5 sm:px-10 shadow-2xl relative z-10 min-h-[500px] flex flex-col items-center">
+          <div className="bg-[#FFF6E5] border-x-[6px] md:border-x-[12px] border-[#DEB887] py-8 md:py-12 px-3 sm:px-10 shadow-2xl relative z-10 min-h-[500px] flex flex-col items-center mx-1 md:mx-0">
             {/* Title */}
-            <div className="text-center mb-10 w-full">
-              <h1 className="text-4xl md:text-5xl font-display font-black text-[#5C3A21] tracking-wider mb-3 drop-shadow-sm uppercase">
+            <div className="text-center mb-8 md:mb-10 w-full px-2">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-black text-[#5C3A21] tracking-wider mb-2 md:mb-3 drop-shadow-sm uppercase">
                 Missões do Reino
               </h1>
-              <div className="w-32 h-1.5 bg-[#8B4513] mx-auto rounded-full opacity-40" />
+              <div className="w-24 md:w-32 h-1 md:h-1.5 bg-[#8B4513] mx-auto rounded-full opacity-40" />
             </div>
 
             {/* Interactive Mission Cards */}
-            <div className="w-full space-y-4 max-w-xl">
+            <div className="w-full space-y-3 md:space-y-4 max-w-xl">
               {pendingOrTodoTasks.length === 0 ? (
-                <p className="text-[#8B4513] text-center py-8 font-bold text-lg bg-[#DEB887]/20 rounded-2xl border-2 border-dashed border-[#DEB887]">
+                <p className="text-[#8B4513] text-center py-6 md:py-8 font-bold text-base md:text-lg bg-[#DEB887]/20 rounded-xl md:rounded-2xl border-2 border-dashed border-[#DEB887]">
                   Todas as missões ativas foram concluídas! A Savana está em paz. 🌅
                 </p>
               ) : (
                 pendingOrTodoTasks.map((task) => (
                   <div
                     key={task.id}
-                    className="bg-white/80 rounded-2xl p-4 border-2 border-[#DEB887] shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row items-center justify-between gap-4"
+                    className="bg-white/80 rounded-xl md:rounded-2xl p-3 md:p-4 border-2 border-[#DEB887] shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row items-center justify-between gap-3 md:gap-4 overflow-hidden"
                   >
-                    <div className="flex-1 text-center sm:text-left w-full">
-                      <h3 className="font-display font-bold text-xl text-[#5C3A21] leading-tight mb-1">
+                    <div className="flex-1 text-center sm:text-left w-full min-w-0">
+                      <h3 className="font-display font-bold text-lg md:text-xl text-[#5C3A21] leading-tight mb-2 md:mb-1 truncate whitespace-normal break-words">
                         {task.title}
                       </h3>
-                      <div className="flex items-center justify-center sm:justify-start gap-3">
-                        <span className="text-sm font-bold text-orange-600 bg-orange-100 px-2.5 py-0.5 rounded-full">
+                      <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 md:gap-3">
+                        <span className="text-xs md:text-sm font-bold text-orange-600 bg-orange-100 px-2.5 py-0.5 rounded-full whitespace-nowrap">
                           +{task.xpReward} XP
                         </span>
-                        <span className="text-sm font-bold text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                        <span className="text-xs md:text-sm font-bold text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded-full flex items-center gap-1 whitespace-nowrap">
                           +{task.crystalsReward} 💎
                         </span>
                       </div>
                     </div>
-                    <div className="w-full sm:w-auto">
+                    <div className="w-full sm:w-auto shrink-0 flex flex-col items-center">
                       <Button
                         onClick={() => handleTaskAction(task)}
                         className={cn(
-                          'w-full sm:w-auto rounded-full font-bold text-base h-12 px-6 transition-all duration-300 border-b-4 active:border-b-0 active:translate-y-1',
+                          'w-full sm:w-auto rounded-full font-bold text-sm md:text-base h-10 md:h-12 px-4 md:px-6 transition-all duration-300 border-b-4 active:border-b-0 active:translate-y-1 whitespace-normal text-center leading-tight',
                           task.status === 'pending'
                             ? 'bg-amber-100 hover:bg-amber-200 text-amber-800 border-amber-300'
                             : 'bg-green-500 hover:bg-green-600 text-white border-green-700 shadow-md',
                         )}
+                        style={{ height: 'auto', minHeight: '40px', padding: '8px 16px' }}
                       >
                         {task.status === 'pending' ? 'Esperando o Rafiki...' : task.buttonLabel}
                       </Button>
                       {task.status === 'pending' && (
-                        <p className="text-[10px] text-center text-[#A0522D] mt-1 opacity-70 font-bold uppercase tracking-widest">
-                          Toque p/ simular aprovação
+                        <p className="text-[9px] md:text-[10px] text-center text-[#A0522D] mt-1.5 opacity-70 font-bold uppercase tracking-widest leading-tight">
+                          Toque p/ simular
                         </p>
                       )}
                     </div>
@@ -264,9 +265,9 @@ export default function MissoesReino() {
           </div>
 
           {/* Bottom Wooden Rod */}
-          <div className="h-10 bg-gradient-to-r from-[#8B4513] via-[#A0522D] to-[#8B4513] rounded-full mx-[-0.5rem] md:mx-[-1rem] shadow-[0_10px_20px_rgba(0,0,0,0.5)] relative z-20 flex items-center justify-between px-2 -mt-2">
-            <div className="w-6 h-14 bg-gradient-to-r from-[#D2691E] to-[#8B4513] rounded-full border-2 border-[#5C3A21] -ml-4 shadow-md" />
-            <div className="w-6 h-14 bg-gradient-to-r from-[#D2691E] to-[#8B4513] rounded-full border-2 border-[#5C3A21] -mr-4 shadow-md" />
+          <div className="h-8 md:h-10 bg-gradient-to-r from-[#8B4513] via-[#A0522D] to-[#8B4513] rounded-full mx-[-0.25rem] md:mx-[-1rem] shadow-[0_10px_20px_rgba(0,0,0,0.5)] relative z-20 flex items-center justify-between px-1 md:px-2 -mt-1 md:-mt-2">
+            <div className="w-4 md:w-6 h-12 md:h-14 bg-gradient-to-r from-[#D2691E] to-[#8B4513] rounded-full border-2 border-[#5C3A21] -ml-2 md:-ml-4 shadow-md" />
+            <div className="w-4 md:w-6 h-12 md:h-14 bg-gradient-to-r from-[#D2691E] to-[#8B4513] rounded-full border-2 border-[#5C3A21] -mr-2 md:-mr-4 shadow-md" />
           </div>
         </div>
       </div>
