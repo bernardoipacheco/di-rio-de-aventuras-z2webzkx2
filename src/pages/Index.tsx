@@ -27,7 +27,7 @@ const nodes = [
     title: 'Contos de Ninar',
     color: 'border-purple-400 shadow-[0_0_15px_rgba(192,132,252,0.5)]',
     delay: 'delay-100',
-    position: 'top-[76%] left-[28%] md:top-[75%] md:left-[22%] -translate-x-1/2 -translate-y-1/2',
+    position: 'top-[70%] left-[26%] md:top-[75%] md:left-[22%] -translate-x-1/2 -translate-y-1/2',
   },
   {
     path: '/trofeus',
@@ -35,7 +35,7 @@ const nodes = [
     title: 'Sala de Troféus',
     color: 'border-yellow-400 shadow-[0_0_15px_rgba(250,204,21,0.5)]',
     delay: 'delay-150',
-    position: 'top-[86%] left-[72%] md:top-[75%] md:left-[78%] -translate-x-1/2 -translate-y-1/2',
+    position: 'top-[70%] left-[74%] md:top-[75%] md:left-[78%] -translate-x-1/2 -translate-y-1/2',
   },
   {
     path: '/missoes',
@@ -43,7 +43,7 @@ const nodes = [
     title: 'Missões do Reino',
     color: 'border-red-400 shadow-[0_0_15px_rgba(248,113,113,0.5)]',
     delay: 'delay-200',
-    position: 'top-[96%] left-[50%] md:top-[88%] md:left-[50%] -translate-x-1/2 -translate-y-1/2',
+    position: 'top-[84%] left-[50%] md:top-[88%] md:left-[50%] -translate-x-1/2 -translate-y-1/2',
   },
 ]
 
@@ -121,21 +121,21 @@ export default function Index() {
             fill="none"
           />
           <path
-            d="M50,50 Q36,62 24,76"
+            d="M50,50 Q36,60 26,70"
             stroke="url(#lineGrad)"
             strokeWidth="0.8"
             strokeDasharray="1.5 1.5"
             fill="none"
           />
           <path
-            d="M50,50 Q64,62 76,86"
+            d="M50,50 Q64,60 74,70"
             stroke="url(#lineGrad)"
             strokeWidth="0.8"
             strokeDasharray="1.5 1.5"
             fill="none"
           />
           <path
-            d="M50,50 Q50,70 50,96"
+            d="M50,50 Q50,67 50,84"
             stroke="url(#lineGrad)"
             strokeWidth="0.8"
             strokeDasharray="1.5 1.5"
