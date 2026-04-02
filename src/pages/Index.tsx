@@ -148,7 +148,7 @@ export default function Index() {
         {/* Urgent Alert Banner */}
         {urgentTasks.length > 0 && (
           <Link
-            to="/missoes"
+            to="/estante"
             className="absolute -top-4 md:top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 md:gap-3 bg-gradient-to-b from-red-500 to-red-700 text-white px-3 py-2 md:px-6 md:py-3 rounded-full shadow-[0_10px_30px_rgba(220,38,38,0.5)] border-2 md:border-4 border-yellow-400 hover:scale-105 hover:-translate-y-1 transition-all duration-300 group animate-fade-in-down w-[95%] max-w-[320px] md:max-w-none md:w-auto justify-center"
           >
             <div className="bg-yellow-400 text-red-700 rounded-full p-1 md:p-1.5 shadow-inner shrink-0">
