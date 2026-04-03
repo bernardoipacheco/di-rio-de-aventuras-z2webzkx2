@@ -1,10 +1,108 @@
 import { useEffect, useState, useRef } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { ArrowLeft, CheckCircle2, Calendar as CalendarIcon, BookOpen, Star } from 'lucide-react'
+import {
+  ArrowLeft,
+  CheckCircle2,
+  Calendar as CalendarIcon,
+  BookOpen,
+  Star,
+  Edit3,
+  Info,
+  MessageSquareHeart,
+} from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { Textarea } from '@/components/ui/textarea'
+import { Label } from '@/components/ui/label'
 import useAppStore, { Task, SchoolTask } from '@/stores/useAppStore'
 import { cn } from '@/lib/utils'
+
+function EditDetailsDialog({
+  task,
+  onSave,
+}: {
+  task: { id: string; title: string; description?: string; observation?: string }
+  onSave: (id: string, desc: string, obs: string) => void
+}) {
+  const [open, setOpen] = useState(false)
+  const [desc, setDesc] = useState(task.description || '')
+  const [obs, setObs] = useState(task.observation || '')
+
+  const handleSave = () => {
+    onSave(task.id, desc, obs)
+    setOpen(false)
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-8 px-3 text-xs font-bold text-[#8B4513] hover:bg-[#DEB887]/30 rounded-full"
+        >
+          <Edit3 className="w-3.5 h-3.5 mr-1.5" />
+          {task.description || task.observation ? 'Editar Anotações' : 'Adicionar Anotações'}
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md bg-[#FFF6E5] border-4 border-[#DEB887] rounded-[2rem]">
+        <DialogHeader>
+          <DialogTitle className="text-[#5C3A21] font-display font-black text-2xl drop-shadow-sm">
+            Detalhes da Atividade
+          </DialogTitle>
+        </DialogHeader>
+        <div className="space-y-5 py-4">
+          <div className="space-y-2">
+            <Label className="text-[#8B4513] font-black uppercase tracking-wider text-xs">
+              Informações e Dados
+            </Label>
+            <Textarea
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
+              placeholder="Ex: Ler o capítulo 2 do livro de matemática..."
+              className="bg-white/80 border-2 border-[#DEB887] focus-visible:ring-[#8B4513] rounded-xl resize-none shadow-inner"
+              rows={3}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label className="text-[#8B4513] font-black uppercase tracking-wider text-xs">
+              Observações (Recadinho)
+            </Label>
+            <Textarea
+              value={obs}
+              onChange={(e) => setObs(e.target.value)}
+              placeholder="Ex: Você consegue, leãozinho! 🦁"
+              className="bg-white/80 border-2 border-[#DEB887] focus-visible:ring-[#8B4513] rounded-xl resize-none shadow-inner"
+              rows={3}
+            />
+          </div>
+        </div>
+        <div className="flex justify-end gap-3 pt-2">
+          <Button
+            variant="ghost"
+            onClick={() => setOpen(false)}
+            className="text-[#8B4513] font-bold rounded-full"
+          >
+            Cancelar
+          </Button>
+          <Button
+            onClick={handleSave}
+            className="bg-green-500 hover:bg-green-600 text-white rounded-full font-bold px-6 shadow-md border-b-4 border-green-700 active:border-b-0 active:translate-y-1 transition-all"
+          >
+            Salvar
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  )
+}
 
 export default function MissoesReino() {
   const {
@@ -13,6 +111,8 @@ export default function MissoesReino() {
     submitTask,
     approveTask,
     completeSchoolTask,
+    updateTaskDetails,
+    updateSchoolTaskDetails,
     xp,
     levelText,
     showRafikiSeal,
@@ -262,7 +362,7 @@ export default function MissoesReino() {
                         key={task.id}
                         id={`task-${task.id}`}
                         className={cn(
-                          'bg-white/90 rounded-2xl p-4 border-l-8 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row items-center justify-between gap-4 overflow-hidden relative',
+                          'bg-white/90 rounded-2xl p-4 border-l-8 shadow-sm hover:shadow-md transition-all flex flex-col gap-3 overflow-hidden relative',
                           task.priority === 'Urgente'
                             ? 'border-red-500 ring-2 ring-red-200'
                             : 'border-blue-500',
@@ -276,20 +376,47 @@ export default function MissoesReino() {
                             Urgente
                           </div>
                         )}
-                        <div className="flex-1 text-center sm:text-left w-full min-w-0">
-                          <h4 className="font-display font-bold text-lg md:text-xl text-[#5C3A21] leading-tight mb-2 truncate whitespace-normal break-words">
-                            {task.title}
-                          </h4>
-                          <span className="text-xs md:text-sm font-bold text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded-full inline-block">
-                            📚 Estudo
-                          </span>
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full">
+                          <div className="flex-1 text-left w-full min-w-0">
+                            <h4 className="font-display font-bold text-lg md:text-xl text-[#5C3A21] leading-tight mb-2 truncate whitespace-normal break-words">
+                              {task.title}
+                            </h4>
+                            <span className="text-xs md:text-sm font-bold text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded-full inline-block">
+                              📚 Estudo
+                            </span>
+                          </div>
+                          <Button
+                            onClick={() => handleSchoolTaskAction(task)}
+                            className="w-full sm:w-auto rounded-full font-bold text-sm md:text-base h-10 md:h-12 px-4 md:px-6 transition-all duration-300 border-b-4 active:border-b-0 active:translate-y-1 bg-blue-500 hover:bg-blue-600 text-white border-blue-700 shadow-md shrink-0"
+                          >
+                            Concluir Aula ✨
+                          </Button>
                         </div>
-                        <Button
-                          onClick={() => handleSchoolTaskAction(task)}
-                          className="w-full sm:w-auto rounded-full font-bold text-sm md:text-base h-10 md:h-12 px-4 md:px-6 transition-all duration-300 border-b-4 active:border-b-0 active:translate-y-1 bg-blue-500 hover:bg-blue-600 text-white border-blue-700 shadow-md shrink-0"
-                        >
-                          Concluir Aula ✨
-                        </Button>
+
+                        {(task.description || task.observation) && (
+                          <div className="w-full pt-3 border-t-2 border-dashed border-blue-200/50 flex flex-col gap-2">
+                            {task.description && (
+                              <div className="flex items-start gap-2.5 text-sm text-[#5C3A21]/90 bg-blue-50/50 p-3 rounded-xl">
+                                <Info className="w-4 h-4 mt-0.5 shrink-0 text-blue-500" />
+                                <p className="leading-snug whitespace-pre-wrap">
+                                  {task.description}
+                                </p>
+                              </div>
+                            )}
+                            {task.observation && (
+                              <div className="flex items-start gap-2.5 text-sm text-blue-900 bg-blue-100/50 p-3 rounded-xl border border-blue-200/50">
+                                <MessageSquareHeart className="w-4 h-4 mt-0.5 shrink-0 text-blue-600" />
+                                <p className="leading-snug italic whitespace-pre-wrap">
+                                  {task.observation}
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                        <div className="flex justify-end w-full -mt-2">
+                          <EditDetailsDialog task={task} onSave={updateSchoolTaskDetails} />
+                        </div>
                       </div>
                     ))}
 
@@ -324,38 +451,65 @@ export default function MissoesReino() {
                         key={task.id}
                         id={`task-${task.id}`}
                         className={cn(
-                          'bg-white/90 rounded-2xl p-4 border-2 border-[#DEB887] shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row items-center justify-between gap-4 overflow-hidden',
+                          'bg-white/90 rounded-2xl p-4 border-2 border-[#DEB887] shadow-sm hover:shadow-md transition-all flex flex-col gap-3 overflow-hidden',
                           taskIdParam === task.id
                             ? 'ring-4 ring-yellow-400 animate-pulse-glow'
                             : '',
                         )}
                       >
-                        <div className="flex-1 text-center sm:text-left w-full min-w-0">
-                          <h4 className="font-display font-bold text-lg md:text-xl text-[#5C3A21] leading-tight mb-2 truncate whitespace-normal break-words">
-                            {task.title}
-                          </h4>
-                          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 md:gap-3">
-                            <span className="text-xs md:text-sm font-bold text-orange-600 bg-orange-100 px-2.5 py-0.5 rounded-full whitespace-nowrap">
-                              +{task.xpReward} XP
-                            </span>
-                            <span className="text-xs md:text-sm font-bold text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded-full flex items-center gap-1 whitespace-nowrap">
-                              +{task.crystalsReward} 💎
-                            </span>
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full">
+                          <div className="flex-1 text-left w-full min-w-0">
+                            <h4 className="font-display font-bold text-lg md:text-xl text-[#5C3A21] leading-tight mb-2 truncate whitespace-normal break-words">
+                              {task.title}
+                            </h4>
+                            <div className="flex flex-wrap items-center justify-start gap-2 md:gap-3">
+                              <span className="text-xs md:text-sm font-bold text-orange-600 bg-orange-100 px-2.5 py-0.5 rounded-full whitespace-nowrap">
+                                +{task.xpReward} XP
+                              </span>
+                              <span className="text-xs md:text-sm font-bold text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded-full flex items-center gap-1 whitespace-nowrap">
+                                +{task.crystalsReward} 💎
+                              </span>
+                            </div>
+                          </div>
+                          <div className="w-full sm:w-auto shrink-0 flex flex-col items-center">
+                            <Button
+                              onClick={() => handleTaskAction(task)}
+                              className={cn(
+                                'w-full sm:w-auto rounded-full font-bold text-sm md:text-base h-10 md:h-12 px-4 md:px-6 transition-all duration-300 border-b-4 active:border-b-0 active:translate-y-1 whitespace-normal text-center leading-tight',
+                                task.status === 'pending'
+                                  ? 'bg-amber-100 hover:bg-amber-200 text-amber-800 border-amber-300'
+                                  : 'bg-green-500 hover:bg-green-600 text-white border-green-700 shadow-md',
+                              )}
+                              style={{ height: 'auto', minHeight: '40px', padding: '8px 16px' }}
+                            >
+                              {task.status === 'pending' ? 'Esperando o Rei...' : task.buttonLabel}
+                            </Button>
                           </div>
                         </div>
-                        <div className="w-full sm:w-auto shrink-0 flex flex-col items-center">
-                          <Button
-                            onClick={() => handleTaskAction(task)}
-                            className={cn(
-                              'w-full sm:w-auto rounded-full font-bold text-sm md:text-base h-10 md:h-12 px-4 md:px-6 transition-all duration-300 border-b-4 active:border-b-0 active:translate-y-1 whitespace-normal text-center leading-tight',
-                              task.status === 'pending'
-                                ? 'bg-amber-100 hover:bg-amber-200 text-amber-800 border-amber-300'
-                                : 'bg-green-500 hover:bg-green-600 text-white border-green-700 shadow-md',
+
+                        {(task.description || task.observation) && (
+                          <div className="w-full pt-3 border-t-2 border-dashed border-[#DEB887]/50 flex flex-col gap-2">
+                            {task.description && (
+                              <div className="flex items-start gap-2.5 text-sm text-[#5C3A21]/90 bg-[#DEB887]/10 p-3 rounded-xl">
+                                <Info className="w-4 h-4 mt-0.5 shrink-0 text-[#8B4513]" />
+                                <p className="leading-snug whitespace-pre-wrap">
+                                  {task.description}
+                                </p>
+                              </div>
                             )}
-                            style={{ height: 'auto', minHeight: '40px', padding: '8px 16px' }}
-                          >
-                            {task.status === 'pending' ? 'Esperando o Rei...' : task.buttonLabel}
-                          </Button>
+                            {task.observation && (
+                              <div className="flex items-start gap-2.5 text-sm text-orange-900 bg-orange-50 p-3 rounded-xl border border-orange-100/50">
+                                <MessageSquareHeart className="w-4 h-4 mt-0.5 shrink-0 text-orange-500" />
+                                <p className="leading-snug italic whitespace-pre-wrap">
+                                  {task.observation}
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                        <div className="flex justify-end w-full -mt-2">
+                          <EditDetailsDialog task={task} onSave={updateTaskDetails} />
                         </div>
                       </div>
                     ))}

@@ -9,6 +9,8 @@ export type Task = {
   crystalsReward: number
   buttonLabel: string
   date: string
+  description?: string
+  observation?: string
 }
 
 export type Plushie = {
@@ -47,6 +49,8 @@ export type SchoolTask = {
   priority: 'Urgente' | 'Calmo' | 'Explorar'
   status: 'todo' | 'pending' | 'completed'
   date: string
+  description?: string
+  observation?: string
 }
 
 type AppState = {
@@ -87,6 +91,8 @@ type AppState = {
   approveSchoolTask: (id: string) => void
   rejectSchoolTask: (id: string) => void
   addGlobalReward: (xp: number, crystals: number) => void
+  updateTaskDetails: (id: string, description: string, observation: string) => void
+  updateSchoolTaskDetails: (id: string, description: string, observation: string) => void
 }
 
 const getLevelText = (xp: number) => {
@@ -344,6 +350,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setSchoolTasks((prev) => prev.filter((t) => t.id !== id))
   }
 
+  const updateTaskDetails = (id: string, description: string, observation: string) => {
+    setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, description, observation } : t)))
+  }
+
+  const updateSchoolTaskDetails = (id: string, description: string, observation: string) => {
+    setSchoolTasks((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, description, observation } : t)),
+    )
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -384,6 +400,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         approveSchoolTask,
         rejectSchoolTask,
         addGlobalReward,
+        updateTaskDetails,
+        updateSchoolTaskDetails,
       }}
     >
       {children}
